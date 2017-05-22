@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+  
+  
+  <category>
+      <pattern> CSHARP DEVELOPER </pattern>
+      <template><![CDATA[<span style="display:none">]]><set name = "topic">12</set><![CDATA[</span>]]> Select a option | <![CDATA[<b><a href="javascript:;" onclick="company_option('JOB LOCATION')">Job Location</a> | <a href="javascript:;" onclick="company_option('FACILITIES')">facilities</a></b>]]></template>
+   </category>
+   
+   <topic name = "12">
+      <!-- 
+      <category>
+         <pattern> *  </pattern>
+         <template>Select a option Job Location | facilities </template>
+      </category> -->
+      <category>
+         <pattern> JOB LOCATION  </pattern>
+         <template>Tippasandra</template>
+      </category>
+      <category>
+         <pattern> FACILITIES  </pattern>
+         <template>Catterine</template>
+      </category>
+      
+   </topic>
+  
+  
+  
+  <category>
+      <pattern> C DEVELOPER </pattern>
+     <template><![CDATA[<span style="display:none">]]><set name = "topic">14</set><![CDATA[</span>]]> Select a option | <![CDATA[<b><a href="javascript:;" onclick="company_option('JOB LOCATION')">Job Location</a> | <a href="javascript:;" onclick="company_option('FACILITIES')">facilities</a></b>]]></template>
+   </category>
+   
+   <topic name = "14">
+      <category>
+         <pattern> JOB LOCATION  </pattern>
+         <template>BTM</template>
+      </category>
+      <category>
+         <pattern> FACILITIES  </pattern>
+         <template>CAB and FOOD Coupons</template>
+      </category>
+      
+   </topic>
+
+
+   <category>
+      <pattern> JAVA DEVELOPER </pattern>
+      <template><![CDATA[<span style="display:none">]]><set name = "topic">13</set><![CDATA[</span>]]> Select a option | <![CDATA[<b><a href="javascript:;" onclick="company_option('JOB LOCATION')">Job Location</a> | <a href="javascript:;" onclick="company_option('FACILITIES')">facilities</a></b>]]></template>
+   </category>
+   
+   <topic name = "13">
+      <category>
+         <pattern> JOB LOCATION  </pattern>
+         <template>Kormanagala</template>
+      </category>
+      <category>
+         <pattern> FACILITIES  </pattern>
+         <template>Bike for travel</template>
+      </category>
+      
+   </topic>
+</aiml>
