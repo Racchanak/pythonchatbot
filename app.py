@@ -1,5 +1,5 @@
 #!flask/bin/python
-from flask import Flask, jsonify, make_response
+from flask import Flask, jsonify, make_response, send_from_directory
 from flask_cors import CORS, cross_origin 
 from flask import render_template
 from flask import request
@@ -16,7 +16,6 @@ if os.path.isfile("brain/bot_brain.brn"):
 else:
     kernel.bootstrap(learnFiles="std-startup.xml", commands="load aiml b")
     kernel.saveBrain("brain/bot_brain.brn")
-
 
 @app.route('/')
 def index():
@@ -55,7 +54,9 @@ def signUpUser():
     password = request.form['password'];
     return make_response(jsonify({'status':'OK','user':user,'pass':password}))
 
-
+@app.route('/js/<path:path>')
+def send_js(path):
+    return send_from_directory('js', path)
 
 app.config.update(
     PROPAGATE_EXCEPTIONS = True
