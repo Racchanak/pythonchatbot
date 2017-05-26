@@ -6,7 +6,7 @@ var url= "http://127.0.0.1:5000/bot/";
 $(document).ready(function(){
    $('.chat-boximg').click(function(){
        $(".chatbot-holder").toggle();
-       var query='appi';
+       var query='ACT';
        query_response(query);
    });
     $("#button").click(function(){
@@ -20,7 +20,7 @@ $(document).ready(function(){
         }
     });
 });
-function company_option(option){
+function cjoption(option){
     query_response(option);
 }
 
@@ -33,10 +33,6 @@ function query_response(query) {
         crossDomain: true,
         headers: {'Access-Control-Allow-Origin': '*'},
         success: function (data, textStatus, jqXHR) {
-            console.log(query);
-            console.log(data);
-            console.log(data.chatData);
-            // <a href="" class="btn btn-info">Current openings</a>
             $ques_html = '<div class="quest">' +
                             '<div class="quescontent">' +
                                 '<p>'+ query +'</p>' +
@@ -46,7 +42,7 @@ function query_response(query) {
 
             $('#result').append($ques_html);
 
-            $ans_html = '<div class="answer">' +
+            $ans_html = '<div class="scroll answer">' +
                             '<img src="../static/images/chat/answ.png" alt="image">' +
                             '<div class="anscontent">' +
                                 data.chatData +
@@ -54,6 +50,10 @@ function query_response(query) {
                           '</div>';
 
             $('#result').append($ans_html);
+            var x = $('.anscontent').height();
+            $('body').on('click', '.scroll', function() {
+                $('.chatbox-content').animate({scrollTop: '+='+x}, 800);
+            });
             $('#query').val('');
         },
         error: function (jqXHR, exception) {
