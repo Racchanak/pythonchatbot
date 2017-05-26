@@ -3,6 +3,7 @@ from flask import Flask, jsonify, make_response, send_from_directory
 from flask import render_template
 from flask import request
 import aiml, lxml
+import io
 from lxml import etree
 from lxml.etree import *
 from lxml.builder import *
@@ -41,91 +42,28 @@ cursor = db.cursor()
 
 @app.route("/wowtest")
 def wowtest():
-    cursor.execute("SELECT * FROM employer_details WHERE employer_id BETWEEN 1810 AND 23876")
+    cursor.execute("SELECT * FROM employer_details WHERE employer_id")
     results = cursor.fetchall()
     for result_row in results:
-        with open('aiml/' + result_row[1] + '.aiml', 'w') as f:
+        filename = result_row[1]
+        with open('aiml/' + filename.replace(" ", "_") + '.aiml', 'w') as f:
             aiml = lxml.etree.Element('aiml')
             category = lxml.etree.SubElement(aiml, 'category')
             pattern = lxml.etree.SubElement(category, 'pattern')
-            pattern.text = str(result_row[1])
+            pattern.text = str(((filename[:5]).replace(" ", "_")).upper())
             template = lxml.etree.SubElement(category, 'template')
-            # template.text = '<![CDATA['
-            span = lxml.etree.SubElement(template,'span')
-            span.set('class', 'hidden-span')
-            set = lxml.etree.SubElement(span,'set')
+            set = lxml.etree.SubElement(template,'set')
             set.set('name','topic')
             set.text = str(result_row[0])
-            # template.text = ']]>'
-            template.text = '<![CDATA['
-            p = lxml.etree.SubElement(template, 'p')
-            p.text = 'Yes ! how can i help you.'
-            a = lxml.etree.SubElement(template,'a')
-            a.set('href', 'javascript:;')
-            a.set('onclick', 'cjoption(\'hr\')')
-            a.set('class', 'btn btn-info')
-            a.text = 'HR Details'
-            a = lxml.etree.SubElement(template, 'a')
-            a.set('href', 'javascript:;')
-            a.set('onclick', 'cjoption(\'company\')')
-            a.set('class', 'btn btn-info')
-            a.set('text', 'About Company')
-            a = lxml.etree.SubElement(template, 'a')
-            a.set('href', 'javascript:;')
-            a.set('onclick', 'cjoption(\'opening\')')
-            a.set('class', 'btn btn-info')
-            a.set('text', 'Current Openings')
-            template.text = ']]>'
-            # template.text = etree.CDATA(p)
+            template.text = '<![CDATA[<p>Yes, how may i help you?</p><a href="javascript:;" class="btn btn-info" onclick="cjoption(\'COMPANY\')">About the Company</a><a href="javascript:;" class="btn btn-info" onclick="cjoption(\'HR\')">Speak to the HR</a><a href="javascript:;" class="btn btn-info" onclick="cjoption(\'OPENING\')">Current Openings</a><a href="javascript:;" class="btn btn-info" onclick="cjoption(\'VIEW\')">View Company Culture</a>'
             topic = lxml.etree.SubElement(aiml,'topic')
             topic.set('name',str(result_row[0]))
             category = lxml.etree.SubElement(topic, 'category')
             pattern = lxml.etree.SubElement(category, 'pattern')
-            pattern.text = 'hr'
+            pattern.text = 'HR'
             template = lxml.etree.SubElement(category, 'template')
-            template.text = '<![CDATA['
-            p = lxml.etree.SubElement(template,'p')
-            p.text = str(result_row[4])
-            template.text = ']]>'
-            # template.text = etree.CDATA(p)
-            f.write(tostring(aiml, pretty_print=True,xml_declaration=True, encoding='UTF-16'))
-
-            # f.write(tostring(
-            #     E.aiml(
-            #         E.category(
-            #             E.patern(str(result_row[1])),
-            #             E.template('<![CDATA[<span class ="hidden-span">]]><set name = "topic">'+str(result_row[0])+'</set><![CDATA[</span>',
-            #                 E.p('Yes ! how can i help you.'),
-            #                 E.a(href='javascript:;',
-            #                     onclick='cjoption(\'hr\')',
-            #                     text='HR Details'),
-            #                 E.a(href='javascript:;',
-            #                     onclick='cjoption(\'company\')',
-            #                     text='About Company'),
-            #                 E.a(href='javascript:;',
-            #                     onclick='cjoption(\'opening\')',
-            #                     text='Current Openings')
-            #             )
-            #         ),
-            #         E.topic(
-            #             E.category(
-            #                 E.patern(str(result_row[1])),
-            #                 E.template('<![CDATA[<span class ="hidden-span">]]><set name = "topic">' + str(
-            #                     result_row[0]) + '</set><![CDATA[</span>',
-            #                            E.p('Yes ! how can i help you.'),
-            #                            E.a(href='javascript:;',
-            #                                onclick='cjoption(\'hr\')',
-            #                                text='HR Details'),
-            #                            E.a(href='javascript:;',
-            #                                onclick='cjoption(\'company\')',
-            #                                text='About Company'),
-            #                            E.a(href='javascript:;',
-            #                                onclick='cjoption(\'opening\')',
-            #                                text='Current Openings')
-            #                            )
-            #             )
-            #         )
-            #     ),pretty_print=True,xml_declaration=True, encoding='UTF-16'))
+            template.text = '<![CDATA[<p>'+str(result_row[4])+'</p>'+str(result_row[0])
+            f.write(tostring(aiml, pretty_print=True,xml_declaration=True  , encoding='UTF-8'))
     return 'Successfully Created!!!!'
 
 @app.route("/wowadmin")
@@ -133,10 +71,10 @@ def wowadmin():
     cursor.execute("SELECT * FROM employer_details")
     results = cursor.fetchall()
     for result_row in results:
-        with open('aiml/'+result_row[1]+'.aiml', 'w') as f:
+        with io.open('aiml/'+result_row[1]+'.aiml', 'w',encoding='utf-8-sig') as f:
             # res_str = str(result_row[0])
             f.write('<?xml version = "1.0" encoding = "UTF-8"?>')
-            f.write('<aiml version = "2.0" encoding = "UTF-8">')
+            f.write('<aiml>')
             f.write('<!-- insert your AIML categories here -->')
             f.write('<category>')
             f.write('<pattern>'+str(result_row[1])+'</pattern>')

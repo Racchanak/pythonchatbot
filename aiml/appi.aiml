@@ -7,9 +7,9 @@
                 <![CDATA[<span class="hidden-span">]]>
                 <set name = "topic">1980</set>
                 <![CDATA[</span>
-                    <p>Yes ! how can i help you.</p>
-                    <a href="javascript:;" class="btn btn-info" onclick="cjoption('OPENING')">Current Openings</a>
+                    <p>Yes, how may i help you?</p>
                     <a href="javascript:;" class="btn btn-info" onclick="cjoption('COMPANY')">About the Company</a>
+                    <a href="javascript:;" class="btn btn-info" onclick="cjoption('OPENING')">Current Openings</a>
                     <a href="javascript:;" class="btn btn-info" onclick="cjoption('HR')">Speak to the HR</a>
                 ]]>
             </template>

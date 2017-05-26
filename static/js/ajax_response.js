@@ -4,10 +4,19 @@
 var url= "http://127.0.0.1:5000/bot/";
 
 $(document).ready(function(){
+    var b = 2;
    $('.chat-boximg').click(function(){
        $(".chatbot-holder").toggle();
-       var query='ACT';
-       query_response(query);
+       if(b%2==0) {
+           $('.chatbox-content').animate({scrollTop: ($('.chatbox-content')[0].scrollHeight)+30}, 800);
+           var query='AROUN';
+           query_response(query);
+           b++;
+       }
+       else {
+           b++;
+       }
+       // $('.chatbox-content').scrollTop($('.chatbox-content')[0].scrollHeight);
    });
     $("#button").click(function(){
     	if($('#query').val()){
@@ -24,6 +33,7 @@ function cjoption(option){
     query_response(option);
 }
 
+var i=0;
 function query_response(query) {
     $.ajax({
         url: url + query,
@@ -33,6 +43,7 @@ function query_response(query) {
         crossDomain: true,
         headers: {'Access-Control-Allow-Origin': '*'},
         success: function (data, textStatus, jqXHR) {
+            var clid = 'ans_'+(i++);
             $ques_html = '<div class="quest">' +
                             '<div class="quescontent">' +
                                 '<p>'+ query +'</p>' +
@@ -44,15 +55,19 @@ function query_response(query) {
 
             $ans_html = '<div class="scroll answer">' +
                             '<img src="../static/images/chat/answ.png" alt="image">' +
-                            '<div class="anscontent">' +
+                            '<div class="anscontent" id="'+clid+'">' +
                                 data.chatData +
                             '</div>' +
                           '</div>';
 
             $('#result').append($ans_html);
-            var x = $('.anscontent').height();
+            var x = $('#'+clid).height();
+            var xy= 5;
+            var finalX = x - xy +"px";
+            $('#'+clid).css('max-height',finalX);
+            $('#'+clid).css('overflow','hidden');
             $('body').on('click', '.scroll', function() {
-                $('.chatbox-content').animate({scrollTop: '+='+x}, 800);
+                $('.chatbox-content').animate({scrollTop: "+="+x}, 800);
             });
             $('#query').val('');
         },
