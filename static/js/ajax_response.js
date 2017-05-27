@@ -2,33 +2,10 @@
  * Created by RacchanaK on 22/5/17.
  */
 var url= "http://127.0.0.1:5000/bot/";
+var query = $.cookie("c_wow_name");
+query = query.replace(/[^a-zA-Z0-9 ]/g, '');
+query_response(query.toUpperCase());
 
-$(document).ready(function(){
-    var b = 2;
-   $('.chat-boximg').click(function(){
-       $(".chatbot-holder").toggle();
-       if(b%2==0) {
-           $('.chatbox-content').animate({scrollTop: ($('.chatbox-content')[0].scrollHeight)+30}, 800);
-           var query='AROUN';
-           query_response(query);
-           b++;
-       }
-       else {
-           b++;
-       }
-       // $('.chatbox-content').scrollTop($('.chatbox-content')[0].scrollHeight);
-   });
-    $("#button").click(function(){
-    	if($('#query').val()){
-    	    var query=$('#query').val();
-    	    query_response(query);
-        }else{
-            alert('please enter a query');
-            $('#query').focus();
-            return false;
-        }
-    });
-});
 function cjoption(option){
     query_response(option);
 }
@@ -43,31 +20,31 @@ function query_response(query) {
         crossDomain: true,
         headers: {'Access-Control-Allow-Origin': '*'},
         success: function (data, textStatus, jqXHR) {
-            var clid = 'ans_'+(i++);
+            if(i == 0) {
+                query = 'Hi, Welcome to '+ query.toLowerCase();
+            }
+            var clid = (i++);
             $ques_html = '<div class="quest">' +
                             '<div class="quescontent">' +
-                                '<p>'+ query +'</p>' +
+                                '<p class="p_'+clid+'">'+ query +'</p>' +
                             '</div>' +
                             '<img src="../static/images/chat/ques.png" alt="image">' +
                           '</div>';
-
             $('#result').append($ques_html);
-
             $ans_html = '<div class="scroll answer">' +
                             '<img src="../static/images/chat/answ.png" alt="image">' +
-                            '<div class="anscontent" id="'+clid+'">' +
+                            '<div class="anscontent" id="ans_'+clid+'">' +
                                 data.chatData +
                             '</div>' +
                           '</div>';
-
             $('#result').append($ans_html);
-            var x = $('#'+clid).height();
-            var xy= 5;
+            var x = $('#ans_'+clid).height();
+            var xy= 6;
             var finalX = x - xy +"px";
-            $('#'+clid).css('max-height',finalX);
-            $('#'+clid).css('overflow','hidden');
+            $('#ans_'+clid).css('max-height',finalX);
+            $('#ans_'+clid).css('overflow','hidden');
             $('body').on('click', '.scroll', function() {
-                $('.chatbox-content').animate({scrollTop: "+="+x}, 800);
+                $('.chatbox-content').animate({scrollTop: "+="+x});
             });
             $('#query').val('');
         },
@@ -90,3 +67,24 @@ function query_response(query) {
         }
     });
 }
+//  var b = 2;
+   // $('.chat-boximg').click(function(){
+   //     $(".chatbot-holder").toggle();
+   //     console.log('sadasd');
+   //     if(b%2==0) {
+   //         $('.chatbox-content').animate({scrollTop: ($('.chatbox-content')[0].scrollHeight)+30});
+   //         var query= decodeURIComponent(location.pathname);
+   //
+   //         b++;
+   //     } else { b++; }
+   // });
+   //  $("#button").click(function(){
+   //  	if($('#query').val()){
+   //  	    var query=$('#query').val();
+   //  	    query_response(query);
+   //      }else{
+   //          alert('please enter a query');
+   //          $('#query').focus();
+   //          return false;
+   //      }
+   //  });

@@ -182,6 +182,6 @@
         </topic>
         <category>
             <pattern>*</pattern>
-            <template>Sorry</template>
+            <template><![CDATA[<p>Sorry</p>546776765</template>
         </category>
     </aiml>

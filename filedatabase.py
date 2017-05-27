@@ -4,6 +4,8 @@ from flask import render_template
 from flask import request
 import aiml, lxml
 import io
+import re
+import urllib
 from lxml import etree
 from lxml.etree import *
 from lxml.builder import *
@@ -42,27 +44,78 @@ cursor = db.cursor()
 
 @app.route("/wowtest")
 def wowtest():
-    cursor.execute("SELECT * FROM employer_details WHERE employer_id")
-    results = cursor.fetchall()
-    for result_row in results:
-        filename = result_row[1]
-        with open('aiml/' + filename.replace(" ", "_") + '.aiml', 'w') as f:
+    founder_text = ''
+    cursor.execute("SELECT employer_id,employer_name,employer_website,employer_email,employer_mobile_number,employer_yr_founded,employer_strength,employer_logo,employer_desc,employer_address,job_count FROM employer_details")
+    company_results = cursor.fetchall()
+    for result_row in company_results:
+        with open('aiml/' + str(result_row[0]) + '.aiml', 'w') as f:
             aiml = lxml.etree.Element('aiml')
             category = lxml.etree.SubElement(aiml, 'category')
             pattern = lxml.etree.SubElement(category, 'pattern')
-            pattern.text = str(((filename[:5]).replace(" ", "_")).upper())
+            pattern.text = (re.sub('[!@#$.~*]', '', result_row[1])).upper()
             template = lxml.etree.SubElement(category, 'template')
             set = lxml.etree.SubElement(template,'set')
             set.set('name','topic')
             set.text = str(result_row[0])
-            template.text = '<![CDATA[<p>Yes, how may i help you?</p><a href="javascript:;" class="btn btn-info" onclick="cjoption(\'COMPANY\')">About the Company</a><a href="javascript:;" class="btn btn-info" onclick="cjoption(\'HR\')">Speak to the HR</a><a href="javascript:;" class="btn btn-info" onclick="cjoption(\'OPENING\')">Current Openings</a><a href="javascript:;" class="btn btn-info" onclick="cjoption(\'VIEW\')">View Company Culture</a>'
+            template.text = '<![CDATA[<p>Yes, how may i help you?</p>' \
+                            '<a href="javascript:;" class="btn btn-info" onclick="cjoption(\'Here You can find more about our company\')">About the Company</a>' \
+                            '<a href="javascript:;" class="btn btn-info" onclick="cjoption(\'Here some details about our hr\')">Speak to the HR</a>' \
+                            '<a href="javascript:;" class="btn btn-info" onclick="cjoption(\'OPENING\')">Current Openings</a>' \
+                            '<a href="javascript:;" class="btn btn-info" onclick="cjoption(\'VIEW\')">View Company Culture</a>'
             topic = lxml.etree.SubElement(aiml,'topic')
             topic.set('name',str(result_row[0]))
             category = lxml.etree.SubElement(topic, 'category')
             pattern = lxml.etree.SubElement(category, 'pattern')
-            pattern.text = 'HR'
+            pattern.text = '_ HR'
             template = lxml.etree.SubElement(category, 'template')
-            template.text = '<![CDATA[<p>'+str(result_row[4])+'</p>'+str(result_row[0])
+            if result_row[6] == None:
+                template.text = '<![CDATA[<p>Email Id: '+str(result_row[3])+'</p>'+str(result_row[0])
+            else:
+                template.text = '<![CDATA[<p>Mobile no: '+str(result_row[4])+'</p><p>Email Id: '+str(result_row[3])+'</p>'+str(result_row[0])
+            category = lxml.etree.SubElement(topic, 'category')
+            pattern = lxml.etree.SubElement(category, 'pattern')
+            pattern.text = '_ COMPANY'
+            template = lxml.etree.SubElement(category, 'template')
+            cursor.execute("SELECT founderName,founderDesg,founderAbout,founderImg_1,founderId FROM company_founders WHERE employer_id='"+str(result_row[0])+"'")
+            if cursor.rowcount!=0:
+                template.text = '<![CDATA[<a href="javascript:;" class="btn btn-info" onclick="cjoption(\'Here is some details about our company\')">Company Details</a>' \
+                                '<a href="javascript:;" class="btn btn-info" onclick="cjoption(\'EXPERTIZE\')">Expertise</a>' \
+                                '<a href="javascript:;" class="btn btn-info" onclick="cjoption(\'LOCATION\')">Location</a>' \
+                                '<a href="javascript:;" class="btn btn-info" onclick="cjoption(\'Our Team\')">Our Team</a>' + str(result_row[0])
+                founder_results = cursor.fetchall()
+                category = lxml.etree.SubElement(topic, 'category')
+                pattern = lxml.etree.SubElement(category, 'pattern')
+                pattern.text = '_ TEAM'
+                template = lxml.etree.SubElement(category, 'template')
+                for founder_row in founder_results:
+                    founder_text += '<p></p><img src="https://employer.wow.jobs/' + founder_row[3] + '"/><p>'+founder_row[0]+'</p><p>' + result_row[1] + '</p>'
+                template.text = '<![CDATA['+ founder_text + str(result_row[0])
+            else :
+                template.text = '<![CDATA[<a href="javascript:;" class="btn btn-info" onclick="cjoption(\'Her is some details about our company\')">Company Details</a>' \
+                                '<a href="javascript:;" class="btn btn-info" onclick="cjoption(\'EXPERTIZE\')">Expertise</a>' \
+                                '<a href="javascript:;" class="btn btn-info" onclick="cjoption(\'LOCATION\')">Location</a>' + str(
+                    result_row[0])
+            category = lxml.etree.SubElement(topic, 'category')
+            pattern = lxml.etree.SubElement(category, 'pattern')
+            pattern.text = '_ DETAILS'
+            template = lxml.etree.SubElement(category, 'template')
+            template.text = '<![CDATA[<p>Established: '+str(result_row[5])+'</p><p>Employee Strength: '+str(result_row[6])+'</p>'+str(result_row[0])
+            cursor.execute("SELECT * FROM job_details WHERE job_hr_id ='"+str(result_row[0])+"' ORDER BY job_crt_date DESC LIMIT 0 , 3")
+            if cursor.rowcount != 0:
+                founder_results = cursor.fetchall()
+                category = lxml.etree.SubElement(topic, 'category')
+                pattern = lxml.etree.SubElement(category, 'pattern')
+                pattern.text = '_ TEAM'
+                template = lxml.etree.SubElement(category, 'template')
+                for founder_row in founder_results:
+                    founder_text += '<p></p><img src="https://employer.wow.jobs/' + founder_row[3] + '"/><p>' + \
+                                    founder_row[0] + '</p><p>' + result_row[1] + '</p>'
+                template.text = '<![CDATA[' + founder_text + str(result_row[0])
+            else:
+                template.text = '<![CDATA[<a href="javascript:;" class="btn btn-info" onclick="cjoption(\'Her is some details about our company\')">Company Details</a>' \
+                                '<a href="javascript:;" class="btn btn-info" onclick="cjoption(\'EXPERTIZE\')">Expertise</a>' \
+                                '<a href="javascript:;" class="btn btn-info" onclick="cjoption(\'LOCATION\')">Location</a>' + str(
+                    result_row[0])
             f.write(tostring(aiml, pretty_print=True,xml_declaration=True  , encoding='UTF-8'))
     return 'Successfully Created!!!!'
 

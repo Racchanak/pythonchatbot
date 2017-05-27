@@ -5,13 +5,13 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-
+<section class="c1Btrr36pdthb9xbhcppyqkgbpkq">
     <section class="chat-box">
         <div class="chatbox-logo">
            <img src="../static/images/chat/chat-box.png" class="chat-boximg">
         </div>
         <div class="chatbot-holder">
-            <div class="chatbox-content clearfix" id="result">
+            <div class="chatbox-content" id="result">
             </div>
             <div class="user-input">
                 <input type="text" id='query' placeholder="Type your message and press enter ">
@@ -19,19 +19,16 @@
             </div>
         </div>
     </section>
-
-
-
-{#    <table>#}
-{#        <tr>#}
-{#            <td> Queries</td><td><input type="text" name="" id='query'></td>#}
-{#            <td> Submit</td><td><button type="button" id='button'>Submit</button></td>#}
-{#        </tr>#}
-{#        <div id='result' style="position: absolute;margin-top:50px;"></div>#}
-{##}
-{#    </table>#}
-
+    </section>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../static/js/jquery.cookie.js"></script>
     <script src="../static/js/ajax_response.js"></script>
 </body>
 </html>
+
+
+{#    <section class="chat-empwidget"><div class="chat-widget-holder"><div id="chat-widget"></div></div></section>#}
+{#<script>#}
+{#    #}
+{#$.ajax({type: 'GET',url: 'http://127.0.0.1:5000/', data: {'c':'Appiness%20%C2%A0Interactive%20Pvt.%20Ltd.' },async: false,success: function(response) {$(document).find('#chat-widget').html(response);}});#}
+{#</script>#}
