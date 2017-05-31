@@ -2,6 +2,7 @@
  * Created by RacchanaK on 22/5/17.
  */
 const BASE_URL = 'https://chatbot.wow.jobs';
+
 var url= BASE_URL+"/bot/";
 var query = $.cookie("c_wow_name");
 query = query.replace(/[^a-zA-Z0-9 ]/g, '');

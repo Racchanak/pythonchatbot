@@ -136,7 +136,7 @@ def wowtest():
                     wow_handler = handler_row[1]
                 else:
                     wow_handler = handler_row[2]
-            cursor.execute("SELECT * FROM job_details WHERE job_hr_id ='"+str(result_row[0])+"' ORDER BY job_crt_date DESC LIMIT 0 , 3")
+            cursor.execute("SELECT * FROM job_details WHERE job_hr_id ='"+str(result_row[0])+"' AND job_delete ='NO' AND job_publish ='PLA' ORDER BY job_crt_date DESC LIMIT 0 , 3")
             if cursor.rowcount != 0:
                 job_results = cursor.fetchall()
                 category = lxml.etree.SubElement(topic, 'category')
@@ -160,13 +160,29 @@ def wowtest():
             pattern.text = '_ EXPERTIZE IN'
             template = lxml.etree.SubElement(category, 'template')
             template.text = '<![CDATA[<p>' + result_row[13] + '</p>' + str(result_row[0])
+            # wowculture = wow_culture(str(result_row[0]))
+            # category = lxml.etree.SubElement(topic, 'category')
+            # pattern = lxml.etree.SubElement(category, 'pattern')
+            # pattern.text = '_ CULTURE'
+            # template = lxml.etree.SubElement(category, 'template')
+            # culture_text = '<![CDATA['
+            # for culture_row in culture_results:
+            #     culture_name = ((job_row[1]).strip()).replace(' ', '-')
+            #     culture_text += '<p><a class="btn btn-info" target="_blank" href="">' + \
+            #                 culture_row[1] + '</a></p>'
+            # template.text = culture_text + str(result_row[0])
             f.write(tostring(aiml, pretty_print=True,xml_declaration=True  , encoding='UTF-8'))
     return 'Successfully Created!!!!'
 
+# def wow_culture(employer_id):
+#     cursor.execute("SELECT * FROM wow_culture_post WHERE postHide =  'N' AND postDelete = 'NO' AND posthrId ='" + employer_id)
+#     culture_results = cursor.fetchall()
+#     for culture_row in culture_results:
+
+
 @app.route("/chatdetails")
 def chatdetails():
-    cursor.execute(
-        "SELECT employer_id,employer_name,employer_website,employer_email,employer_mobile_number,employer_yr_founded,employer_strength,employer_logo,employer_desc,employer_address,job_count,employer_location,employer_branches,employer_experts FROM employer_details LIMIT 0 , 25")
+    cursor.execute("SELECT employer_id,employer_name,employer_website,employer_email,employer_mobile_number,employer_yr_founded,employer_strength,employer_logo,employer_desc,employer_address,job_count,employer_location,employer_branches,employer_experts FROM employer_details LIMIT 0 , 25")
     company_results = cursor.fetchall()
     for result_row in company_results:
         with open('aiml/' + str(result_row[0]) + '.aiml', 'w') as f:
