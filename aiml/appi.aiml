@@ -182,6 +182,11 @@
         </topic>
         <category>
             <pattern>*</pattern>
-            <template><![CDATA[<p>Sorry</p>]]>546776765</template>
+            <template><![CDATA[<p>Sorry, i have no idea.</p>
+                    <p>May I help you with following</p>
+                    <a href="javascript:;" class="btn btn-info" onclick="cjoption('COMPANY')">About the Company</a>
+                    <a href="javascript:;" class="btn btn-info" onclick="cjoption('OPENING')">Current Openings</a>
+                    <a href="javascript:;" class="btn btn-info" onclick="cjoption('HR')">Speak to the HR</a>
+                ]]><set name="topic">477086</set></template>
         </category>
     </aiml>

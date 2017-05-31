@@ -1,7 +1,9 @@
+
 import MySQLdb # Mysql ---
 from flask import Flask, jsonify, make_response, send_from_directory
 from flask import render_template
 from flask import request
+from flask_cors import CORS
 import aiml, lxml
 import io
 import re
@@ -12,6 +14,7 @@ from lxml.builder import *
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 kernel = aiml.Kernel()
 
@@ -20,6 +23,7 @@ if os.path.isfile("brain/bot_brain.brn"):
 else:
     kernel.bootstrap(learnFiles="std-startup.xml", commands="load aiml b")
     kernel.saveBrain("brain/bot_brain.brn")
+
 
 @app.route('/')
 def index():
@@ -57,7 +61,7 @@ def valid_xml_char_ordinal(c):
 
 @app.route("/wowtest")
 def wowtest():
-    cursor.execute("SELECT employer_id,employer_name,employer_website,employer_email,employer_mobile_number,employer_yr_founded,employer_strength,employer_logo,employer_desc,employer_address,job_count,employer_location,employer_branches,employer_experts FROM employer_details LIMIT 0 , 25")
+    cursor.execute("SELECT employer_id,replace(employer_name, char(153), '') AS employer_name,employer_website,employer_email,employer_mobile_number,employer_yr_founded,employer_strength,employer_logo,employer_desc,employer_address,job_count,replace(employer_location, char(150), '') AS employer_location,replace(employer_branches, char(150), '') AS employer_branches,employer_experts FROM employer_details")
     company_results = cursor.fetchall()
     for result_row in company_results:
         with open('aiml/' + str(result_row[0]) + '.aiml', 'w') as f:
@@ -69,13 +73,25 @@ def wowtest():
             set = lxml.etree.SubElement(template,'set')
             set.set('name','topic')
             set.text = str(result_row[0])
-            template.text = '<![CDATA[<p>Welcome to the world of '+result_row[1]+'</p><p>What do you like to know from the following?</p>' \
+            template.text = '<![CDATA[<p>What do you like to know from the following?</p>' \
                             '<a href="javascript:;" class="btn btn-info" onclick="cjoption(\'Here You can find more about our company\')">About the Company</a>' \
                             '<a href="javascript:;" class="btn btn-info" onclick="cjoption(\'Here some details about our hr\')">Speak to the HR</a>' \
                             '<a href="javascript:;" class="btn btn-info" onclick="cjoption(\'Here Our Openings\')">Current Openings</a>' \
                             '<a href="javascript:;" class="btn btn-info" onclick="cjoption(\'VIEW\')">View Company Culture</a>'
             topic = lxml.etree.SubElement(aiml,'topic')
             topic.set('name',str(result_row[0]))
+            category = lxml.etree.SubElement(topic, 'category')
+            pattern = lxml.etree.SubElement(category, 'pattern')
+            pattern.text = '*'
+            template = lxml.etree.SubElement(category, 'template')
+            set = lxml.etree.SubElement(template,'set')
+            set.set('name','topic')
+            set.text = str(result_row[0])
+            template.text = '<![CDATA[<p>May I help you with following?</p>' \
+                            '<a href="javascript:;" class="btn btn-info" onclick="cjoption(\'Here You can find more about our company\')">About the Company</a>' \
+                            '<a href="javascript:;" class="btn btn-info" onclick="cjoption(\'Here some details about our hr\')">Speak to the HR</a>' \
+                            '<a href="javascript:;" class="btn btn-info" onclick="cjoption(\'Here Our Openings\')">Current Openings</a>' \
+                            '<a href="javascript:;" class="btn btn-info" onclick="cjoption(\'VIEW\')">View Company Culture</a>'
             category = lxml.etree.SubElement(topic, 'category')
             pattern = lxml.etree.SubElement(category, 'pattern')
             pattern.text = '_ HR'
