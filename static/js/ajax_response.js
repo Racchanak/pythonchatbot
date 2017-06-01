@@ -1,7 +1,7 @@
 /**
  * Created by RacchanaK on 22/5/17.
  */
-const BASE_URL = 'https://chatbot.wow.jobs';
+const BASE_URL = 'http://chatbot.wow.jobs:5000';
 
 var url= BASE_URL+"/bot/";
 var query = $.cookie("c_wow_name");
