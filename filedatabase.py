@@ -13,8 +13,8 @@ from lxml.etree import *
 from lxml.builder import *
 import os
 
-app = Flask(__name__)
-CORS(app)
+application = Flask(__name__)
+CORS(application)
 
 kernel = aiml.Kernel()
 
@@ -25,21 +25,21 @@ else:
     kernel.saveBrain("brain/bot_brain.brn")
 
 
-@app.route('/')
+@application.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/appiness/')
-@app.route('/appiness')
+@application.route('/appiness/')
+@application.route('/appiness')
 def appiness():
     return render_template('index1.html')
 
-@app.route('/hexwhale/')
-@app.route('/hexwhale')
+@application.route('/hexwhale/')
+@application.route('/hexwhale')
 def hexwhale():
     return render_template('index2.html')
 
-@app.route('/bot/<string:chat>', methods=['GET'])
+@application.route('/bot/<string:chat>', methods=['GET'])
 def get_task(chat):
     return make_response(jsonify({'chatData': kernel.respond(chat)}))
 
@@ -59,7 +59,7 @@ def valid_xml_char_ordinal(c):
         0x10000 <= codepoint <= 0x10FFFF
         )
 
-@app.route("/wowtest")
+@application.route("/wowtest")
 def wowtest():
     cursor.execute("SELECT employer_id,replace(employer_name, char(153), '') AS employer_name,employer_website,employer_email,employer_mobile_number,employer_yr_founded,employer_strength,employer_logo,employer_desc,employer_address,job_count,replace(employer_location, char(150), '') AS employer_location,replace(employer_branches, char(150), '') AS employer_branches,employer_experts FROM employer_details")
     company_results = cursor.fetchall()
@@ -180,7 +180,7 @@ def wowtest():
 #     for culture_row in culture_results:
 
 
-@app.route("/chatdetails")
+@application.route("/chatdetails")
 def chatdetails():
     cursor.execute("SELECT employer_id,employer_name,employer_website,employer_email,employer_mobile_number,employer_yr_founded,employer_strength,employer_logo,employer_desc,employer_address,job_count,employer_location,employer_branches,employer_experts FROM employer_details LIMIT 0 , 25")
     company_results = cursor.fetchall()
@@ -283,7 +283,7 @@ def chatdetails():
             f.write(tostring(aiml, pretty_print=True, xml_declaration=True, encoding='UTF-8'))
     return 'Successfully Created!!!!'
 
-@app.route("/wowadmin")
+@application.route("/wowadmin")
 def wowadmin():
     cursor.execute("SELECT * FROM employer_details")
     results = cursor.fetchall()
@@ -325,7 +325,7 @@ def jobs_details(result_row):
         jobs_details(row)
 
 
-@app.route("/Authenticate")
+@application.route("/Authenticate")
 def Authenticate():
     username = request.args.get('UserName')
     password = request.args.get('Password')
@@ -336,13 +336,13 @@ def Authenticate():
     else:
      return "Logged in successfully"
 
-@app.route('/js/<path:path>')
+@application.route('/js/<path:path>')
 def send_js(path):
     return send_from_directory('js', path)
 
-app.config.update(
+application.config.update(
     PROPAGATE_EXCEPTIONS = True
 )
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    application.run(host='0.0.0.0.0')
