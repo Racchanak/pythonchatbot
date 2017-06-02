@@ -1,34 +1,48 @@
 <html>
-<head>
-    <link href="https://chatbot.wow.jobs/static/css/main.css" rel="stylesheet">
-    <link href="https://chatbot.wow.jobs/static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-<body>
-<section class="c1Btrr36pdthb9xbhcppyqkgbpkq">
-    <section class="chat-box">
-        <div class="chatbox-logo">
-           <img src="https://chatbot.wow.jobs/static/images/chat/chat-box.png" class="chat-boximg">
+    <head>
+        <link href="http://127.0.0.1:5001//static/css/main.css" rel="stylesheet">
+        <link href="http://127.0.0.1:5001//static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <section class="c1Btrr36pdthb9xbhcppyqkgbpkq">
+            <section class="chat-box">
+                <div class="chatbox-logo">
+                   <img src="http://127.0.0.1:5001//static/images/chat/chat-box.png" class="chat-boximg">
+                </div>
+                <div class="chatbot-holder">
+                    <div class="chatbox-content" id="result">
+
+                    </div>
+                    <div class="user-input">
+                        <input type="text" id='query' placeholder="Type your message and press enter ">
+                        <button id='button' class="scroll"><i class="fa fa-paper-plane" aria-hidden="true" style="color:#17c1d9;font-size: 23px;margin-left: 5px;vertical-align: middle;"></i></button>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+    <div class="bot-holder">
+        <div class="headIng">Chatbot</div>
+        <div class="bot-content" id="result">
+
         </div>
-        <div class="chatbot-holder">
-            <div class="chatbox-content" id="result">
-            </div>
-            <div class="user-input">
-                <input type="text" id='query' placeholder="Type your message and press enter ">
-                <button id='button' class="scroll"><i class="fa fa-paper-plane" aria-hidden="true" style="color:#17c1d9;font-size: 23px;margin-left: 5px;vertical-align: middle;"></i></button>
-            </div>
+        <div class="custom-input">
+            <input type="text" placeholder="Your input here...">
+            <img src="http://127.0.0.1:5001//static/images/chat/save.png" alt="image">
         </div>
-    </section>
-    </section>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://chatbot.wow.jobs/static/js/jquery.cookie.js"></script>
-    <script src="https://chatbot.wow.jobs/static/js/ajax_response.js"></script>
-</body>
+    </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="http://127.0.0.1:5001//static/owl/dist/owl.carousel.min.js"></script>
+        <script src="http://127.0.0.1:5001//static/js/jquery_cookie.js"></script>
+        <script src="http://127.0.0.1:5001//static/js/ajax_response.js"></script>
+    </body>
 </html>
 
-
-{#    <section class="chat-empwidget"><div class="chat-widget-holder"><div id="chat-widget"></div></div></section>#}
-{#<script>#}
-{#    #}
-{#$.ajax({type: 'GET',url: 'https://chatbot.wow.jobs/', data: {'c':'Appiness%20%C2%A0Interactive%20Pvt.%20Ltd.' },async: false,success: function(response) {$(document).find('#chat-widget').html(response);}});#}
-{#</script>#}
+{#<section class="chat-empwidget"><div class="chat-widget-holder"><div id="chat-widget"></div></div></section>
+<script>
+    var company_name = 'APPINESS INTERACTIVE PVT LTD'.replace(/[^a-zA-Z0-9 ]/g, '')
+    document.cookie = "c_wow_name=" + company_name+'; expires=1609415999; path=/';
+$.ajax({type: 'GET',url: 'http://127.0.0.1:5001',async: false,success: function(response) {$(document).find('#chat-widget').html(response);}});
+</script>#}
