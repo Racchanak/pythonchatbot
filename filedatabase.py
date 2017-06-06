@@ -12,6 +12,7 @@ from lxml import etree
 from lxml.etree import *
 from lxml.builder import *
 import os
+import datetime
 
 application = Flask(__name__)
 CORS(application)
@@ -29,8 +30,8 @@ if os.path.isfile("aiml/420388.aiml"):
 def index():
     return render_template('botnew.html')
 
-@app.route('/chatindex/')
-@app.route('/chatindex')
+@application.route('/chatindex/')
+@application.route('/chatindex')
 def chatindex():
     return render_template('chatbot.html')
 
@@ -51,7 +52,8 @@ def get_task(chat):
 
 # you must create a Cursor object. It will let
 #  you execute all the queries you need
-db = MySQLdb.connect(host="localhost",user="root",passwd="root",db="wow_live")
+db = MySQLdb.connect(host="localhost",user="wow_dev_admin",passwd="12Appiness#$~",db="wow_dev")
+# db = MySQLdb.connect(host="localhost",user="root",passwd="root",db="wow_live")
 cursor = db.cursor()
 
 def valid_xml_char_ordinal(c):
@@ -66,7 +68,7 @@ def valid_xml_char_ordinal(c):
 
 @application.route("/wowtest")
 def wowtest():
-    cursor.execute("SELECT employer_id,replace(employer_name, char(153), '') AS employer_name,employer_website,employer_email,employer_mobile_number,employer_yr_founded,employer_strength,employer_logo,replace(replace(replace(replace(replace(replace(replace(replace(employer_desc, char(149), ''), char(147), ''), char(148), ''), char(153), ''), char(150), ''), char(146), ''), char(145), ''), char(39), '') AS employer_desc,employer_address,job_count,replace(employer_location, char(150), '') AS employer_location,replace(employer_branches, char(150), '') AS employer_branches,employer_experts FROM employer_details LIMIT 0,25")
+    cursor.execute("SELECT employer_id,replace(employer_name, char(153), '') AS employer_name,employer_website,employer_email,employer_mobile_number,employer_yr_founded,employer_strength,employer_logo,replace(replace(replace(replace(replace(replace(replace(replace(employer_desc, char(149), ''), char(147), ''), char(148), ''), char(153), ''), char(150), ''), char(146), ''), char(145), ''), char(39), '') AS employer_desc,employer_address,job_count,replace(employer_location, char(150), '') AS employer_location,replace(employer_branches, char(150), '') AS employer_branches,employer_experts FROM employer_details")
     company_results = cursor.fetchall()
     for result_row in company_results:
         with open('aiml/' + str(result_row[0]) + '.aiml', 'w') as f:
@@ -78,10 +80,10 @@ def wowtest():
             set = lxml.etree.SubElement(template,'set')
             set.set('name','topic')
             set.text = str(result_row[0])
-            template.text = '<![CDATA[<p></p><ul class="owl-carousel owl-theme">' \
-                            '<li class="item" onclick="cjoption(\'Current Openings\')">Current opening</li>'\
-                            '<li class="item" onclick="cjoption(\'About Company\')">About us</li>' \
-                            '<li class="item" onclick="cjoption(\'Speak to HR\')">Speak to HR</li></ul>'
+            template.text = '<![CDATA[<p></p><ul class="owl-carousel owl-theme repli">' \
+                            '<li class="item scroll" onclick="cjoption(\'Current Openings\',this)">Current opening</li>'\
+                            '<li class="item" onclick="cjoption(\'About Company\',this)">About us</li>' \
+                            '<li class="item" onclick="cjoption(\'Speak to HR\',this)">Speak to HR</li></ul>'
             topic = lxml.etree.SubElement(aiml,'topic')
             topic.set('name',str(result_row[0]))
             category = lxml.etree.SubElement(topic, 'category')
@@ -92,10 +94,10 @@ def wowtest():
             set.set('name','topic')
             set.text = str(result_row[0])
             template.text = '<![CDATA[<p></p><p>May I help you with following?</p>' \
-                            '<ul class="owl-carousel owl-theme">' \
-                            '<li class="item" onclick="cjoption(\'Current Openings\')">Current opening</li>'\
-                            '<li class="item" onclick="cjoption(\'About Company\')">About Us</li>' \
-                            '<li class="item" onclick="cjoption(\'Speak to HR\')">Speak to HR</li></ul>'
+                            '<ul class="owl-carousel owl-theme repli">' \
+                            '<li class="item" onclick="cjoption(\'Current Openings\',this)">Current opening</li>'\
+                            '<li class="item" onclick="cjoption(\'About Company\',this)">About Us</li>' \
+                            '<li class="item" onclick="cjoption(\'Speak to HR\',this)">Speak to HR</li></ul>'
             cursor.execute("SELECT * FROM `wow_handler` WHERE e_id='" + str(result_row[0]) + "'")
             wowhandler_result = cursor.fetchall()
             for handler_row in wowhandler_result:
@@ -104,14 +106,44 @@ def wowtest():
                     wow_handler = wow_handler_id
                 else:
                     wow_handler = handler_row[2]
+            category = lxml.etree.SubElement(topic, 'category')
+            pattern = lxml.etree.SubElement(category, 'pattern')
+            pattern.text = '_ OPENINGS'
+            template = lxml.etree.SubElement(category, 'template')
+            srai = lxml.etree.SubElement(template,'srai')
+            srai.text = 'OPENINGS'
+            category = lxml.etree.SubElement(topic, 'category')
+            pattern = lxml.etree.SubElement(category, 'pattern')
+            pattern.text = 'OPENINGS _'
+            template = lxml.etree.SubElement(category, 'template')
+            srai = lxml.etree.SubElement(template,'srai')
+            srai.text = 'OPENINGS'
+            category = lxml.etree.SubElement(topic, 'category')
+            pattern = lxml.etree.SubElement(category, 'pattern')
+            pattern.text = '* OPENINGS'
+            template = lxml.etree.SubElement(category, 'template')
+            srai = lxml.etree.SubElement(template,'srai')
+            srai.text = 'OPENINGS'
+            category = lxml.etree.SubElement(topic, 'category')
+            pattern = lxml.etree.SubElement(category, 'pattern')
+            pattern.text = '# OPENINGS'
+            template = lxml.etree.SubElement(category, 'template')
+            srai = lxml.etree.SubElement(template,'srai')
+            srai.text = 'OPENINGS'
+            category = lxml.etree.SubElement(topic, 'category')
+            pattern = lxml.etree.SubElement(category, 'pattern')
+            pattern.text = 'OPENING'
+            template = lxml.etree.SubElement(category, 'template')
+            srai = lxml.etree.SubElement(template,'srai')
+            srai.text = 'OPENINGS'
             cursor.execute("SELECT * FROM job_details WHERE job_hr_id ='" + str(result_row[0]) + "' AND job_delete ='NO' AND job_publish ='PLA' ORDER BY job_crt_date DESC LIMIT 0 , 3")
             if cursor.rowcount != 0:
                 job_results = cursor.fetchall()
                 category = lxml.etree.SubElement(topic, 'category')
                 pattern = lxml.etree.SubElement(category, 'pattern')
-                pattern.text = '_ OPENINGS'
+                pattern.text = 'OPENINGS'
                 template = lxml.etree.SubElement(category, 'template')
-                job_text = '<![CDATA[<p></p><div class="jobList"><ul class="owl-carousel owl-theme">'
+                job_text = '<![CDATA[<p></p><div class="jobList"><ul class="owl-carousel owl-theme repli">'
                 for job_row in job_results:
                     job_name = ((job_row[1]).strip()).replace(' ', '-')
                     job_location = ((job_row[8]).strip()).replace(' ', '-')
@@ -126,41 +158,113 @@ def wowtest():
             pattern = lxml.etree.SubElement(category, 'pattern')
             pattern.text = '_ COMPANY'
             template = lxml.etree.SubElement(category, 'template')
-            cursor.execute("SELECT founderName,founderDesg,founderAbout,founderImg_1,founderId FROM company_founders WHERE employer_id='"+str(result_row[0])+"'")
+            srai = lxml.etree.SubElement(template,'srai')
+            srai.text = 'COMPANY'
+            category = lxml.etree.SubElement(topic, 'category')
+            pattern = lxml.etree.SubElement(category, 'pattern')
+            pattern.text = 'ABOUT COMPANY'
+            template = lxml.etree.SubElement(category, 'template')
+            srai = lxml.etree.SubElement(template,'srai')
+            srai.text = 'COMPANY'
+            category = lxml.etree.SubElement(topic, 'category')
+            pattern = lxml.etree.SubElement(category, 'pattern')
+            pattern.text = '# COMPANY'
+            template = lxml.etree.SubElement(category, 'template')
+            srai = lxml.etree.SubElement(template,'srai')
+            srai.text = 'COMPANY'
+            category = lxml.etree.SubElement(topic, 'category')
+            pattern = lxml.etree.SubElement(category, 'pattern')
+            pattern.text = 'COMPANY _'
+            template = lxml.etree.SubElement(category, 'template')
+            srai = lxml.etree.SubElement(template,'srai')
+            srai.text = 'COMPANY'
+            category = lxml.etree.SubElement(topic, 'category')
+            pattern = lxml.etree.SubElement(category, 'pattern')
+            pattern.text = 'ABOUT _'
+            template = lxml.etree.SubElement(category, 'template')
+            srai = lxml.etree.SubElement(template,'srai')
+            srai.text = 'COMPANY'
+            category = lxml.etree.SubElement(topic, 'category')
+            pattern = lxml.etree.SubElement(category, 'pattern')
+            pattern.text = 'COMPANY'
+            template = lxml.etree.SubElement(category, 'template')
+            cursor.execute("SELECT founderName,founderDesg,founderAbout,founderImg_1,founderId FROM company_founders WHERE employer_id='"+str(result_row[0])+"' ORDER BY founderId ASC")
             if cursor.rowcount!=0:
-                template.text = '<![CDATA[<p></p><div class="aboutCompany"> \
+                template.text = '<![CDATA[<p></p><div class="aboutCompany"><p></p> \
                     <p class="text-left"><span class="headIn">About company</span> \
                     '+result_row[8]+'<span class="blockDis"><a href="https://www.wow.jobs/' + wow_handler+'" class="anchor-block">Read more</a></span></p> \
-                    </div><p>Do you want to more about us?</p> \
-                    <ul class="owl-carousel owl-theme"> \
-                    <li class="item" onclick="cjoption(\'Work Culture\')">Work culture</li> \
-                    <li class="item" onclick="cjoption(\'Expertise\')">Expertise</li> \
-                    <li class="item" onclick="cjoption(\'Founder\')">Founders</li>' +str(result_row[0])
+                    </div><p>Do you want to know more about us?</p> \
+                    <ul class="owl-carousel owl-theme repli"> \
+                    <li class="item " onclick="cjoption(\'Work Culture\',this)">Work culture</li> \
+                    <li class="item" onclick="cjoption(\'Expertise\',this)">Expertise</li> \
+                    <li class="item" onclick="cjoption(\'Founder\',this)">Founders</li></ul>'+str(result_row[0])
                 founder_results = cursor.fetchall()
                 category = lxml.etree.SubElement(topic, 'category')
                 pattern = lxml.etree.SubElement(category, 'pattern')
-                pattern.text = 'FOUNDER'
-                founder_text = '<![CDATA[<p></p><div class="wow-cult"><ul class="owl-carousel owl-theme">'
+                pattern.text = '# FOUNDER'
                 template = lxml.etree.SubElement(category, 'template')
+                srai = lxml.etree.SubElement(template,'srai')
+                srai.text = 'FOUNDER'
+                category = lxml.etree.SubElement(topic, 'category')
+                pattern = lxml.etree.SubElement(category, 'pattern')
+                pattern.text = '_ FOUNDERS'
+                template = lxml.etree.SubElement(category, 'template')
+                srai = lxml.etree.SubElement(template,'srai')
+                srai.text = 'FOUNDER'
+                category = lxml.etree.SubElement(topic, 'category')
+                pattern = lxml.etree.SubElement(category, 'pattern')
+                pattern.text = 'FOUNDERS'
+                template = lxml.etree.SubElement(category, 'template')
+                srai = lxml.etree.SubElement(template,'srai')
+                srai.text = 'FOUNDER'
+                category = lxml.etree.SubElement(topic, 'category')
+                pattern = lxml.etree.SubElement(category, 'pattern')
+                pattern.text = 'FOUNDER _'
+                template = lxml.etree.SubElement(category, 'template')
+                srai = lxml.etree.SubElement(template,'srai')
+                srai.text = 'FOUNDER'
+                category = lxml.etree.SubElement(topic, 'category')
+                pattern = lxml.etree.SubElement(category, 'pattern')
+                pattern.text = 'FOUNDER'
+                template = lxml.etree.SubElement(category, 'template')
+                founder_text = '<![CDATA[<p></p><div class="wow-cult"><ul class="owl-carousel owl-theme repli">'
                 for founder_row in founder_results:
                     founder_text += '<li class="item"><img src="https://employer.wow.jobs/' + founder_row[3] + '"/><h5>'+founder_row[0]+'</h5><h5>' + result_row[1] + '</h5></li>'
                 template.text = founder_text + '</ul></div>'+str(result_row[0])
             else:
-                template.text = '<![CDATA[<p></p><div class="aboutCompany"> \
+                template.text = '<![CDATA[<p></p><div class="aboutCompany"> <p></p>\
                     <p class="text-left"><span class="headIn">About company</span> \
                     '+result_row[8]+'<span class="blockDis"><a href="https://www.wow.jobs/' + wow_handler+'" class="anchor-block">Read more</a></span></p> \
                     </div><p>Do you want to more about us?</p> \
-                    <ul class="owl-carousel owl-theme"> \
-                    <li class="item" onclick="cjoption(\'Work Culture\')">Work culture</li> \
-                    <li class="item" onclick="cjoption(\'Expertise\')">Expertise</li>' +str(result_row[0])
+                    <ul class="owl-carousel owl-theme repli"> \
+                    <li class="item" onclick="cjoption(\'Work Culture\',this)">Work culture</li> \
+                    <li class="item" onclick="cjoption(\'Expertise\',this)">Expertise</li>'+str(result_row[0])
             category = lxml.etree.SubElement(topic, 'category')
             pattern = lxml.etree.SubElement(category, 'pattern')
             pattern.text = '_ HR'
             template = lxml.etree.SubElement(category, 'template')
+            srai = lxml.etree.SubElement(template,'srai')
+            srai.text = 'HR'
+            category = lxml.etree.SubElement(topic, 'category')
+            pattern = lxml.etree.SubElement(category, 'pattern')
+            pattern.text = '# HR'
+            template = lxml.etree.SubElement(category, 'template')
+            srai = lxml.etree.SubElement(template,'srai')
+            srai.text = 'HR'
+            category = lxml.etree.SubElement(topic, 'category')
+            pattern = lxml.etree.SubElement(category, 'pattern')
+            pattern.text = 'HR #'
+            template = lxml.etree.SubElement(category, 'template')
+            srai = lxml.etree.SubElement(template, 'srai')
+            srai.text = 'HR'
+            category = lxml.etree.SubElement(topic, 'category')
+            pattern = lxml.etree.SubElement(category, 'pattern')
+            pattern.text = 'HR'
+            template = lxml.etree.SubElement(category, 'template')
             if result_row[6] == None:
-                template.text = '<![CDATA[<p></p><p>Email Id: '+str(result_row[3])+'</p>'+str(result_row[0])
+                template.text = '<![CDATA[<p></p><div><p></p><p>Email Id: '+str(result_row[3])+'</p></div>'+str(result_row[0])
             else:
-                template.text = '<![CDATA[<p></p><p>Mobile no: '+str(result_row[4])+'</p><p>Email Id: '+str(result_row[3])+'</p>'+str(result_row[0])
+                template.text = '<![CDATA[<p></p><div><p></p><p>Mobile no: '+str(result_row[4])+'</p><p>Email Id: '+str(result_row[3])+'</p></div>'+str(result_row[0])
             category = lxml.etree.SubElement(topic, 'category')
             pattern = lxml.etree.SubElement(category, 'pattern')
             pattern.text = '_ DETAILS'
@@ -170,24 +274,24 @@ def wowtest():
             pattern = lxml.etree.SubElement(category, 'pattern')
             pattern.text = '_ BRANCHES'
             template = lxml.etree.SubElement(category, 'template')
-            template.text = '<![CDATA[<p>Location : ' + result_row[11] + '</p><p>Branches: '+ result_row[12]+'</p>' + str(result_row[0])
+            template.text = '<![CDATA[<p>Location : ' + result_row[11] + '</p><p>Branches: '+ result_row[12]+'</p>'+str(result_row[0])
             category = lxml.etree.SubElement(topic, 'category')
             pattern = lxml.etree.SubElement(category, 'pattern')
             pattern.text = 'EXPERTISE'
             template = lxml.etree.SubElement(category, 'template')
-            benefit = result_row[13].split(',')
-            benefit_text = '<![CDATA[<p></p><div class="benefitsHold">\
-            <h4 class="headIn">Benefits working at '+result_row[1]+'</h4>\
+            expertise = result_row[13].split(',')
+            expert_text = '<![CDATA[<p></p><div class="benefitsHold">\
+            <h4 class="headIn">Expertise at '+result_row[1]+'</h4>\
             <ul>'
-            for benef in benefit:
-                benefit_text +='<li>'+benef+'</li>'
-            template.text = benefit_text + '</ul></div>'
+            for expert in expertise:
+                expert_text +='<li>'+expert+'</li>'
+            template.text = expert_text + '</ul></div>'+str(result_row[0])
             category = lxml.etree.SubElement(topic, 'category')
             pattern = lxml.etree.SubElement(category, 'pattern')
             pattern.text = '_ CULTURE'
             template = lxml.etree.SubElement(category, 'template')
             culture_text = '<![CDATA[<p></p><div class="wow-cult"> \
-                    <ul class="owl-carousel owl-theme">'
+                    <ul class="owl-carousel owl-theme repli">'
             cursor.execute("SELECT * FROM wow_culture_post WHERE postHide = 'N' AND postType = 'STRY' AND postDelete = 'NO' AND posthrId='" + str(result_row[0]) + "' ORDER BY postcrtDate DESC LIMIT 0,3")
             wow_culture_results = cursor.fetchall()
             for wow_culture_row in wow_culture_results:
@@ -197,27 +301,20 @@ def wowtest():
                     cursor.execute("SELECT * FROM wow_post_story WHERE storypostId='" + str(wow_culture_row[1]) + "' AND storyDelete='NO' AND storyCover='YES'")
                     story_results = cursor.fetchall()
                     for story_row in story_results:
-                        culture_text += '<a href="https://www.wow.jobs/' + wow_handler + '/'+wow_culture_name+'/'+wow_culture_name+'"> \
-                        <li class="item"> \
+                        dater = wow_culture_row[11].strftime('%B %d, %Y')
+                        culture_text += '<li class="item"> \
                             <img class="img-responsive" src="https://employer.wow.jobs/cache/'+wow_handler_id+'/'+story_row[2]+'" alt="image"> \
                             <h5>'+wow_culture_row[3]+'</h5> \
-                            <h5>April 1</h5> \
-                        </li></a>'
-                if wow_culture_row[7] == 'LINK':
-                    cursor.execute("SELECT * FROM wow_post_link WHERE linkpostId='" + str(wow_culture_row[1]) + "' AND linkDelete='NO'")
-                    story_results = cursor.fetchall()
-                    for story_row in story_results:
-                        culture_text += '<a href="https://www.wow.jobs/' + wow_handler + '/'+wow_culture_name+'/'+wow_culture_name+'"> \
-                        <li class="item"> \
-                            <img class="img-responsive" src="" alt="image"> \
-                            <h5>'+wow_culture_row[3]+'</h5> \
-                            <h5>April 1</h5> \
-                        </li></a>'
-            template.text = culture_text + str(result_row[0])
+                            <h5 class="last-one">'+dater+'</h5> \
+                            <div class="blockDis"> \
+                            <a href="https://www.wow.jobs/' + wow_handler + '/posts/'+wow_culture_name+'/'+ str(wow_culture_row[1]) +'" \
+                            target="_blank" class ="anchor-block">View story</a> \
+                            </div></li>'
+            template.text = culture_text+'</ul>'+str(result_row[0])
             f.write(tostring(aiml, pretty_print=True,xml_declaration=True  , encoding='UTF-8'))
     return 'Successfully Created!!!!'
 
-@app.route("/wowculture")
+@application.route("/wowculture")
 def wowculture():
     return make_response(jsonify({'status':'OK','culture':wow_culture('16404')}))
 
@@ -261,7 +358,7 @@ def chatdetails():
             set = lxml.etree.SubElement(template, 'set')
             set.set('name', 'topic')
             set.text = str(result_row[0])
-            template.text = '<![CDATA[<ul class="owl-carousel owl-theme">' \
+            template.text = '<![CDATA[<ul class="owl-carousel owl-theme repli">' \
                             '<li class="item"><a href="javascript:;" class="btn btn-info" onclick="cjoption(\'Current Openings\')">Current opening</a></li>'\
                             '<li class="item"><a href="javascript:;" class="btn btn-info" onclick="cjoption(\'About Company\')">About Company</a></li>' \
                             '<li class="item"><a href="javascript:;" class="btn btn-info" onclick="cjoption(\'Speak to HR\')">Speak to HR</a></li></ul>'

@@ -4293,7 +4293,7 @@ ________________________________________________________________________________
 <script>
     var company_name = 'APPINESS INTERACTIVE PVT LTD'.replace(/[^a-zA-Z0-9 ]/g, '')
     document.cookie = "c_wow_name=" + company_name+'; expires=1609415999; path=/';
-$.ajax({type: 'GET',url: 'http://127.0.0.1:5001',async: false,success: function(response) {$(document).find('#chat-widget').html(response);}});
+$.ajax({type: 'GET',url: 'http://chatbot.wow.jobs:5000',async: false,success: function(response) {$(document).find('#chat-widget').html(response);}});
 </script>
 </body>
 

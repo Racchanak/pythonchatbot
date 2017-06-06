@@ -2,28 +2,29 @@
  * Created by RacchanaK on 22/5/17.
  */
 const BASE_URL = 'http://chatbot.wow.jobs:5000';
+// const BASE_URL = 'http://127.0.0.1:5000';
 
 var url= BASE_URL+"/bot/";
 var query = $.cookie("c_wow_name");
 query = query.replace(/[^a-zA-Z0-9 ]/g, '');
-var welcome_msg = ['<p>Hello, I\'m Wowee?</p>','<p>Welcome to the World of '+query.toUpperCase()+'</p>',query.toUpperCase()]
+var welcome_msg = ['<p>Hello, I\'m Wowee?</p>','<p>Welcome to the World of '+query.toUpperCase()+'</p>345345',query.toUpperCase()]
 var i=0;
 if(i==0){ botfir_sec(welcome_msg[i],i,''); }
-function cjoption(option){ ajax_response(option); }
+function cjoption(option,this_id=''){ $(this_id).addClass('active'); ajax_response(option); }
+$('body').on('click', '.scroll', function() {
+    $('.bot-content').animate({scrollTop: "+=100px"});
+});
 $("#button").click(function(){
-    console.log(i);
     if($('#query').val()){
         var query=$('#query').val();
         if(i==1) {
             botfir_sec(welcome_msg[i], i, query);
         } else {
             if(i==2) {
-                    ajax_response(welcome_msg[i], query);
-                }
-            else
-                {
-                    ajax_response(query);
-                }
+                ajax_response(welcome_msg[i], query);
+            } else {
+                ajax_response(query);
+            }
         }
     }else{
         alert('please enter a query');
@@ -31,7 +32,13 @@ $("#button").click(function(){
         return false;
     }
 });
-
+function handle(e){
+    if(e.keyCode === 13){
+        e.preventDefault(); // Ensure it is only this code that rusn
+        $("#button").trigger('click');
+    }
+}
+    var xy= 17;
 function ajax_response(query,second_value='') {
     $ans_html = '';
     $.ajax({
@@ -42,30 +49,47 @@ function ajax_response(query,second_value='') {
         crossDomain: true,
         headers: {'Access-Control-Allow-Origin': '*'},
         success: function (data, textStatus, jqXHR) {
+            var date=new Date();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var ampm = hours >= 12 ? 'pm' : 'am';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0'+minutes : minutes;
+            var strTime = hours + ':' + minutes + ' ' + ampm;
             if(i==2){
                 $ques_html = '<div class="answers">'+
-                                '<p>What are you looking for, today?</p>'+
+                                '<p>What are you looking for, today?</p><h6 class="timeP">'+strTime+'</h6>'+
                             '</div>';
             } else {
                 $ques_html = '<div class="answers">' +
-                    '<p>' + query + '</p>' +
+                    '<p>' + query + '</p><h6 class="timeP">'+strTime+'</h6>'+
                     '</div>';
             }
-            $ans_html += '<div class="replies">'+
+            $ans_html += '<div class="replies"><div id="ans_'+i+'">'+
                             data.chatData+
-                        '</div>';
+                        '</div></div>';
             $('#result').append($ques_html);
             $('#result').append($ans_html);
             $('.bot-content .owl-carousel').owlCarousel({
                 nav: true,
                 autoWidth: true,
-                items: 1,
-                margin: 8,
-                navText: ["<img src='http://127.0.0.1:5001/static/images/chat/arrow-left.png'>", "<img src='http://127.0.0.1:5001/static/images/chat/arrow-right.png'>"]
+                items: 2,
+                margin: 10,
+                navText: ["<img src='"+BASE_URL+"/static/images/chat/arrow-left.png'>", "<img src='"+BASE_URL+"/static/images/chat/arrow-right.png'>"]
             });
-            $('#query').val('');
-            i++;
-            console.log(i);
+            setTimeout(function(){
+                var x = $('#ans_'+i).height();
+                console.log('#ans_'+i);
+                console.log(x);
+                var finalX = x - xy +"px";
+                console.log(finalX);
+                $('#ans_'+i).css('max-height',finalX);
+                $('#ans_'+i).css('overflow','hidden');
+                $('.bot-content').animate({scrollTop: ($('.bot-content')[0].scrollHeight)+x});
+                $('#query').val('');
+                i++;
+            },100);
         },
         error: function (jqXHR, exception) {
             if (jqXHR.status === 0) {
@@ -87,12 +111,20 @@ function ajax_response(query,second_value='') {
     });
 }
 function botfir_sec(data,k,query){
+    var date=new Date();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var ampm = hours >= 12 ? 'pm' : 'am';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0'+minutes : minutes;
+            var strTime = hours + ':' + minutes + ' ' + ampm;
     if(k>1) { ajax_response(welcome_msg[k],query); }
     var clid = k;
     if(query!='') {
         $quest_html = '<div class="replies">'+
-                        '<p>'+query+'</p>'+
-                      '</div>';
+                        '<p></p><p>'+query+'</p>'+
+                      '<h6 class="timeP">'+strTime+'</h6></div>';
         $('#result').append($quest_html);
     }
     if(k==0){
@@ -104,14 +136,18 @@ function botfir_sec(data,k,query){
                     '<h4>I\'m AI based assistant for you</h4>';
                 '</div>';
     } else {
-        $ans_html = '<div class="answers">' +
+        $ans_html = '<div class="answers"><div id="ans_'+clid+'">' +
                         data +
-                    '</div>';
+                    '</div><h6 class="timeP">'+strTime+'</h6></div>';
     }
     $('#result').append($ans_html);
+    var x = $('#ans_'+clid).height();
+    var finalX = x - xy +"px";
+    $('#ans_'+clid).css('max-height',finalX);
+    $('#ans_'+clid).css('overflow','hidden');
+    $('.bot-content').animate({scrollTop: ($('.bot-content')[0].scrollHeight)+x});
     $('#query').val('');
     i++;
-    console.log(i);
 }
 // function query_response(query) {
 //     console.log(query);

@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <link rel="stylesheet" href="http://127.0.0.1:5001/static/owl/dist/assets/owl.carousel.css">
-    <link rel="stylesheet" href="http://127.0.0.1:5001/static/owl/dist/assets/owl.theme.default.min.css">
-    <link rel="stylesheet" href="http://127.0.0.1:5001/static/css/style.css">
+    <link rel="stylesheet" href="http://chatbot.wow.jobs:5000/static/owl/dist/assets/owl.carousel.css">
+    <link rel="stylesheet" href="http://chatbot.wow.jobs:5000/static/owl/dist/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="http://chatbot.wow.jobs:5000/static/css/style.css">
     <!-- Latest compiled and minified JavaScript -->
 </head>
 <body>
@@ -19,21 +19,23 @@
         <div class="bot-content" id="result">
         </div>
         <div class="custom-input">
-            <input type="text" id='query' placeholder="Your input here...">
-            <button id='button' class="scroll"><img src="http://127.0.0.1:5001/static/images/chat/save.png" alt="image"></button>
+            <input type="text" id='query' onkeypress="handle(event)" placeholder="Your input here...">
+            <button id='button' class="scroll"><img src="http://chatbot.wow.jobs:5000/static/images/chat/save.png" alt="image"></button>
         </div>
     </div>
     <!--<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="http://127.0.0.1:5001/static/js/jquery_cookie.js"></script>
+    <script src="http://chatbot.wow.jobs:5000/static/js/jquery_cookie.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="http://127.0.0.1:5001/static/js/ajax_response.js"></script>
-    <script src="http://127.0.0.1:5001/static/owl/dist/owl.carousel.min.js"></script>
+    <script src="http://chatbot.wow.jobs:5000/static/js/ajax_response.js"></script>
+    <script src="http://chatbot.wow.jobs:5000/static/owl/dist/owl.carousel.min.js"></script>
 </body>
 </html>
 
-{#<section class="chat-empwidget"><div class="chat-widget-holder"><div id="chat-widget"></div></div></section>
-<script> var company_name = 'APPINESS INTERACTIVE PVT LTD'.replace(/[^a-zA-Z0-9 ]/g, '')
+{#
+    <section class="chat-empwidget"><div class="chat-widget-holder"><div id="chat-widget"></div></div></section>
+<script>
+    var company_name = 'APPINESS INTERACTIVE PVT LTD'.replace(/[^a-zA-Z0-9 ]/g, '')
     document.cookie = "c_wow_name=" + company_name+'; expires=1609415999; path=/';
-$.ajax({type: 'GET',url: 'http://127.0.0.1:5001',async: false,success: function(response) {$(document).find('#chat-widget').html(response);}});
+$.ajax({type: 'GET',url: 'http://chatbot.wow.jobs:5000',async: false,success: function(response) {$(document).find('#chat-widget').html(response);}});
 </script>#}

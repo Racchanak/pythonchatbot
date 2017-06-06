@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
+ @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
 .bot-holder {
   font-family: 'Roboto', sans-serif !important;
   width: 340px !important;
@@ -112,7 +112,7 @@
       .bot-holder .bot-content .replies ul {
         padding-left: 0 !important;
         margin-bottom: 0 !important; }
-        .bot-holder .bot-content .replies ul li {
+        .bot-holder .bot-content .replies ul.repli li {
           border: 1px solid #d7d5d5 !important;
           display: inline-block !important;
           margin-right: 10px !important;
@@ -122,12 +122,28 @@
           padding: 15px !important;
           border-radius: 3px !important;
           line-height: 12px !important; }
-          .bot-holder .bot-content .replies ul li.active {
+          .bot-holder .bot-content .replies ul.repli li.active {
             background-color: #0cafcc !important;
             color: #fff !important;
             border-color: #0cafcc !important; }
-          .bot-holder .bot-content .replies ul li:last-child {
+          .bot-holder .bot-content .replies ul.repli li:last-child {
             margin-right: 0 !important; }
+      .bot-holder .bot-content .replies .benefitsHold {
+        padding: 15px !important;
+        border: 1px solid #d7d5d5 !important;
+        border-radius: 3px !important;
+        text-align: left !important; }
+        .bot-holder .bot-content .replies .benefitsHold .headIn {
+          font-size: 14px !important;
+          font-weight: 500 !important;
+          color: #303637 !important;
+          margin-top: 0 !important;
+          margin-bottom: 10px !important; }
+        .bot-holder .bot-content .replies .benefitsHold ul {
+          margin-bottom: 10px !important;
+          padding-left: 20px !important; }
+        .bot-holder .bot-content .replies .benefitsHold .anchor-block {
+          color: #0cafcc; }
     .bot-holder .bot-content .jobList {
       text-align: left !important; }
       .bot-holder .bot-content .jobList h5 {
@@ -170,7 +186,7 @@
       color: #0cafcc; }
     .bot-holder .bot-content .wow-cult {
       text-align: left !important; }
-      .bot-holder .bot-content .wow-cult ul li {
+      .bot-holder .bot-content .wow-cult ul.repli li {
         max-width: 180px !important;
         padding: 0 !important; }
       .bot-holder .bot-content .wow-cult h5 {
@@ -245,15 +261,28 @@
         display: none !important; }
     .bot-holder .owl-carousel .owl-nav .owl-prev {
       left: 0 !important;
-      background-image: url("http://127.0.0.1:5001/static/images/chat/bg-gradient-left.png") !important; }
+      background-image: url("http://chatbot.wow.jobs:5000/static/images/chat/bg-gradient-left.png") !important; }
       .bot-holder .owl-carousel .owl-nav .owl-prev img {
         left: 2px !important; }
     .bot-holder .owl-carousel .owl-nav .owl-next {
       right: 0 !important;
-      background-image: url("http://127.0.0.1:5001/static/images/chat/bg-gradient.png") !important; }
+      background-image: url("http://chatbot.wow.jobs:5000/static/images/chat/bg-gradient.png") !important; }
       .bot-holder .owl-carousel .owl-nav .owl-next img {
         right: 2px !important; }
   .bot-holder .hidden {
     display: none !important; }
+
+.bot-holder .bot-content .wow-cult h5.last-one {
+font-size: 12px !important;
+color: #7c8285 !important;
+margin: 0 !important;
+padding-bottom: 10px !important; }
+
+.owl-stage {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-box;
+    display: box;
+}
 
 /*# sourceMappingURL=style.css.map */
