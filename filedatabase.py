@@ -136,7 +136,7 @@ def wowtest():
             template = lxml.etree.SubElement(category, 'template')
             srai = lxml.etree.SubElement(template,'srai')
             srai.text = 'OPENINGS'
-            cursor.execute("SELECT * FROM job_details WHERE job_hr_id ='" + str(result_row[0]) + "' AND job_delete ='NO' AND job_publish ='PLA' ORDER BY job_crt_date DESC LIMIT 0 , 3")
+            cursor.execute("SELECT * FROM job_details WHERE job_hr_id ='" + str(result_row[0]) + "' AND job_delete ='NO' AND job_publish ='PLA' ORDER BY job_mod_date DESC LIMIT 0 , 3")
             if cursor.rowcount != 0:
                 job_results = cursor.fetchall()
                 category = lxml.etree.SubElement(topic, 'category')
