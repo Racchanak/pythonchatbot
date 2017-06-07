@@ -1,5 +1,6 @@
- @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
 .bot-holder {
+  z-index:10000;
   font-family: 'Roboto', sans-serif !important;
   width: 340px !important;
   background-color: #fff !important;
@@ -204,6 +205,11 @@
           color: #7c8285 !important;
           margin: 0 !important;
           padding-bottom: 10px !important; }
+        .bot-holder .bot-content .wow-cult h5.last-one {
+          font-size: 12px !important;
+          color: #7c8285 !important;
+          margin: 0 !important;
+          padding-bottom: 10px !important; }
       .bot-holder .bot-content .wow-cult .blockDis {
         display: block;
         margin: 10px; }
@@ -261,16 +267,86 @@
         display: none !important; }
     .bot-holder .owl-carousel .owl-nav .owl-prev {
       left: 0 !important;
-      background-image: url("http://chatbot.wow.jobs:5000/static/images/chat/bg-gradient-left.png") !important; }
+      background-image: url("bg-gradient-left.png") !important; }
       .bot-holder .owl-carousel .owl-nav .owl-prev img {
         left: 2px !important; }
     .bot-holder .owl-carousel .owl-nav .owl-next {
       right: 0 !important;
-      background-image: url("http://chatbot.wow.jobs:5000/static/images/chat/bg-gradient.png") !important; }
+      background-image: url("bg-gradient.png") !important; }
       .bot-holder .owl-carousel .owl-nav .owl-next img {
         right: 2px !important; }
   .bot-holder .hidden {
     display: none !important; }
+  .bot-holder .minmizeIt {
+    font-size: 40px !important;
+    position: absolute !important;
+    right: 20px !important;
+    top: 24px !important;
+    cursor: pointer !important;
+    line-height: 2px !important;
+    font-weight: 100 !important; }
+  .bot-holder .msgLoad {
+    padding-top: 10px; }
+  .bot-holder .msgLoad span {
+    position: relative;
+    width: 5px;
+    height: 5px;
+    border-radius: 5px;
+    background-color: #0cb0cc;
+    float: left;
+    margin: 4px;
+    margin-right: 0; }
+  .bot-holder .msgLoad span:nth-child(1) {
+    animation: load1 1.5s ease-in-out 0s infinite; }
+  .bot-holder .msgLoad span:nth-child(2) {
+    animation: load2 1.5s ease-in-out 0s infinite; }
+  .bot-holder .msgLoad span:nth-child(3) {
+    animation: load3 1.5s ease-in-out 0s infinite; }
+@keyframes load1 {
+  0% {
+    margin-left: 0px; }
+  16% {
+    margin-left: 4px; }
+  32% {
+    margin-left: 4px; }
+  50% {
+    margin-left: 4px; }
+  66% {
+    margin-left: 4px; }
+  72% {
+    margin-left: 4px; }
+  100% {
+    margin-left: 0px; } }
+@keyframes load2 {
+  0% {
+    margin-left: 4px; }
+  16% {
+    margin-left: 0px; }
+  32% {
+    margin-left: 4px; }
+  50% {
+    margin-left: 4px; }
+  66% {
+    margin-left: 4px; }
+  72% {
+    margin-left: 0px; }
+  100% {
+    margin-left: 4px; } }
+@keyframes load3 {
+  0% {
+    margin-left: 4px; }
+  16% {
+    margin-left: 4px; }
+  32% {
+    margin-left: 0px; }
+  50% {
+    margin-left: 4px; }
+  66% {
+    margin-left: 0px; }
+  72% {
+    margin-left: 4px; }
+  100% {
+    margin-left: 4px; } }
 
 .bot-holder .bot-content .wow-cult h5.last-one {
 font-size: 12px !important;

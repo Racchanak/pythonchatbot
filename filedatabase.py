@@ -52,7 +52,7 @@ def get_task(chat):
 
 # you must create a Cursor object. It will let
 #  you execute all the queries you need
-db = MySQLdb.connect(host="localhost",user="wow_dev_admin",passwd="12Appiness#$~",db="wow_dev")
+db = MySQLdb.connect(host="173.194.240.26",user="wowdev",passwd="devwow",db="wow_live")
 # db = MySQLdb.connect(host="localhost",user="root",passwd="root",db="wow_live")
 cursor = db.cursor()
 
@@ -254,6 +254,12 @@ def wowtest():
             category = lxml.etree.SubElement(topic, 'category')
             pattern = lxml.etree.SubElement(category, 'pattern')
             pattern.text = 'HR #'
+            template = lxml.etree.SubElement(category, 'template')
+            srai = lxml.etree.SubElement(template, 'srai')
+            srai.text = 'HR'
+            category = lxml.etree.SubElement(topic, 'category')
+            pattern = lxml.etree.SubElement(category, 'pattern')
+            pattern.text = 'HR _'
             template = lxml.etree.SubElement(category, 'template')
             srai = lxml.etree.SubElement(template, 'srai')
             srai.text = 'HR'

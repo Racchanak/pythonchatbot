@@ -10,12 +10,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link rel="stylesheet" href="http://chatbot.wow.jobs:5000/static/owl/dist/assets/owl.carousel.css">
     <link rel="stylesheet" href="http://chatbot.wow.jobs:5000/static/owl/dist/assets/owl.theme.default.min.css">
-    <link rel="stylesheet" href="http://chatbot.wow.jobs:5000/static/css/style.css">
+    <link rel="stylesheet" href="http://127.0.0.1:5000/static/css/style.css">
     <!-- Latest compiled and minified JavaScript -->
 </head>
 <body>
     <div class="bot-holder">
-        <div class="headIng">Chatbot</div>
+        <div class="headIng">Chatbot <span class="minmizeIt">-</span></div>
         <div class="bot-content" id="result">
         </div>
         <div class="custom-input">
@@ -27,9 +27,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://chatbot.wow.jobs:5000/static/js/jquery_cookie.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="http://chatbot.wow.jobs:5000/static/js/ajax_response.js"></script>
+    <script src="http://127.0.0.1:5000/static/js/ajax_response.js"></script>
     <script src="http://chatbot.wow.jobs:5000/static/owl/dist/owl.carousel.min.js"></script>
 </body>
+<script>
+    $('.minmizeIt').click(function() {
+        $('.bot-content').toggle();
+        $('.custom-input').toggle();
+    });
+</script>
 </html>
 
 {#

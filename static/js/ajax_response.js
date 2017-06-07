@@ -48,7 +48,17 @@ function ajax_response(query,second_value='') {
         contentType: "application/json; charset=utf-8",
         crossDomain: true,
         headers: {'Access-Control-Allow-Origin': '*'},
+        beforeSend: function() {
+        // setting a timeout
+            $loader = '<div class="msgLoad">'+
+                '<span></span>'+
+                '<span></span>'+
+                '<span></span>'+
+            '</div>';
+            $('#result').append($loader);
+        },
         success: function (data, textStatus, jqXHR) {
+            $('.msgLoad').css('display','none');
             var date=new Date();
             var hours = date.getHours();
             var minutes = date.getMinutes();
@@ -80,10 +90,7 @@ function ajax_response(query,second_value='') {
             });
             setTimeout(function(){
                 var x = $('#ans_'+i).height();
-                console.log('#ans_'+i);
-                console.log(x);
                 var finalX = x - xy +"px";
-                console.log(finalX);
                 $('#ans_'+i).css('max-height',finalX);
                 $('#ans_'+i).css('overflow','hidden');
                 $('.bot-content').animate({scrollTop: ($('.bot-content')[0].scrollHeight)+x});
