@@ -229,7 +229,7 @@ def wowtest():
                 template = lxml.etree.SubElement(category, 'template')
                 founder_text = '<![CDATA[<p></p><div class="wow-cult"><ul class="owl-carousel owl-theme repli">'
                 for founder_row in founder_results:
-                    founder_text += '<li class="item"><img src="https://employer.wow.jobs/' + founder_row[3] + '"/><h5>'+founder_row[0]+'</h5><h5>' + result_row[1] + '</h5></li>'
+                    founder_text += '<li class="item"><img src="https://employer.wow.jobs/' + founder_row[3] + '"/><h5>'+founder_row[0]+'</h5><h5>' + founder_row[1] + '</h5></li>'
                 template.text = founder_text + '</ul></div>'+str(result_row[0])
             else:
                 template.text = '<![CDATA[<p></p><div class="aboutCompany"> <p></p>\

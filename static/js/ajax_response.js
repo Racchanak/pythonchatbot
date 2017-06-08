@@ -1,14 +1,15 @@
 /**
  * Created by RacchanaK on 22/5/17.
  */
-const BASE_URL = 'http://chatbot.wow.jobs:5000';
-// const BASE_URL = 'http://127.0.0.1:5000';
+// const BASE_URL = 'http://chatbot.wow.jobs:5000';
+const BASE_URL = 'http://127.0.0.1:5000';
 
 var url= BASE_URL+"/bot/";
 var query = $.cookie("c_wow_name");
 query = query.replace(/[^a-zA-Z0-9 ]/g, '');
 var welcome_msg = ['<p>Hello, I\'m Wowee?</p>','<p>Welcome to the World of '+query.toUpperCase()+'</p>345345',query.toUpperCase()]
 var i=0;
+var a = [];
 if(i==0){ botfir_sec(welcome_msg[i],i,''); }
 function cjoption(option,this_id=''){ $(this_id).addClass('active'); ajax_response(option); }
 $('body').on('click', '.scroll', function() {
@@ -21,9 +22,9 @@ $("#button").click(function(){
             botfir_sec(welcome_msg[i], i, query);
         } else {
             if(i==2) {
-                ajax_response(welcome_msg[i], query);
+                ajax_response(welcome_msg[i]);
             } else {
-                ajax_response(query);
+                ajax_response(query,'userInput');
             }
         }
     }else{
@@ -40,7 +41,7 @@ function handle(e){
 }
     var xy= 17;
 function ajax_response(query,second_value='') {
-    $ans_html = '';
+    $ans_html = $ques_html = '';
     $.ajax({
         url: url + query,
         type: "GET",
@@ -69,17 +70,20 @@ function ajax_response(query,second_value='') {
             var strTime = hours + ':' + minutes + ' ' + ampm;
             if(i==2){
                 $ques_html = '<div class="answers">'+
-                                '<p>What are you looking for, today?</p><h6 class="timeP">'+strTime+'</h6>'+
+                                '<p>What are you looking for, today?</p>'+
                             '</div>';
+                $('#result').append($ques_html);
             } else {
-                $ques_html = '<div class="answers">' +
-                    '<p>' + query + '</p><h6 class="timeP">'+strTime+'</h6>'+
-                    '</div>';
+                if(second_value!='') {
+                    $ques_html = '<div class="answers">' +
+                        '<p class="'+second_value+'">' + query + '</p>' +
+                        '</div>';
+                }
+                $('#result').append($ques_html);
             }
             $ans_html += '<div class="replies"><div id="ans_'+i+'">'+
                             data.chatData+
                         '</div></div>';
-            $('#result').append($ques_html);
             $('#result').append($ans_html);
             $('.bot-content .owl-carousel').owlCarousel({
                 nav: true,
@@ -131,7 +135,7 @@ function botfir_sec(data,k,query){
     if(query!='') {
         $quest_html = '<div class="replies">'+
                         '<p></p><p>'+query+'</p>'+
-                      '<h6 class="timeP">'+strTime+'</h6></div>';
+                      '</div>';
         $('#result').append($quest_html);
     }
     if(k==0){
@@ -145,7 +149,7 @@ function botfir_sec(data,k,query){
     } else {
         $ans_html = '<div class="answers"><div id="ans_'+clid+'">' +
                         data +
-                    '</div><h6 class="timeP">'+strTime+'</h6></div>';
+                    '</div></div>';
     }
     $('#result').append($ans_html);
     var x = $('#ans_'+clid).height();

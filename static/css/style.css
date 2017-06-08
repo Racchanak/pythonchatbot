@@ -1,6 +1,11 @@
-
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
+.transition-fast, .bootstrap-hold, .bootstrap-hold .bot-holder .bot-content .replies ul.repli li, .bootstrap-hold .bot-holder .bot-content .replies ul.repli li:hover {
+  -webkit-transition: all ease-out 0.2s;
+  -moz-transition: all ease-out 0.2s;
+  -o-transition: all ease-out 0.2s;
+  transition: all ease-out 0.2s; }
+
 .bootstrap-hold {
   /*!
    * Bootstrap v3.3.7 (http://getbootstrap.com)
@@ -4887,15 +4892,16 @@
     .bootstrap-hold .hidden-print {
       display: none !important; } }
   .bootstrap-hold .bot-holder {
-    z-index:10000;
+    z-index: 10000;
     font-family: 'Roboto', sans-serif !important;
-    width: 340px !important;
+    width: 300px !important;
     background-color: #fff !important;
     border-radius: 3px !important;
     position: fixed !important;
-    bottom: 20px !important;
-    right: 20px !important;
-    overflow-y: auto !important; }
+    bottom: 10px !important;
+    right: 10px !important;
+    overflow-y: auto !important;
+    font-weight: 400 !important; }
     .bootstrap-hold .bot-holder h1,
     .bootstrap-hold .bot-holder h2,
     .bootstrap-hold .bot-holder h3,
@@ -4908,6 +4914,9 @@
     .bootstrap-hold .bot-holder span,
     .bootstrap-hold .bot-holder a {
       font-family: 'Roboto', sans-serif !important; }
+    .bootstrap-hold .bot-holder li,
+    .bootstrap-hold .bot-holder a {
+      font-size: 14px !important; }
     @media screen and (max-width: 767px) {
       .bootstrap-hold .bot-holder {
         left: 0 !important;
@@ -4916,6 +4925,8 @@
         bottom: 0 !important;
         width: 100% !important;
         height: auto !important; } }
+    .bootstrap-hold .bot-holder .text-center img {
+      max-width: 120px; }
     .bootstrap-hold .bot-holder .headIng {
       border: 1px solid #0cafcc !important;
       background-color: #0cafcc !important;
@@ -4925,7 +4936,7 @@
     .bootstrap-hold .bot-holder .bot-content {
       border: 1px solid #d7d5d5 !important;
       padding: 20px 20px !important;
-      height: 380px !important;
+      height: 310px !important;
       overflow-y: auto !important;
       /* Track */
       /* Handle */ }
@@ -4990,6 +5001,9 @@
         text-align: right !important; }
         .bootstrap-hold .bot-holder .bot-content .replies p:first-child {
           display: none !important; }
+        .bootstrap-hold .bot-holder .bot-content .replies p.userInput {
+          background-color: #eceff1;
+          border-color: #cbd2d7; }
       .bootstrap-hold .bot-holder .bot-content .timeP {
         margin: 0px 0px 0px 15px !important;
         font-size: 11px !important;
@@ -5007,13 +5021,19 @@
             list-style: none !important;
             font-size: 14px !important;
             color: #000 !important;
-            padding: 15px !important;
+            padding: 12px 15px !important;
             border-radius: 3px !important;
             line-height: 12px !important; }
+            .bootstrap-hold .bot-holder .bot-content .replies ul.repli li:hover {
+              border-color: #0cafcc !important;
+              cursor: pointer;
+              color: #0cafcc !important; }
             .bootstrap-hold .bot-holder .bot-content .replies ul.repli li.active {
               background-color: #0cafcc !important;
               color: #fff !important;
               border-color: #0cafcc !important; }
+              .bootstrap-hold .bot-holder .bot-content .replies ul.repli li.active:hover {
+                color: #fff !important; }
             .bootstrap-hold .bot-holder .bot-content .replies ul.repli li:last-child {
               margin-right: 0 !important; }
         .bootstrap-hold .bot-holder .bot-content .replies .benefitsHold {
@@ -5234,6 +5254,7 @@
     margin-left: 4px; }
   100% {
     margin-left: 4px; } }
+
 .bot-holder .bot-content .wow-cult h5.last-one {
 font-size: 12px !important;
 color: #7c8285 !important;
@@ -5247,4 +5268,4 @@ padding-bottom: 10px !important; }
     display: box;
 }
 
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=style.css.map *
