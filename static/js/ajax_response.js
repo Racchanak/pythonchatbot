@@ -1,13 +1,13 @@
 /**
  * Created by RacchanaK on 22/5/17.
  */
-const BASE_URL = 'http://chatbot.wow.jobs:5000';
-// const BASE_URL = 'http://127.0.0.1:5000';
+const BASE_URL = 'http://chatbot.wow.jobs';
+// const BASE_URL = 'http://chatbot.wow.jobs.dev';
 
 var url= BASE_URL+"/bot/";
 var query = $.cookie("c_wow_name");
 query = query.replace(/[^a-zA-Z0-9 ]/g, '');
-var welcome_msg = ['<p>Hello, I\'m Wowee?</p>','<p>Welcome to the World of '+query.toUpperCase()+'</p>345345',query.toUpperCase()]
+var welcome_msg = ['<p>Hello, how are you?</p>',query.toLowerCase()]
 var i=0;
 var a = [];
 if(i==0){ botfir_sec(welcome_msg[i],i,''); }
@@ -19,13 +19,9 @@ $("#button").click(function(){
     if($('#query').val()){
         var query=$('#query').val();
         if(i==1) {
-            botfir_sec(welcome_msg[i], i, query);
+            ajax_response(welcome_msg[i]);
         } else {
-            if(i==2) {
-                ajax_response(welcome_msg[i]);
-            } else {
-                ajax_response(query,'userInput');
-            }
+            ajax_response(query,'userInput');
         }
     }else{
         alert('please enter a query');
@@ -59,7 +55,6 @@ function ajax_response(query,second_value='') {
             $('#result').append($loader);
         },
         success: function (data, textStatus, jqXHR) {
-            $('.msgLoad').css('display','none');
             var date=new Date();
             var hours = date.getHours();
             var minutes = date.getMinutes();
@@ -68,8 +63,11 @@ function ajax_response(query,second_value='') {
             hours = hours ? hours : 12; // the hour '0' should be '12'
             minutes = minutes < 10 ? '0'+minutes : minutes;
             var strTime = hours + ':' + minutes + ' ' + ampm;
-            if(i==2){
-                $ques_html = '<div class="answers">'+
+            if(i==1){
+                $ques_html = '<div class="answers"><div>' +
+                                '<p>Welcome to the World of '+query +'</p>'+
+                            '</div></div>'+
+                            '<div class="answers">'+
                                 '<p>What are you looking for, today?</p>'+
                             '</div>';
                 $('#result').append($ques_html);
@@ -85,14 +83,39 @@ function ajax_response(query,second_value='') {
                             data.chatData+
                         '</div></div>';
             $('#result').append($ans_html);
-            $('.bot-content .owl-carousel').owlCarousel({
-                nav: true,
-                autoWidth: true,
-                items: 2,
-                margin: 10,
-                navText: ["<img src='"+BASE_URL+"/static/images/chat/arrow-left.png'>", "<img src='"+BASE_URL+"/static/images/chat/arrow-right.png'>"]
-            });
+            if($.isFunction('owlCarousel')){
+                  $('.bot-content .owl-carousel').owlCarousel({
+                    nav: true,
+                    autoWidth: true,
+                    items: 2,
+                    margin: 10,
+                    navText: ["<img src='"+BASE_URL+"/static/images/chat/arrow-left.png'>", "<img src='"+BASE_URL+"/static/images/chat/arrow-right.png'>"]
+                });
+            } else {
+                console.log("Not Defined");
+            }
             setTimeout(function(){
+                $( ".msgLoad" ).remove();
+                if(query=='Location'){
+                    var l=Number($('.lat').text());
+                    var ln=Number($('.long').text());
+                    var labels=$('.name').text();
+                    var labelIndex = 0;
+                    var map_id = $('.map_disp')[0].id;
+                    function initialize() {
+                        var myLatLng ={lat: l, lng: ln};
+                        var map = new google.maps.Map(document.getElementById(map_id), {
+                          zoom: 14,
+                          center: myLatLng
+                        });
+                        var marker = new google.maps.Marker({
+                          position: myLatLng,
+                          map: map,
+                           label: labels,
+                        });
+                    }
+                    initialize();
+                }
                 var x = $('#ans_'+i).height();
                 var finalX = x - xy +"px";
                 $('#ans_'+i).css('max-height',finalX);
@@ -130,7 +153,6 @@ function botfir_sec(data,k,query){
             hours = hours ? hours : 12; // the hour '0' should be '12'
             minutes = minutes < 10 ? '0'+minutes : minutes;
             var strTime = hours + ':' + minutes + ' ' + ampm;
-    if(k>1) { ajax_response(welcome_msg[k],query); }
     var clid = k;
     if(query!='') {
         $quest_html = '<div class="replies">'+
@@ -143,9 +165,12 @@ function botfir_sec(data,k,query){
                         '<img src="'+BASE_URL+'/static/images/chat/woweee.png" alt="image">'+
                     '</div>'+
                     '<div class="first-response">'+
-                    '<h3>'+data+'</h3>'+
-                    '<h4>I\'m AI based assistant for you</h4>';
-                '</div>';
+                        '<h3>Hello, I\'m Wowee</h3>'+
+                        '<h4>I\'m AI based assistant for you</h4>'+
+                    '</div>' +
+                    '<div class="answers"><div id="ans_'+clid+'">' +
+                        data +
+                    '</div></div>';
     } else {
         $ans_html = '<div class="answers"><div id="ans_'+clid+'">' +
                         data +

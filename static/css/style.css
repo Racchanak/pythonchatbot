@@ -5254,7 +5254,9 @@
     margin-left: 4px; }
   100% {
     margin-left: 4px; } }
-
+.bot-holder .bot-content .map_disp {
+height:230px; width:230px;
+}
 .bot-holder .bot-content .wow-cult h5.last-one {
 font-size: 12px !important;
 color: #7c8285 !important;

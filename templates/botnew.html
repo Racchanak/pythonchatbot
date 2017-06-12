@@ -22,6 +22,7 @@
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAFVHZ3Ocumy7N6ToR-zHlY47rrdweqvug&sensor=false"></script>
     <script src="http://chatbot.wow.jobs:5000/static/js/jquery_cookie.js"></script>
     <script src="http://chatbot.wow.jobs:5000/static/js/ajax_response.js"></script>
     <script src="http://chatbot.wow.jobs:5000/static/owl/dist/owl.carousel.min.js"></script>
@@ -39,5 +40,5 @@
 <script>
     var company_name = 'APPINESS INTERACTIVE PVT LTD'.replace(/[^a-zA-Z0-9 ]/g, '')
     document.cookie = "c_wow_name=" + company_name+'; expires=1609415999; path=/';
-$.ajax({type: 'GET',url: 'http://chatbot.wow.jobs:5000',async: false,success: function(response) {$(document).find('#chat-widget').html(response);}});
+$.ajax({type: 'GET',url: 'http://chatbot.wow.jobs',async: false,success: function(response) {$(document).find('#chat-widget').html(response);}});
 </script>#}
