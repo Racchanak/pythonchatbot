@@ -83,7 +83,7 @@ function ajax_response(query,second_value='') {
                             data.chatData+
                         '</div></div>';
             $('#result').append($ans_html);
-            if($.isFunction('owlCarousel')){
+            // if($.isFunction('owlCarousel')){
                   $('.bot-content .owl-carousel').owlCarousel({
                     nav: true,
                     autoWidth: true,
@@ -91,9 +91,9 @@ function ajax_response(query,second_value='') {
                     margin: 10,
                     navText: ["<img src='"+BASE_URL+"/static/images/chat/arrow-left.png'>", "<img src='"+BASE_URL+"/static/images/chat/arrow-right.png'>"]
                 });
-            } else {
-                console.log("Not Defined");
-            }
+            // } else {
+            //     console.log("Not Defined");
+            // }
             setTimeout(function(){
                 $( ".msgLoad" ).remove();
                 if(query=='Location'){
