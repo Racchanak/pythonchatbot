@@ -249,10 +249,12 @@ def wowtest():
                     pattern = lxml.etree.SubElement(category, 'pattern')
                     pattern.text = 'LOCATION'
                     template = lxml.etree.SubElement(category, 'template')
-                    template.text = '<![CDATA[<p></p><a target="_blank" href="https://www.google.co.in/maps/place/' + re.sub('[ ]', '+', location[2]) + '/@' + str(location[7]) + ',' + str(location[8]) + '">Get Direction</a> \
+                    template.text = '<![CDATA[<p></p> \
                             <div class="hidden"><span class="lat">' + str(location[7]) + '</span> \
                             <span class="long">' + str(location[8]) + '</span><span class="name">' + location[2] + '</span></div> \
-                            <div id="map_div_' + str(result_row[0]) + '" class="map_disp"></div>' + about_subtext + str(result_row[0])
+                            <div id="map_div_' + str(result_row[0]) + '" class="map_disp"></div> \
+                            <p class="mapPt"><a target="_blank" href="https://www.google.co.in/maps/place/' + re.sub('[ ]', '+', location[2]) + '/@' + str(location[7]) + ',' + str(location[8]) + '"> \
+                            Get Direction</a></p>' + about_subtext + str(result_row[0])
             cursor.execute("SELECT founderName,founderDesg,founderAbout,founderImg_1,founderId FROM company_founders WHERE employer_id='"+str(result_row[0])+"' ORDER BY founderId ASC")
             if cursor.rowcount!=0:
                 founder_results = cursor.fetchall()

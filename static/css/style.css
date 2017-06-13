@@ -5255,7 +5255,7 @@
   100% {
     margin-left: 4px; } }
 .bot-holder .bot-content .map_disp {
-height:230px; width:230px;
+height:250px; width:100%;
 }
 .bot-holder .bot-content .wow-cult h5.last-one {
 font-size: 12px !important;
@@ -5268,6 +5268,17 @@ padding-bottom: 10px !important; }
     display: -moz-box;
     display: -ms-box;
     display: box;
+}
+.bot-holder .submenu {
+  margin-top: 20px;
+}
+.bootstrap-hold .bot-holder .bot-content .replies p.mapPt {
+      margin-top: 5px !important;
+      border-radius: 0 !important;
+    padding: 5px 10px !important;
+}
+.bootstrap-hold .bot-holder .bot-content .replies p.mapPt a {
+  font-size: 12px !important;
 }
 
 /*# sourceMappingURL=style.css.map *
