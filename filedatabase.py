@@ -166,39 +166,22 @@ def wowtest():
                     job_location = ((job_row[8]).strip()).replace(' ', '-')
                     job_experience = 'Exp: '+str(job_row[10])+'-'+str(job_row[11])
                     job_link = job_name + '-jobs-' + job_location + '/' + str(job_row[0])
-                    job_text += '<li class="item"> <h5>'+job_row[1]+'</h5> <h5>'+job_row[8]+'</h5> <h5>'+job_experience+'</h5> \
+                    job_li =  '<li class="item"> <h5>'+job_row[1]+'</h5> <h5>'+job_row[8]+'</h5> <h5>'+job_experience+'</h5> \
                                 <div class="blockDis"> \
                                 <a class="anchor-block" target="_blank" href="https://www.wow.jobs/' + wow_handler + '/' + job_link + '">Apply</a> \
                                 </div></li>'
-                    for job_pattern in p_name:
-                        category = lxml.etree.SubElement(topic, 'category')
-                        pattern = lxml.etree.SubElement(category, 'pattern')
-                        pattern.text = job_pattern.upper()
-                        template = lxml.etree.SubElement(category, 'template')
-                        srai = lxml.etree.SubElement(template,'srai')
-                        srai.text = job_row[1].upper()
-                        category = lxml.etree.SubElement(topic, 'category')
-                        pattern = lxml.etree.SubElement(category, 'pattern')
-                        pattern.text = '_ ' + job_pattern.upper()
-                        template = lxml.etree.SubElement(category, 'template')
-                        srai = lxml.etree.SubElement(template,'srai')
-                        srai.text = job_row[1].upper()
-                        category = lxml.etree.SubElement(topic, 'category')
-                        pattern = lxml.etree.SubElement(category, 'pattern')
-                        pattern.text = job_pattern.upper() + ' _'
-                        template = lxml.etree.SubElement(category, 'template')
-                        srai = lxml.etree.SubElement(template,'srai')
-                        srai.text = job_row[1].upper()
+                    job_text += job_li
                     category = lxml.etree.SubElement(topic, 'category')
                     pattern = lxml.etree.SubElement(category, 'pattern')
                     pattern.text = job_row[1].upper()
                     template = lxml.etree.SubElement(category, 'template')
-                    template.text = job_text + '</ul></div>'+str(result_row[0])
-                category = lxml.etree.SubElement(topic, 'category')
-                pattern = lxml.etree.SubElement(category, 'pattern')
-                pattern.text = 'OPENINGS'
-                template = lxml.etree.SubElement(category, 'template')
-                template.text = job_text + '</ul></div><div class="submenu">'+main_menu+'</div>'+str(result_row[0])
+                    template.text = '<![CDATA[<p></p><div class="jobList"><ul class="owl-carousel owl-theme repli">'\
+                                +job_li+'</ul></div><div class="submenu">'+main_menu+'</div>'+str(result_row[0])
+            category = lxml.etree.SubElement(topic, 'category')
+            pattern = lxml.etree.SubElement(category, 'pattern')
+            pattern.text = 'OPENINGS'
+            template = lxml.etree.SubElement(category, 'template')
+            template.text = job_text + '</ul></div><div class="submenu">'+main_menu+'</div>'+str(result_row[0])
             category = lxml.etree.SubElement(topic, 'category')
             pattern = lxml.etree.SubElement(category, 'pattern')
             pattern.text = '_ COMPANY'
