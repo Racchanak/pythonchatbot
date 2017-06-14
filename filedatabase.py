@@ -68,7 +68,7 @@ def valid_xml_char_ordinal(c):
 
 @application.route("/wowtest")
 def wowtest():
-    cursor.execute("SELECT employer_id,replace(employer_name, char(153), '') AS employer_name,employer_website,employer_email,employer_mobile_number,employer_yr_founded,employer_strength,employer_logo,replace(replace(replace(replace(replace(replace(replace(replace(employer_desc, char(149), ''), char(147), ''), char(148), ''), char(153), ''), char(150), ''), char(146), ''), char(145), ''), char(39), '') AS employer_desc,employer_address,job_count,replace(employer_location, char(150), '') AS employer_location,replace(employer_branches, char(150), '') AS employer_branches,employer_experts FROM employer_details")
+    cursor.execute("SELECT employer_id,replace(employer_name, char(153), '') AS employer_name,employer_website,employer_email,employer_mobile_number,employer_yr_founded,employer_strength,employer_logo,replace(replace(replace(replace(replace(replace(replace(replace(employer_desc, char(149), ''), char(147), ''), char(148), ''), char(153), ''), char(150), ''), char(146), ''), char(145), ''), char(39), '') AS employer_desc,employer_address,job_count,replace(employer_location, char(150), '') AS employer_location,replace(employer_branches, char(150), '') AS employer_branches,employer_experts FROM employer_details LIMIT 0,10")
     company_results = cursor.fetchall()
     for result_row in company_results:
         with open('aiml/' + str(result_row[0]) + '.aiml', 'w') as f:
@@ -159,12 +159,9 @@ def wowtest():
             cursor.execute("SELECT * FROM job_details WHERE job_hr_id ='" + str(result_row[0]) + "' AND job_delete ='NO' AND job_publish ='PLA' ORDER BY job_mod_date DESC LIMIT 0 , 3")
             if cursor.rowcount != 0:
                 job_results = cursor.fetchall()
-                category = lxml.etree.SubElement(topic, 'category')
-                pattern = lxml.etree.SubElement(category, 'pattern')
-                pattern.text = 'OPENINGS'
-                template = lxml.etree.SubElement(category, 'template')
                 job_text = '<![CDATA[<p></p><div class="jobList"><ul class="owl-carousel owl-theme repli">'
                 for job_row in job_results:
+                    p_name = job_row[1].split(' ')
                     job_name = ((job_row[1]).strip()).replace(' ', '-')
                     job_location = ((job_row[8]).strip()).replace(' ', '-')
                     job_experience = 'Exp: '+str(job_row[10])+'-'+str(job_row[11])
@@ -173,6 +170,34 @@ def wowtest():
                                 <div class="blockDis"> \
                                 <a class="anchor-block" target="_blank" href="https://www.wow.jobs/' + wow_handler + '/' + job_link + '">Apply</a> \
                                 </div></li>'
+                    for job_pattern in p_name:
+                        category = lxml.etree.SubElement(topic, 'category')
+                        pattern = lxml.etree.SubElement(category, 'pattern')
+                        pattern.text = job_pattern.upper()
+                        template = lxml.etree.SubElement(category, 'template')
+                        srai = lxml.etree.SubElement(template,'srai')
+                        srai.text = job_row[1].upper()
+                        category = lxml.etree.SubElement(topic, 'category')
+                        pattern = lxml.etree.SubElement(category, 'pattern')
+                        pattern.text = '_ ' + job_pattern.upper()
+                        template = lxml.etree.SubElement(category, 'template')
+                        srai = lxml.etree.SubElement(template,'srai')
+                        srai.text = job_row[1].upper()
+                        category = lxml.etree.SubElement(topic, 'category')
+                        pattern = lxml.etree.SubElement(category, 'pattern')
+                        pattern.text = job_pattern.upper() + ' _'
+                        template = lxml.etree.SubElement(category, 'template')
+                        srai = lxml.etree.SubElement(template,'srai')
+                        srai.text = job_row[1].upper()
+                    category = lxml.etree.SubElement(topic, 'category')
+                    pattern = lxml.etree.SubElement(category, 'pattern')
+                    pattern.text = job_row[1].upper()
+                    template = lxml.etree.SubElement(category, 'template')
+                    template.text = job_text + '</ul></div>'+str(result_row[0])
+                category = lxml.etree.SubElement(topic, 'category')
+                pattern = lxml.etree.SubElement(category, 'pattern')
+                pattern.text = 'OPENINGS'
+                template = lxml.etree.SubElement(category, 'template')
                 template.text = job_text + '</ul></div><div class="submenu">'+main_menu+'</div>'+str(result_row[0])
             category = lxml.etree.SubElement(topic, 'category')
             pattern = lxml.etree.SubElement(category, 'pattern')
@@ -376,7 +401,7 @@ def wowtest():
                             <a href="https://www.wow.jobs/' + wow_handler + '/posts/'+wow_culture_name+'/'+ str(wow_culture_row[1]) +'" \
                             target="_blank" class ="anchor-block">View story</a> \
                             </div></li>'
-            template.text = culture_text+'</ul>'+about_subtext+str(result_row[0])
+            template.text = culture_text+'</ul></div>'+about_subtext+str(result_row[0])
             f.write(tostring(aiml, pretty_print=True,xml_declaration=True  , encoding='UTF-8'))
     return 'Successfully Created!!!!'
 
