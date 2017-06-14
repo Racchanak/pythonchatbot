@@ -161,22 +161,34 @@ def wowtest():
                 job_results = cursor.fetchall()
                 job_text = '<![CDATA[<p></p><div class="jobList"><ul class="owl-carousel owl-theme repli">'
                 for job_row in job_results:
-                    p_name = job_row[1].split(' ')
                     job_name = ((job_row[1]).strip()).replace(' ', '-')
                     job_location = ((job_row[8]).strip()).replace(' ', '-')
                     job_experience = 'Exp: '+str(job_row[10])+'-'+str(job_row[11])
-                    job_link = job_name + '-jobs-' + job_location + '/' + str(job_row[0])
-                    job_li =  '<li class="item"> <h5>'+job_row[1]+'</h5> <h5>'+job_row[8]+'</h5> <h5>'+job_experience+'</h5> \
-                                <div class="blockDis"> \
-                                <a class="anchor-block" target="_blank" href="https://www.wow.jobs/' + wow_handler + '/' + job_link + '">Apply</a> \
-                                </div></li>'
-                    job_text += job_li
+                    job_link = 'https://www.wow.jobs/' + wow_handler + '/'+job_name + '-jobs-' + job_location + '/' + str(job_row[0])  
+                    job_li = '<div class="benefitsHold"> \
+                             <h4 class="headIn">'+job_row[1]+'</h4> \
+                             <h5 class="blackColorText">'+job_row[8]+'</h5> <h5 class="blackColorText">'+job_experience+'</h5>'
+                    cursor.execute("SELECT * FROM `job_skills` WHERE `skill_job_id`='"+str(job_row[0])+"' AND `skill_delete`='NO'")
+                    if cursor.rowcount != 0:
+                        job_skills = cursor.fetchall()
+                        job_li += '<h4 class="headIn">Skills for ' + job_row[1] + '</h4>\
+                                <ul>'
+                        for skills in job_skills:
+                            job_li += '<li>'+skills[2]+' -'+skills[3]+'</li>'
+                        job_li += '</ul>'
                     category = lxml.etree.SubElement(topic, 'category')
                     pattern = lxml.etree.SubElement(category, 'pattern')
                     pattern.text = job_row[1].upper()
                     template = lxml.etree.SubElement(category, 'template')
-                    template.text = '<![CDATA[<p></p><div class="jobList"><ul class="owl-carousel owl-theme repli">'\
-                                +job_li+'</ul></div><div class="submenu">'+main_menu+'</div>'+str(result_row[0])
+                    template.text = '<![CDATA[<p></p>'+job_li+'<div class="blockDis">\
+                    <a class="anchor-block" target="_blank" href="' + job_link + '">Apply</a></div>\
+                    </div><div class="submenu">'+main_menu+'</div>'+str(result_row[0])
+                    job_text += '<li class="item"><h5>'\
+                            +job_row[1]+'</h5> <h5>'+job_row[8]+'</h5> \
+                            <h5>'+job_experience+'</h5>\
+                            <div class="blockDis"> \
+                            <a class="anchor-block" target="_blank" href="' + job_link + '">Apply</a> \
+                            </div></li>'
             category = lxml.etree.SubElement(topic, 'category')
             pattern = lxml.etree.SubElement(category, 'pattern')
             pattern.text = 'OPENINGS'

@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
     <meta name="theme-color" content="#0086bf" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
@@ -9,6 +10,7 @@
     <link rel="stylesheet" href="http://chatbot.wow.jobs/static/css/style.css">
     <!-- Latest compiled and minified JavaScript -->
 </head>
+
 <body>
     <div class="bootstrap-hold">
         <div class="bot-holder">
@@ -33,12 +35,24 @@
         $('.custom-input').toggle();
     });
 </script>
+
 </html>
 
 {#
-    <section class="chat-empwidget"><div class="chat-widget-holder"><div id="chat-widget"></div></div></section>
+<section class="chat-empwidget">
+    <div class="chat-widget-holder">
+        <div id="chat-widget"></div>
+    </div>
+</section>
 <script>
     var company_name = 'APPINESS INTERACTIVE PVT LTD'.replace(/[^a-zA-Z0-9 ]/g, '')
-    document.cookie = "c_wow_name=" + company_name+'; expires=1609415999; path=/';
-$.ajax({type: 'GET',url: 'http://chatbot.wow.jobs',async: false,success: function(response) {$(document).find('#chat-widget').html(response);}});
+    document.cookie = "c_wow_name=" + company_name + '; expires=1609415999; path=/';
+    $.ajax({
+        type: 'GET',
+        url: 'http://chatbot.wow.jobs',
+        async: false,
+        success: function(response) {
+            $(document).find('#chat-widget').html(response);
+        }
+    });
 </script>#}

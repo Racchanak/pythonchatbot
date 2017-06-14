@@ -48,9 +48,8 @@ ________________________________________________________________________________
     <meta name="keywords" content="Mobile App Development Company, UI &amp; UX Design Company, Web App Development Company, web app ux design company,  user experience firm, ui design companies, ux design services, web development company, mobile app ui company, web application development company, Bolck chain solutions consulting, block chain UX designers, Digital Business Consulting firm"
     />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-
-{#    <link href="../static/css/main.css" rel="stylesheet">#}
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> {#
+    <link href="../static/css/main.css" rel="stylesheet">#}
     <link href="../static/css/master.css" rel="stylesheet">
     <link href="../static/css/box-load/component.css" rel="stylesheet">
     <link href="../static/css/popup/dialog.css" rel="stylesheet">
@@ -4014,19 +4013,12 @@ ________________________________________________________________________________
         </div>
     </div>
     <!--that 360-->
-{#<section class="chat-box">#}
-{#        <div class="chatbox-logo">#}
-{#           <img src="../static/images/chat/chat-box.png" class="chat-boximg">#}
-{#        </div>#}
-{#        <div class="chatbot-holder">#}
-{#            <div class="chatbox-content clearfix" id="result">#}
-{#            </div>#}
-{#            <div class="user-input">#}
-{#                <input type="text" id='query' placeholder="Type your message and press enter ">#}
-{#                <button type="button" id='button'>></button>#}
-{#            </div>#}
-{#        </div>#}
-{#    </section>#}
+    {#
+    <section class="chat-box">#} {#
+        <div class="chatbox-logo">#} {# <img src="../static/images/chat/chat-box.png" class="chat-boximg">#} {# </div>#} {#
+        <div class="chatbot-holder">#} {#
+            <div class="chatbox-content clearfix" id="result">#} {# </div>#} {#
+            <div class="user-input">#} {# <input type="text" id='query' placeholder="Type your message and press enter ">#} {# <button type="button" id='button'>></button>#} {# </div>#} {# </div>#} {# </section>#}
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -4289,12 +4281,23 @@ ________________________________________________________________________________
                 window.location = "index-iphone.html";
         });
     </script>
-    <section class="chat-empwidget"><div class="chat-widget-holder"><div id="chat-widget"></div></div></section>
-<script>
-    var company_name = 'APPINESS INTERACTIVE PVT LTD'.replace(/[^a-zA-Z0-9 ]/g, '')
-    document.cookie = "c_wow_name=" + company_name+'; expires=1609415999; path=/';
-$.ajax({type: 'GET',url: 'http://chatbot.wow.jobs',async: false,success: function(response) {$(document).find('#chat-widget').html(response);}});
-</script>
+    <section class="chat-empwidget">
+        <div class="chat-widget-holder">
+            <div id="chat-widget"></div>
+        </div>
+    </section>
+    <script>
+        var company_name = 'APPINESS INTERACTIVE PVT LTD'.replace(/[^a-zA-Z0-9 ]/g, '')
+        document.cookie = "c_wow_name=" + company_name + '; expires=1609415999; path=/';
+        $.ajax({
+            type: 'GET',
+            url: 'http://chatbot.wow.jobs',
+            async: false,
+            success: function(response) {
+                $(document).find('#chat-widget').html(response);
+            }
+        });
+    </script>
 </body>
 
 </html>
