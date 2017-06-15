@@ -8709,5 +8709,13 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     color: #303637 !important;
 }
 
+.bootstrap-hold .bot-holder .owl-carousel .owl-item img {
+        width: 100% !important;
+}
+
+.bootstrap-hold .bot-holder .overflow-max {
+    max-height: 110px !important;
+    overflow: hidden;
+}
 
 /*# sourceMappingURL=style.css.map *
