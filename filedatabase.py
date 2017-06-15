@@ -68,7 +68,7 @@ def valid_xml_char_ordinal(c):
 
 @application.route("/wowtest")
 def wowtest():
-    cursor.execute("SELECT employer_id,replace(employer_name, char(153), '') AS employer_name,employer_website,employer_email,employer_mobile_number,employer_yr_founded,employer_strength,employer_logo,replace(replace(replace(replace(replace(replace(replace(replace(employer_desc, char(149), ''), char(147), ''), char(148), ''), char(153), ''), char(150), ''), char(146), ''), char(145), ''), char(39), '') AS employer_desc,employer_address,job_count,replace(employer_location, char(150), '') AS employer_location,replace(employer_branches, char(150), '') AS employer_branches,employer_experts FROM employer_details LIMIT 0,10")
+    cursor.execute("SELECT employer_id,replace(employer_name, char(153), '') AS employer_name,employer_website,employer_email,employer_mobile_number,employer_yr_founded,employer_strength,employer_logo,replace(replace(replace(replace(replace(replace(replace(replace(employer_desc, char(149), ''), char(147), ''), char(148), ''), char(153), ''), char(150), ''), char(146), ''), char(145), ''), char(39), '') AS employer_desc,employer_address,job_count,replace(employer_location, char(150), '') AS employer_location,replace(employer_branches, char(150), '') AS employer_branches,employer_experts FROM employer_details")
     company_results = cursor.fetchall()
     for result_row in company_results:
         with open('aiml/' + str(result_row[0]) + '.aiml', 'w') as f:
