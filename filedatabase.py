@@ -168,7 +168,8 @@ def wowtest():
                     job_li = '<div class="benefitsHold"> \
                              <h4 class="headIn">'+job_row[1]+'</h4> \
                              <h5 class="blackColorText">'+job_row[8]+'</h5> <h5 class="blackColorText">'+job_experience+'</h5>'
-                    cursor.execute("SELECT * FROM `job_skills` WHERE `skill_job_id`='"+str(job_row[0])+"' AND `skill_delete`='NO'")
+                    cursor.execute("SELECT skill_id,skill_job_id,replace(replace(replace(skill_name, char(34), ''), char(148), ''), char(147), '') \
+                          AS skill_name,skill_level,skill_delete FROM job_skills WHERE skill_job_id='"+str(job_row[0])+"' AND skill_delete='NO'")
                     if cursor.rowcount != 0:
                         job_skills = cursor.fetchall()
                         job_li += '<h4 class="headIn">Skills for ' + job_row[1] + '</h4>\
@@ -402,21 +403,49 @@ def wowtest():
 
 @application.route("/wowculture")
 def wowculture():
-    cursor.execute("SELECT bft_insurance,bft_flexible_hours,bft_5days_week,bft_wmnf_atmp,bft_wmnf_locn, \
-                    bft_cafeteria,bft_game_zone,bft_matpat_leav,bft_cab_srvc,bft_free_food,bft_dress_code, \
-                    bft_yearly_bnus,bft_shifts,bft_equity,bft_reloc_alwc,bft_join_bnus,bft_wrk4m_home, \
-                    bft_mand_offs,bft_fitness_cntr,bft_train_cert,bft_accomdtn,bft_creche,bft_kid_fdly, \
-                    bft_pet_fdly,bft_parkg_fcty,bft_onsite_opty,bft_paid_hldy,bft_tution_rmbs,bft_401k, \
-                    bft_hide FROM employer_benefits WHERE bft_hide='N' AND employer_id='3689'")
-    benefitsName = [["bft_insurance" , "Insurance"],["bft_flexible_hours" , "Flexible Work Hours"],["bft_5days_week" , "5 Days a week"],["bft_wmnf_atmp" , "Women Friendly Atmosphere"],["bft_wmnf_locn" , "Women Friendly Location"],["bft_cafeteria" , "Cafeteria"],["bft_game_zone" , "Game Zone"],["bft_matpat_leav" , "Maternity & Paternity Leaves"],["bft_cab_srvc" , "Cab Service"],["bft_free_food" , "Free Food"],["bft_dress_code" , "No Dress Code"],["bft_yearly_bnus" , "Yearly Bonus"],["bft_shifts" , "Shifts"],["bft_equity" , "Equity"],["bft_reloc_alwc" , "Relocation Allowance"],["bft_join_bnus" , "Joining Bonus"],["bft_wrk4m_home" , "Work From Home"],["bft_mand_offs" , "Mandatory Offs"],["bft_fitness_cntr" , "Fitness Centre"],["bft_train_cert" , "Training & Certifications"],["bft_accomdtn" , "Accomodation"],["bft_creche" , "Creche"],["bft_kid_fdly" , "Kid Friendly"],["bft_pet_fdly" , "Pet Friendly"],["bft_parkg_fcty" , "Parking Facility"],["bft_onsite_opty" , "Onsite Opportunity"],["bft_paid_hldy" , "Paid Holidays"],["bft_tution_rmbs" , "Tution Fee Reimbursment"],["bft_401k" , "401K"], ["bft_hide", "N"]];
+    main_menu = '<ul class="owl-carousel owl-theme repli">' \
+                '<li class="item scroll" onclick="cjoption(\'Current Openings\',this)">Current opening</li>' \
+                '<li class="item" onclick="cjoption(\'About Company\',this)">About us</li>' \
+                '<li class="item" onclick="cjoption(\'Speak to HR\',this)">Speak to HR</li></ul>'
+    cursor.execute("SELECT * FROM `wow_handler` WHERE e_id='1770141'")
+    wowhandler_result = cursor.fetchall()
+    for handler_row in wowhandler_result:
+        wow_handler_id = handler_row[1]
+        if handler_row[2] == None:
+            wow_handler = wow_handler_id
+        else:
+            wow_handler = handler_row[2]
+    cursor.execute("SELECT * FROM job_details WHERE job_hr_id ='1770141' AND job_delete ='NO' AND job_publish ='PLA' ORDER BY job_mod_date DESC LIMIT 0 , 3")
     if cursor.rowcount != 0:
-        wow_benefits=cursor.fetchall()[0]
-        benefits=[]
-        for i in range(len(cursor.description)):
-            if cursor.description[i][0]==benefitsName[i][0]:
-                if wow_benefits[i]=='Y':
-                    benefits.append(benefitsName[i][1])
-        return make_response(jsonify({'culture':benefits,'fetchall':wowbenefits}))
+        job_results = cursor.fetchall()
+        job_text = '<![CDATA[<p></p><div class="jobList"><ul class="owl-carousel owl-theme repli">'
+        for job_row in job_results:
+            job_name = ((job_row[1]).strip()).replace(' ', '-')
+            job_location = ((job_row[8]).strip()).replace(' ', '-')
+            job_experience = 'Exp: ' + str(job_row[10]) + '-' + str(job_row[11])
+            job_link = 'https://www.wow.jobs/' + wow_handler + '/' + job_name + '-jobs-' + job_location + '/' + str(job_row[0])
+            job_li = '<![CDATA[<p></p><div class="benefitsHold"> \
+                                 <h4 class="headIn">' + job_row[1] + '</h4> \
+                                 <h5 class="blackColorText">' + job_row[8] + '</h5> <h5 class="blackColorText">' + job_experience + '</h5>'
+            cursor.execute("SELECT * FROM `job_skills` WHERE `skill_job_id`='" + str(job_row[0]) + "' AND `skill_delete`='NO'")
+            if cursor.rowcount != 0:
+                job_skills = cursor.fetchall()
+                job_li += '<h4 class="headIn">Skills for ' + job_row[1] + '</h4><ul>'
+                for skills in job_skills:
+                    job_li += '<li>' + skills[2] + ' -' + skills[3] + '</li>'
+                job_li += '</ul>'
+            job_li = job_li + '<div class="blockDis">\
+                        <a class="anchor-block" target="_blank" href="' + job_link + '">Apply</a></div>\
+                        </div><div class="submenu">' + main_menu + '</div>1770141'
+        job_text += '<li class="item"><h5>' \
+                    + job_row[1] + '</h5> <h5>' + job_row[8] + '</h5> \
+                            <h5>' + job_experience + '</h5>\
+                            <div class="blockDis"> \
+                            <a class="anchor-block" target="_blank" href="' + job_link + '">Apply</a> \
+                            </div></li>'
+        job_text = job_text + '</ul></div><div class="submenu">' + main_menu + '</div>1770141'+job_li
+        print job_text
+        return 'true'
     else :
         return '000'
 
