@@ -1,8 +1,8 @@
 /**
  * Created by RacchanaK on 22/5/17.
  */
-const BASE_URL = 'http://chatbot.wow.jobs';
-// const BASE_URL = 'http://chatbot.wow.jobs.dev';
+// const BASE_URL = 'http://chatbot.wow.jobs';
+const BASE_URL = 'http://chatbot.wow.jobs.dev';
 
 var url = BASE_URL + "/bot/";
 var query = $.cookie("c_wow_name");
@@ -23,7 +23,7 @@ $("#button").click(function() {
     if ($('#query').val()) {
         var query = $('#query').val();
         if (i == 1) {
-            ajax_response(welcome_msg[i]);
+            ajax_response(welcome_msg[i],'userInput',query);
         } else {
             ajax_response(query, 'userInput');
         }
@@ -40,9 +40,15 @@ function handle(e) {
         $("#button").trigger('click');
     }
 }
+function camelize(str) {
+  return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
+    if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
+    return index == 0 ? match.toLowerCase() : match.toUpperCase();
+  });
+}
 var xy = 17;
 
-function ajax_response(query, second_value = '') {
+function ajax_response(query, second_value = '',input='') {
     $ans_html = $ques_html = '';
     $.ajax({
         url: url + query,
@@ -70,7 +76,9 @@ function ajax_response(query, second_value = '') {
             minutes = minutes < 10 ? '0' + minutes : minutes;
             var strTime = hours + ':' + minutes + ' ' + ampm;
             if (i == 1) {
-                $ques_html = '<div class="answers"><div>' +
+                $ques_html = '<div class="answers">' +
+                        '<p class="' + second_value + '">' + input + '</p>' +
+                        '</div><div class="answers"><div>' +
                     '<p>Welcome to the World of ' + query + '</p>' +
                     '</div></div>' +
                     '<div class="answers">' +
