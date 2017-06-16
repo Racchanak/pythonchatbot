@@ -12,9 +12,9 @@ var i = 0;
 var a = [];
 if (i == 0) { botfir_sec(welcome_msg[i], i, ''); }
 
-function cjoption(option, this_id ='') {
+function cjoption(option, this_id='') {
     $(this_id).addClass('active');
-    ajax_response(option);
+    ajax_response(option,'userInput');
 }
 $('body').on('click', '.scroll', function() {
     $('.bot-content').animate({ scrollTop: "+=100px" });
@@ -48,7 +48,7 @@ function camelize(str) {
 }
 var xy = 17;
 
-function ajax_response(query, second_value ='',input='') {
+function ajax_response(query, second_value,input='') {
     $ans_html = $ques_html = '';
     $.ajax({
         url: url + query,
@@ -76,8 +76,8 @@ function ajax_response(query, second_value ='',input='') {
             minutes = minutes < 10 ? '0' + minutes : minutes;
             var strTime = hours + ':' + minutes + ' ' + ampm;
             if (i == 1) {
-                $ques_html = '<div class="answers">' +
-                        '<p class="' + second_value + '">' + input + '</p>' +
+                $ques_html = '<div class="replies">' +
+                        '<p></p><p class="' + second_value + '">' + input + '</p>' +
                         '</div><div class="answers"><div>' +
                     '<p>Welcome to the World of ' + query + '</p>' +
                     '</div></div>' +
