@@ -8169,9 +8169,10 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
 .bootstrap-hold .bot-holder .headIng {
     border: 1px solid #0cafcc !important;
     background-color: #0cafcc !important;
-    font-size: 16px !important;
-    padding: 15px 20px !important;
+    font-size: 14px !important;
+    padding: 10px 16px 8px!important;
     color: #fff !important;
+    cursor: pointer !important;
 }
 
 .bootstrap-hold .bot-holder .bot-content {
@@ -8230,22 +8231,23 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     font-weight: 400 !important;
     margin: 7px 0 0 !important;
     color: #9299a6 !important;
-    font-size: 16px !important;
+    font-size: 14px !important;
+    padding-bottom: 12px !important;
 }
 
 .bootstrap-hold .bot-holder .bot-content .answers,
 .bootstrap-hold .bot-holder .bot-content .replies {
-    margin-top: 20px !important;
+    margin-top: 8px !important;
 }
 
 .bootstrap-hold .bot-holder .bot-content .answers p,
 .bootstrap-hold .bot-holder .bot-content .replies p {
     display: inline-block !important;
-    font-size: 14px !important;
+    font-size: 13px !important;
     font-weight: 400 !important;
-    color: #000 !important;
-    padding: 10px 15px !important;
-    border: 1px solid #d7d5d5 !important;
+    color: #525458 !important;
+    padding: 8px 16px !important;
+    border: 1px solid #dadde0 !important;
     border-radius: 20px !important;
     line-height: 16px !important;
     margin: 0 0 5px !important;
@@ -8298,7 +8300,7 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
 }
 
 .bootstrap-hold .bot-holder .bot-content .replies {
-    margin-top: 20px !important;
+    margin-top: 8px !important;
 }
 
 .bootstrap-hold .bot-holder .bot-content .replies ul {
@@ -8311,7 +8313,7 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     display: inline-block !important;
     margin-right: 10px !important;
     list-style: none !important;
-    font-size: 14px !important;
+    font-size: 13px !important;
     color: #000 !important;
     padding: 12px 15px !important;
     border-radius: 3px !important;
@@ -8543,7 +8545,7 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
 
 .bootstrap-hold .bot-holder .owl-carousel .owl-nav .owl-prev {
     left: 0 !important;
-    background-image: url("http://chatbot.wow.jobs:5000/static/images/chat/bg-gradient-left.png") !important;
+    background-image: url("http://chatbot.wow.jobs/static/images/chat/bg-gradient-left.png") !important;
 }
 
 .bootstrap-hold .bot-holder .owl-carousel .owl-nav .owl-prev img {
@@ -8552,7 +8554,7 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
 
 .bootstrap-hold .bot-holder .owl-carousel .owl-nav .owl-next {
     right: 0 !important;
-    background-image: url("http://chatbot.wow.jobs:5000/static/images/chat/bg-gradient.png") !important;
+    background-image: url("http://chatbot.wow.jobs/static/images/chat/bg-gradient.png") !important;
 }
 
 .bootstrap-hold .bot-holder .owl-carousel .owl-nav .owl-next img {
@@ -8567,14 +8569,14 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     font-size: 40px !important;
     position: absolute !important;
     right: 20px !important;
-    top: 24px !important;
+    top: 16px !important;
     cursor: pointer !important;
     line-height: 2px !important;
     font-weight: 100 !important;
 }
 
 .bootstrap-hold .bot-holder .msgLoad {
-    padding-top: 10px;
+    padding-top: 0px;
 }
 
 .bootstrap-hold .bot-holder .msgLoad span {
@@ -8710,12 +8712,14 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
 }
 
 .bootstrap-hold .bot-holder .owl-carousel .owl-item img {
-        width: 100% !important;
+    width: 100% !important;
 }
 
-.bootstrap-hold .bot-holder     .overflow-max {
+.bootstrap-hold .bot-holder .overflow-max {
     max-height: 110px !important;
     overflow: hidden;
 }
 
-/*# sourceMappingURL=style.css.map *
+.bootstrap-hold .bot-holder .bot-content .answers p:last-child {
+    margin-bottom: 0 !important;
+}

@@ -12,7 +12,7 @@ var i = 0;
 var a = [];
 if (i == 0) { botfir_sec(welcome_msg[i], i, ''); }
 
-function cjoption(option, this_id = '') {
+function cjoption(option, this_id ='') {
     $(this_id).addClass('active');
     ajax_response(option);
 }
@@ -48,7 +48,7 @@ function camelize(str) {
 }
 var xy = 17;
 
-function ajax_response(query, second_value = '',input='') {
+function ajax_response(query, second_value ='',input='') {
     $ans_html = $ques_html = '';
     $.ajax({
         url: url + query,

@@ -1,3 +1,4 @@
+from django.contrib.admin.templatetags.admin_list import results
 
 import MySQLdb # Mysql ---
 from flask import Flask, jsonify, make_response, send_from_directory
@@ -408,51 +409,23 @@ def wowtest():
 
 @application.route("/wowculture")
 def wowculture():
-    main_menu = '<ul class="owl-carousel owl-theme repli">' \
-                '<li class="item scroll" onclick="cjoption(\'Current Openings\',this)">Current opening</li>' \
-                '<li class="item" onclick="cjoption(\'About Company\',this)">About us</li>' \
-                '<li class="item" onclick="cjoption(\'Speak to HR\',this)">Speak to HR</li></ul>'
-    cursor.execute("SELECT * FROM `wow_handler` WHERE e_id='1770141'")
-    wowhandler_result = cursor.fetchall()
-    for handler_row in wowhandler_result:
-        wow_handler_id = handler_row[1]
-        if handler_row[2] == None:
-            wow_handler = wow_handler_id
-        else:
-            wow_handler = handler_row[2]
-    cursor.execute("SELECT * FROM job_details WHERE job_hr_id ='1770141' AND job_delete ='NO' AND job_publish ='PLA' ORDER BY job_mod_date DESC LIMIT 0 , 3")
-    if cursor.rowcount != 0:
-        job_results = cursor.fetchall()
-        job_text = '<![CDATA[<p></p><div class="jobList"><ul class="owl-carousel owl-theme repli">'
-        for job_row in job_results:
-            job_name = ((job_row[1]).strip()).replace(' ', '-')
-            job_location = ((job_row[8]).strip()).replace(' ', '-')
-            job_experience = 'Exp: ' + str(job_row[10]) + '-' + str(job_row[11])
-            job_link = 'https://www.wow.jobs/' + wow_handler + '/' + job_name + '-jobs-' + job_location + '/' + str(job_row[0])
-            job_li = '<![CDATA[<p></p><div class="benefitsHold"> \
-                                 <h4 class="headIn">' + job_row[1] + '</h4> \
-                                 <h5 class="blackColorText">' + job_row[8] + '</h5> <h5 class="blackColorText">' + job_experience + '</h5>'
-            cursor.execute("SELECT * FROM `job_skills` WHERE `skill_job_id`='" + str(job_row[0]) + "' AND `skill_delete`='NO'")
-            if cursor.rowcount != 0:
-                job_skills = cursor.fetchall()
-                job_li += '<h4 class="headIn">Skills for ' + job_row[1] + '</h4><ul>'
-                for skills in job_skills:
-                    job_li += '<li>' + skills[2] + ' -' + skills[3] + '</li>'
-                job_li += '</ul>'
-            job_li = job_li + '<div class="blockDis">\
-                        <a class="anchor-block" target="_blank" href="' + job_link + '">Apply</a></div>\
-                        </div><div class="submenu">' + main_menu + '</div>1770141'
-        job_text += '<li class="item"><h5>' \
-                    + job_row[1] + '</h5> <h5>' + job_row[8] + '</h5> \
-                            <h5>' + job_experience + '</h5>\
-                            <div class="blockDis"> \
-                            <a class="anchor-block" target="_blank" href="' + job_link + '">Apply</a> \
-                            </div></li>'
-        job_text = job_text + '</ul></div><div class="submenu">' + main_menu + '</div>1770141'+job_li
-        print job_text
-        return 'true'
-    else :
-        return '000'
+    resultrow='39561'
+    cursor.execute("SELECT DISTINCT replace(replace(replace(job_title,'Junior', ''),'Senior', ''),'Developer', '') as job_title \
+        FROM job_details WHERE job_hr_id ='"+resultrow+"' AND job_delete ='NO' AND job_publish ='PLA' \
+        GROUP BY job_title ORDER BY job_mod_date DESC")
+    job_results = cursor.fetchall()
+    data = []
+    for job_row in job_results:
+        cursor.execute("SELECT * FROM job_details WHERE job_title LIKE '%"+job_row[0]+"%' AND job_hr_id ='"+resultrow+"'\
+         AND job_delete ='NO' AND job_publish ='PLA' GROUP BY job_title ORDER BY job_mod_date DESC")
+        wow_job_results = cursor.fetchall()
+        job_data = []
+        for wow_job_row in wow_job_results:
+            job_data.extend((wow_job_row[0],wow_job_row[1]))
+        data.append(job_data)
+    return make_response(jsonify({'dbdata': data}))
+
+
 
 @application.route("/chatdetails")
 def chatdetails():
