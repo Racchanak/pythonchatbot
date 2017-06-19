@@ -76,19 +76,17 @@ function ajax_response(query, second_value,input='') {
             minutes = minutes < 10 ? '0' + minutes : minutes;
             var strTime = hours + ':' + minutes + ' ' + ampm;
             if (i == 1) {
-                $ques_html = '<div class="replies">' +
+                $ques_html = '<div class="answers">' +
                         '<p></p><p class="' + second_value + '">' + input + '</p>' +
-                        '</div><div class="answers"><div>' +
-                    '<p>Welcome to the World of ' + query + '</p>' +
-                    '</div></div>' +
-                    '<div class="answers">' +
+                        '</div><div class="replies"><div>' +
+                    '<p></p><p>Welcome to the World of ' + query + '</p>'+
                     '<p>What are you looking for, today?</p>' +
                     '</div>';
                 $('#result').append($ques_html);
             } else {
                 if (second_value != '') {
                     $ques_html = '<div class="answers">' +
-                        '<p class="' + second_value + '">' + query + '</p>' +
+                        '<p></p><p class="' + second_value + '">' + query + '</p>' +
                         '</div>';
                 }
                 $('#result').append($ques_html);
@@ -97,19 +95,20 @@ function ajax_response(query, second_value,input='') {
                 data.chatData +
                 '</div></div>';
             $('#result').append($ans_html);
-            // if($.isFunction('owlCarousel')){
-            $('.bot-content .owl-carousel').owlCarousel({
-                nav: true,
-                autoWidth: true,
-                items: 2,
-                margin: 10,
-                navText: ["<img src='" + BASE_URL + "/static/images/chat/arrow-left.png'>", "<img src='" + BASE_URL + "/static/images/chat/arrow-right.png'>"]
-            });
-            // } else {
-            //     console.log("Not Defined");
-            // }
+            if($.isFunction('owlCarousel')){
+                    $('.bot-content .owl-carousel').owlCarousel({
+                        nav: true,
+                        autoWidth: true,
+                        items: 2,
+                        margin: 10,
+                        navText: ["<img src='" + BASE_URL + "/static/images/chat/arrow-left.png'>", "<img src='" + BASE_URL + "/static/images/chat/arrow-right.png'>"]
+                    });
+            } else {
+                console.log("Not Defined");
+            }
             setTimeout(function() {
                 $(".msgLoad").remove();
+                // $("#ans_" + (i-1)).remove();
                 if (query == 'Location') {
                     var l = Number($('.lat').text());
                     var ln = Number($('.long').text());
@@ -184,11 +183,11 @@ function botfir_sec(data, k, query) {
             '<h3>Hello, I\'m Wowee</h3>' +
             '<h4>I\'m AI based assistant for you</h4>' +
             '</div>' +
-            '<div class="answers"><div id="ans_' + clid + '">' +
+            '<div class="replies"><div id="ans_' + clid + '"><p></p>' +
             data +
             '</div></div>';
     } else {
-        $ans_html = '<div class="answers"><div id="ans_' + clid + '">' +
+        $ans_html = '<div class="replies"><div id="ans_' + clid + '">' +
             data +
             '</div></div>';
     }

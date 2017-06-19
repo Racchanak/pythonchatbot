@@ -2,8 +2,8 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
 .transition-fast,
 .bootstrap-hold,
-.bootstrap-hold .bot-holder .bot-content .replies ul.repli li,
-.bootstrap-hold .bot-holder .bot-content .replies ul.repli li:hover {
+.bootstrap-hold .bot-holder .bot-content .answers ul.repli li,
+.bootstrap-hold .bot-holder .bot-content .answers ul.repli li:hover {
     -webkit-transition: all ease-out 0.2s;
     -moz-transition: all ease-out 0.2s;
     -o-transition: all ease-out 0.2s;
@@ -8279,15 +8279,16 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     color: #0cafcc;
 }
 
-.bootstrap-hold .bot-holder .bot-content .replies {
+.bootstrap-hold .bot-holder .bot-content .answers {
     text-align: right !important;
 }
 
+.bootstrap-hold .bot-holder .bot-content .answers p:first-child,
 .bootstrap-hold .bot-holder .bot-content .replies p:first-child {
     display: none !important;
 }
 
-.bootstrap-hold .bot-holder .bot-content .replies p.userInput {
+.bootstrap-hold .bot-holder .bot-content .answers p.userInput {
     background-color: #eceff1;
     border-color: #cbd2d7;
 }
@@ -8299,7 +8300,7 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     font-weight: 400 !important;
 }
 
-.bootstrap-hold .bot-holder .bot-content .replies {
+.bootstrap-hold .bot-holder .bot-content .answers {
     margin-top: 8px !important;
 }
 
@@ -8697,13 +8698,13 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     margin-top: 20px;
 }
 
-.bootstrap-hold .bot-holder .bot-content .replies p.mapPt {
+.bootstrap-hold .bot-holder .bot-content .answers p.mapPt {
     margin-top: 5px !important;
     border-radius: 0 !important;
     padding: 5px 10px !important;
 }
 
-.bootstrap-hold .bot-holder .bot-content .replies p.mapPt a {
+.bootstrap-hold .bot-holder .bot-content .answers p.mapPt a {
     font-size: 12px !important;
 }
 
@@ -8720,6 +8721,6 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     overflow: hidden;
 }
 
-.bootstrap-hold .bot-holder .bot-content .answers p:last-child {
+.bootstrap-hold .bot-holder .bot-content .replies p:last-child {
     margin-bottom: 0 !important;
 }
