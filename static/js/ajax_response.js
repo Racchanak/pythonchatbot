@@ -1,8 +1,8 @@
 /**
  * Created by RacchanaK on 22/5/17.
  */
-const BASE_URL = 'http://chatbot.wow.jobs';
-// const BASE_URL = 'http://chatbot.wow.jobs.dev';
+// const BASE_URL = 'http://chatbot.wow.jobs';
+const BASE_URL = 'http://chatbot.wow.jobs.dev';
 
 var url = BASE_URL + "/bot/";
 var query = $.cookie("c_wow_name");
@@ -14,7 +14,9 @@ if (i == 0) { botfir_sec(welcome_msg[i], i, ''); }
 
 function cjoption(option, this_id='') {
     $(this_id).addClass('active');
-    ajax_response(option,'userInput');
+    $(this_id).parent(".owl-item").addClass('show');
+    $(this_id).parents(".main-menu").addClass('userselected');
+    ajax_response(option,'');
 }
 $('body').on('click', '.scroll', function() {
     $('.bot-content').animate({ scrollTop: "+=100px" });
@@ -95,7 +97,7 @@ function ajax_response(query, second_value,input='') {
                 data.chatData +
                 '</div></div>';
             $('#result').append($ans_html);
-            if($.isFunction('owlCarousel')){
+            // if($.isFunction('owlCarousel')){
                     $('.bot-content .owl-carousel').owlCarousel({
                         nav: true,
                         autoWidth: true,
@@ -103,12 +105,11 @@ function ajax_response(query, second_value,input='') {
                         margin: 10,
                         navText: ["<img src='" + BASE_URL + "/static/images/chat/arrow-left.png'>", "<img src='" + BASE_URL + "/static/images/chat/arrow-right.png'>"]
                     });
-            } else {
-                console.log("Not Defined");
-            }
+            // } else {
+                // console.log("Not Defined");
+            // }
             setTimeout(function() {
                 $(".msgLoad").remove();
-                // $("#ans_" + (i-1)).remove();
                 if (query == 'Location') {
                     var l = Number($('.lat').text());
                     var ln = Number($('.long').text());

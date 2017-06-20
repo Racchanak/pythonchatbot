@@ -8289,8 +8289,9 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
 }
 
 .bootstrap-hold .bot-holder .bot-content .answers p.userInput {
-    background-color: #eceff1;
-    border-color: #cbd2d7;
+    background-color: #0cafcc !important;
+    color: #fff !important;
+    border-color: #0cafcc !important;
 }
 
 .bootstrap-hold .bot-holder .bot-content .timeP {
@@ -8714,13 +8715,61 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
 
 .bootstrap-hold .bot-holder .owl-carousel .owl-item img {
     width: 100% !important;
+    transform: scale(1.5);
 }
 
 .bootstrap-hold .bot-holder .overflow-max {
-    max-height: 110px !important;
+    height: 110px !important;
     overflow: hidden;
 }
 
 .bootstrap-hold .bot-holder .bot-content .replies p:last-child {
     margin-bottom: 0 !important;
+}
+.bootstrap-hold .bot-holder .bot-content .userselected .owl-item {
+    float: right !important;
+    display: inline-block !important;
+    /*width: 100% !important;*/
+    text-align: right !important;
+    margin : 0px !important;   
+}
+
+.bootstrap-hold .bot-holder .bot-content .userselected .owl-item{
+    margin : 0px !important;    
+    display: none !important;   
+}
+
+.bootstrap-hold .bot-holder .bot-content .userselected .owl-item.show{
+    margin : 0px !important;    
+    display: inline-block !important;   
+    width: 100% !important;
+}
+
+.bootstrap-hold .bot-holder .bot-content .userselected .owl-item .item.active{
+    display: inline-block !important;
+    /*background-color: #eceff1 !important;*/
+    /*border-color: #cbd2d7 !important;*/
+    /*color: #525458 !important;*/
+    border-radius: 20px !important;
+}
+
+.bootstrap-hold .bot-holder .bot-content .userselected .owl-item .item.active:hover{
+    color: #525458 !important;
+    pointer-events: none !important;
+}
+
+.bootstrap-hold .bot-holder .bot-content .userselected .owl-stage{
+    width: auto !important;
+    text-align: right !important;
+    transform: none !important;
+}
+
+.bootstrap-hold .bot-holder .bot-content .userselected .owl-nav {
+    display: none !important;
+}
+.bootstrap-hold .bot-holder p {
+    background: #f0f0f0 !important;
+}
+.bootstrap-hold .bot-holder .bot-content .aboutCompany{
+    margin-bottom: 5px !important;
 }

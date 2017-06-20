@@ -1,10 +1,14 @@
-import MySQLdb, aiml, lxml, io, re, urllib, os, datetime # Mysql ---
+import MySQLdb # Mysql ---
 from flask import Flask, jsonify, make_response, send_from_directory
 from flask import render_template
 from flask import request
+import aiml 
 from flask_cors import CORS
+import lxml
 from lxml import etree
 from lxml.etree import *
+import io, re, urllib
+import os, datetime
 
 application = Flask(__name__)
 CORS(application)
@@ -455,9 +459,38 @@ def wow_handlers(employer_id):
         data.extend((wowhandler,wow_handler_id))
     return data
 
+@application.route("/job_resultsss")
+def job_resultsss():
+    employer_id = '39561'
+    job_count = job_counts(employer_id)
+    if job_count%5 == 0:
+        job_loop = job_count/5
+    else:
+        job_loop = (job_count/5)+1
+    data = []
+    start = 0
+    for jobee in range(job_loop):
+        job_jobee = job_results(str(employer_id), str(start))
+        jdata = []
+        for job_row in job_jobee:
+            jdata.append(job_row)
+        data.append(jdata)
+        start = start + 5
+    return make_response(jsonify(data))
+
+def job_counts(employer_id):
+    cursor.execute("SELECT * FROM job_details WHERE job_hr_id ='" +employer_id+ "' AND job_delete ='NO' AND \
+            job_publish ='PLA' ORDER BY job_mod_date")
+    return cursor.rowcount
+
+def job_results(employer_id,start):
+    cursor.execute("SELECT * FROM job_details WHERE job_hr_id ='" +employer_id+ "' AND job_delete ='NO' AND \
+            job_publish ='PLA' ORDER BY job_mod_date DESC LIMIT " +start+ " , 5")
+    return cursor.fetchall()
+
 def job_result(employer_id):
     cursor.execute("SELECT * FROM job_details WHERE job_hr_id ='" +employer_id+ "' AND job_delete ='NO' AND \
-            job_publish ='PLA' ORDER BY job_mod_date DESC LIMIT 0 , 5")
+            job_publish ='PLA' ORDER BY job_mod_date  DESC LIMIT 0 , 5")
     return cursor.fetchall()
 
 def wow_story(story_id):
@@ -534,82 +567,6 @@ def wow_culture(employer_id):
     cursor.execute("SELECT * FROM wow_culture_post WHERE postHide = 'N' AND postType = 'STRY' AND postDelete = 'NO' \
       AND posthrId='" +employer_id+ "' ORDER BY postcrtDate DESC LIMIT 0,5")
     return cursor.fetchall()
-
-
-@application.route("/wowculture")
-def wowculture():
-    employer_id = '65658'
-    cursor.execute("SELECT DISTINCT replace(replace(replace(job_title,'Junior', ''),'Senior', ''),'Developer', '') as job_title \
-        FROM job_details WHERE job_hr_id ='"+employer_id+"' AND job_delete ='NO' AND job_publish ='PLA' ORDER BY job_mod_date DESC")
-    job_results = cursor.fetchall()
-    data = []
-    for job_row in job_results:
-        cursor.execute("SELECT * FROM job_details WHERE job_title LIKE '%"+job_row[0].replace(' ', "%")+"%' AND \
-        job_hr_id ='"+employer_id+"' AND job_delete ='NO' AND job_publish ='PLA' GROUP BY job_title ORDER BY job_mod_date DESC")
-        wow_job_results = cursor.fetchall()
-        job_data = []
-        for wow_job_row in wow_job_results:
-            job_skills = job_skill(str(wow_job_row[0]))
-            skills = []
-            if len(job_skills) > 0:
-                for skill in job_skills:
-                    skills.append((skill[2],skill[3]))
-            job_data.append((wow_job_row[0],wow_job_row[1],wow_job_row[8],wow_job_row[10],wow_job_row[11],skills))
-        data.append((job_row,job_data))
-    return make_response(jsonify(data))
-
-@application.route("/wowadmin")
-def wowadmin():
-    cursor.execute("SELECT * FROM employer_details")
-    results = cursor.fetchall()
-    for result_row in results:
-        with io.open('aiml/'+result_row[1]+'.aiml', 'w',encoding='utf-8-sig') as f:
-            # res_str = str(result_row[0])
-            f.write('<?xml version = "1.0" encoding = "UTF-8"?>')
-            f.write('<aiml>')
-            f.write('<!-- insert your AIML categories here -->')
-            f.write('<category>')
-            f.write('<pattern>'+str(result_row[1])+'</pattern>')
-            f.write('<template>')
-            f.write('<![CDATA[<span class ="hidden-span">]]><set name = "topic">'+str(result_row[0])+'</set><![CDATA[</span>')
-            f.write('<p> Yes ! how can i help you.</p>')
-            f.write('<a href = "javascript:;" class ="btn btn-info" onclick="cjoption(\'hr\')">HR Details</a>')
-            f.write('<a href = "javascript:;" class ="btn btn-info" onclick="cjoption(\'company\')">About Company</a>')
-            f.write('<a href = "javascript:;" class ="btn btn-info" onclick="cjoption(\'opening\')">Current Openings</a>]]>')
-            f.write('</template>')
-            f.write('</category>')
-            f.write('<topic name="'+ str(result_row[0])+'">')
-            f.write('<category>')
-            f.write('<pattern> HR </pattern>')
-            f.write('<template>')
-            f.write('<![CDATA[<p> Email: '+ str(result_row[4])+'</p> ]]>')
-            f.write('</template>')
-            f.write('</category>')
-            f.write('</topic>')
-            # jobs_details(row)
-            f.write('</aiml>')
-            return make_response(jsonify({'dbdata': result_row}))
-    db.close()
-
-
-def jobs_details(result_row):
-    # result_row;
-    cursor.execute("SELECT * FROM employer_details WHERE employer_id BETWEEN 1810 AND 23941")
-    results = cursor.fetchall()
-    for row in results:
-        jobs_details(row)
-
-
-@application.route("/Authenticate")
-def Authenticate():
-    username = request.args.get('UserName')
-    password = request.args.get('Password')
-    cursor.execute("SELECT * from admin_table where Username='" + username + "' and Password='" + password + "'")
-    data = cursor.fetchone()
-    if data is None:
-     return "Username or Password is wrong"
-    else:
-     return "Logged in successfully"
 
 @application.route('/js/<path:path>')
 def send_js(path):
