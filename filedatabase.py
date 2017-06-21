@@ -102,9 +102,9 @@ def wowtest():
                 set.set('name','topic')
                 set.text = str(result_row[0])
                 template.text = '<![CDATA[<p></p>'+main_menu
-                job_text = '<![CDATA[<p></p><div class="jobList"><ul class="owl-carousel owl-theme repli">'
-                job_results = job_result(str(result_row[0]))
-                if len(job_results) > 0:
+                jobresults = job_result(str(result_row[0]))
+                if len(jobresults) > 0:
+                    i_val = 0
                     category = lxml.etree.SubElement(topic, 'category')
                     pattern = lxml.etree.SubElement(category, 'pattern')
                     pattern.text = '_ OPENINGS'
@@ -135,19 +135,30 @@ def wowtest():
                     template = lxml.etree.SubElement(category, 'template')
                     srai = lxml.etree.SubElement(template,'srai')
                     srai.text = 'OPENINGS'
-                    for job_row in job_results:
-                        job_name = ((job_row[1]).strip()).replace(' ', '-')
-                        job_location = ((job_row[8]).strip()).replace(' ', '-')
-                        job_experience = 'Exp: '+str(job_row[10])+'-'+str(job_row[11])
-                        job_link = 'https://www.wow.jobs/' + wow_handler + '/'+job_name + '-jobs-' + job_location + '/' + str(job_row[0])
-                        job_text += '<li class="item"><h5>'+job_row[1]+'</h5> <h5>'+job_row[8]+'</h5> \
-                                <h5>'+job_experience+'</h5> <div class="blockDis"> \
+                    print len(jobresults)
+                    for job_row in jobresults:
+                        job_text = '<![CDATA[<p></p><div class="jobList"><ul class="owl-carousel owl-theme repli">'
+                        for jobs_li in job_row:
+                            job_name = ((jobs_li[1]).strip()).replace(' ', '-')
+                            job_location = ((jobs_li[8]).strip()).replace(' ', '-')
+                            job_experience = 'Exp: ' + str(jobs_li[10]) + '-' + str(jobs_li[11])
+                            job_link = 'https://www.wow.jobs/' + wow_handler + '/' + job_name + '-jobs-' + job_location + '/' + str(jobs_li[0])
+                            job_text += '<li class="item"><h5>' + jobs_li[1] + '</h5> <h5>' + jobs_li[8] + '</h5> \
+                                <h5>' + job_experience + '</h5> <div class="blockDis"> \
                                 <a class="anchor-block" target="_blank" href="' + job_link + '">Apply</a>  </div></li>'
-                    category = lxml.etree.SubElement(topic, 'category')
-                    pattern = lxml.etree.SubElement(category, 'pattern')
-                    pattern.text = 'OPENINGS'
-                    template = lxml.etree.SubElement(category, 'template')
-                    template.text = job_text + '</ul></div><div class="submenu">'+main_menu+'</div>'+str(result_row[0])
+                        if i_val == 0:
+                            pattern_text = 'OPENINGS'
+                        else:
+                            pattern_text = 'MORE JOBS'+str(i_val)
+                        if (i_val)<(len(jobresults)-1):
+                            job_text += '<li class="job-more"><a class="anchor-block" onclick="cjoption\
+                            (\'More jobs'+str(i_val+1)+'\',this)" >View more</a></li>'
+                        category = lxml.etree.SubElement(topic, 'category')
+                        pattern = lxml.etree.SubElement(category, 'pattern')
+                        pattern.text = pattern_text
+                        template = lxml.etree.SubElement(category, 'template')
+                        template.text = job_text + '</ul></div><div class="submenu">'+main_menu+'</div>'+str(result_row[0])
+                        i_val = i_val+1
                 job_patterns = job_pattern(str(result_row[0]))
                 if len(job_patterns) > 0:
                     for job_row in job_patterns:
@@ -307,7 +318,7 @@ def wowtest():
                 if len(founder_results) > 0:
                     founder_text = '<![CDATA[<p></p><div class="wow-cult"><ul class="owl-carousel owl-theme repli">'
                     for founder_row in founder_results:
-                        founder_text += '<li class="item"><img src="https://employer.wow.jobs/' + founder_row[3] + '"/><h5>'+founder_row[0]+'</h5><h5>' + founder_row[1] + '</h5></li>'
+                        founder_text += '<li class="item"><div class="overflow-max-168"><img src="https://employer.wow.jobs/' + founder_row[3] + '"/></div><h5>'+founder_row[0]+'</h5><h5>' + founder_row[1] + '</h5></li>'
                     category = lxml.etree.SubElement(topic, 'category')
                     pattern = lxml.etree.SubElement(category, 'pattern')
                     pattern.text = '# FOUNDER'
@@ -442,11 +453,10 @@ def employer_details():
           employer_mobile_number,employer_yr_founded,employer_strength,employer_logo,replace(replace(replace(replace(replace(replace(\
           replace(replace(employer_desc, char(149), ''),char(147), ''), char(148), ''), char(153), ''), char(150),''), char(146), ''),\
           char(145), ''), char(39), '') AS employer_desc,employer_address,job_count,replace(employer_location,char(150), '') AS \
-          employer_location,replace(employer_branches, char(150), '') AS employer_branches,employer_experts FROM employer_details")
+          employer_location,replace(employer_branches, char(150), '') AS employer_branches,employer_experts FROM employer_details LIMIT 0, 10")
     return cursor.fetchall()
 
 def wow_handlers(employer_id):
-    print employer_id
     cursor.execute("SELECT * FROM `wow_handler` WHERE e_id='" +employer_id + "'")
     wowhandler_result = cursor.fetchall()
     data = []
@@ -459,9 +469,7 @@ def wow_handlers(employer_id):
         data.extend((wowhandler,wow_handler_id))
     return data
 
-@application.route("/job_resultsss")
-def job_resultsss():
-    employer_id = '39561'
+def job_result(employer_id):
     job_count = job_counts(employer_id)
     if job_count%5 == 0:
         job_loop = job_count/5
@@ -471,12 +479,12 @@ def job_resultsss():
     start = 0
     for jobee in range(job_loop):
         job_jobee = job_results(str(employer_id), str(start))
-        jdata = []
+        job_data = []
         for job_row in job_jobee:
-            jdata.append(job_row)
-        data.append(jdata)
+            job_data.append(job_row)
+        data.append(job_data)
         start = start + 5
-    return make_response(jsonify(data))
+    return data
 
 def job_counts(employer_id):
     cursor.execute("SELECT * FROM job_details WHERE job_hr_id ='" +employer_id+ "' AND job_delete ='NO' AND \
@@ -488,10 +496,10 @@ def job_results(employer_id,start):
             job_publish ='PLA' ORDER BY job_mod_date DESC LIMIT " +start+ " , 5")
     return cursor.fetchall()
 
-def job_result(employer_id):
-    cursor.execute("SELECT * FROM job_details WHERE job_hr_id ='" +employer_id+ "' AND job_delete ='NO' AND \
-            job_publish ='PLA' ORDER BY job_mod_date  DESC LIMIT 0 , 5")
-    return cursor.fetchall()
+# def job_result(employer_id):
+#     cursor.execute("SELECT * FROM job_details WHERE job_hr_id ='" +employer_id+ "' AND job_delete ='NO' AND \
+#             job_publish ='PLA' ORDER BY job_mod_date  DESC LIMIT 0 , 5")
+#     return cursor.fetchall()
 
 def wow_story(story_id):
     cursor.execute("SELECT * FROM wow_post_story WHERE storypostId='" +story_id+ "' AND storyDelete='NO' AND storyCover='YES'")

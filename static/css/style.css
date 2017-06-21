@@ -8347,6 +8347,7 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     border: 1px solid #d7d5d5 !important;
     border-radius: 3px !important;
     text-align: left !important;
+    background-color: #f0f0f0;
 }
 
 .bootstrap-hold .bot-holder .bot-content .replies .benefitsHold .headIn {
@@ -8715,11 +8716,14 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
 
 .bootstrap-hold .bot-holder .owl-carousel .owl-item img {
     width: 100% !important;
-    transform: scale(1.5);
 }
 
 .bootstrap-hold .bot-holder .overflow-max {
     height: 110px !important;
+    overflow: hidden;
+}
+
+.bootstrap-hold .bot-holder .overflow-max-160 {
     overflow: hidden;
 }
 
@@ -8745,16 +8749,17 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     width: 100% !important;
 }
 
+.bootstrap-hold .bot-holder .bot-content .userselected .owl-item.show .item,
+.bootstrap-hold .bot-holder .bot-content .userselected .owl-item.show .item:hover{
+    color: #fff !important;
+}
+
 .bootstrap-hold .bot-holder .bot-content .userselected .owl-item .item.active{
     display: inline-block !important;
-    /*background-color: #eceff1 !important;*/
-    /*border-color: #cbd2d7 !important;*/
-    /*color: #525458 !important;*/
     border-radius: 20px !important;
 }
 
 .bootstrap-hold .bot-holder .bot-content .userselected .owl-item .item.active:hover{
-    color: #525458 !important;
     pointer-events: none !important;
 }
 
@@ -8772,4 +8777,25 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
 }
 .bootstrap-hold .bot-holder .bot-content .aboutCompany{
     margin-bottom: 5px !important;
+}
+
+.bootstrap-hold .bot-holder .bot-content .jobList .item>h5 {
+    max-width: 135px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.bootstrap-hold .bot-holder .bot-content .job-more {
+    height: 104px;
+    width: 100px;
+}
+
+.bootstrap-hold .bot-holder .bot-content .job-more a {
+    top: 50%;
+    position: absolute;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
 }

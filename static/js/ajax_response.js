@@ -30,7 +30,6 @@ $("#button").click(function() {
             ajax_response(query, 'userInput');
         }
     } else {
-        alert('please enter a query');
         $('#query').focus();
         return false;
     }
@@ -42,14 +41,7 @@ function handle(e) {
         $("#button").trigger('click');
     }
 }
-function camelize(str) {
-  return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
-    if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
-    return index == 0 ? match.toLowerCase() : match.toUpperCase();
-  });
-}
 var xy = 17;
-
 function ajax_response(query, second_value,input='') {
     $ans_html = $ques_html = '';
     $.ajax({
@@ -60,7 +52,6 @@ function ajax_response(query, second_value,input='') {
         crossDomain: true,
         headers: { 'Access-Control-Allow-Origin': '*' },
         beforeSend: function() {
-            // setting a timeout
             $loader = '<div class="msgLoad">' +
                 '<span></span>' +
                 '<span></span>' +
@@ -79,35 +70,26 @@ function ajax_response(query, second_value,input='') {
             var strTime = hours + ':' + minutes + ' ' + ampm;
             if (i == 1) {
                 $ques_html = '<div class="answers">' +
-                        '<p></p><p class="' + second_value + '">' + input + '</p>' +
-                        '</div><div class="replies"><div>' +
-                    '<p></p><p>Welcome to the World of ' + query + '</p>'+
-                    '<p>What are you looking for, today?</p>' +
-                    '</div>';
+                    '<p></p><p class="' + second_value + '">' + input + '</p>' +
+                    '</div><div class="replies"><div><p></p><p>Welcome to the World of ' + query + '</p>'+
+                    '<p>What are you looking for, today?</p></div>';
                 $('#result').append($ques_html);
             } else {
                 if (second_value != '') {
-                    $ques_html = '<div class="answers">' +
-                        '<p></p><p class="' + second_value + '">' + query + '</p>' +
-                        '</div>';
+                    $ques_html = '<div class="answers"><p></p>'+
+                        '<p class="' + second_value + '">' + query + '</p></div>';
                 }
                 $('#result').append($ques_html);
             }
-            $ans_html += '<div class="replies"><div id="ans_' + i + '">' +
-                data.chatData +
-                '</div></div>';
+            $ans_html += '<div class="replies"><div id="ans_' + i + '">' +data.chatData +'</div></div>';
             $('#result').append($ans_html);
-            // if($.isFunction('owlCarousel')){
-                    $('.bot-content .owl-carousel').owlCarousel({
-                        nav: true,
-                        autoWidth: true,
-                        items: 2,
-                        margin: 10,
-                        navText: ["<img src='" + BASE_URL + "/static/images/chat/arrow-left.png'>", "<img src='" + BASE_URL + "/static/images/chat/arrow-right.png'>"]
-                    });
-            // } else {
-                // console.log("Not Defined");
-            // }
+            $('.bot-content .owl-carousel').owlCarousel({
+                nav: true,
+                autoWidth: true,
+                items: 2,
+                margin: 10,
+                navText: ["<img src='" + BASE_URL + "/static/images/chat/arrow-left.png'>", "<img src='" + BASE_URL + "/static/images/chat/arrow-right.png'>"]
+            });
             setTimeout(function() {
                 $(".msgLoad").remove();
                 if (query == 'Location') {
@@ -116,7 +98,6 @@ function ajax_response(query, second_value,input='') {
                     var labels = $('.name').text();
                     var labelIndex = 0;
                     var map_id = $('.map_disp')[0].id;
-
                     function initialize() {
                         var myLatLng = { lat: l, lng: ln };
                         var map = new google.maps.Map(document.getElementById(map_id), {
@@ -177,135 +158,19 @@ function botfir_sec(data, k, query) {
         $('#result').append($quest_html);
     }
     if (k == 0) {
-        $ans_html = '<div class="text-center">' +
-            '<img src="' + BASE_URL + '/static/images/chat/woweee.png" alt="image">' +
-            '</div>' +
-            '<div class="first-response">' +
-            '<h3>Hello, I\'m Wowee</h3>' +
-            '<h4>I\'m AI based assistant for you</h4>' +
-            '</div>' +
-            '<div class="replies"><div id="ans_' + clid + '"><p></p>' +
-            data +
-            '</div></div>';
+        $ans_html = '<div class="text-center"><img src="' + BASE_URL + '/static/images/chat/woweee.png" alt="image"></div>' +
+            '<div class="first-response"><h3>Hello, I\'m Wowee</h3>' +
+            '<h4>I\'m AI based assistant for you</h4></div>' +
+            '<div class="replies"><div id="ans_' + clid + '"><p></p>' +data +'</div></div>';
     } else {
-        $ans_html = '<div class="replies"><div id="ans_' + clid + '">' +
-            data +
-            '</div></div>';
+        $ans_html = '<div class="replies"><div id="ans_' + clid + '">' +data +'</div></div>';
     }
     $('#result').append($ans_html);
     var x = $('#ans_' + clid).height();
     var finalX = x - xy + "px";
     $('#ans_' + clid).css('max-height', finalX);
     $('#ans_' + clid).css('overflow', 'hidden');
-    $('.bot-content').animate({ scrollTop: ($('.bot-content')[0].scrollHeight) + x });
+    $('.bot-content').animate({scrollTop: ($('.bot-content')[0].scrollHeight) + x});
     $('#query').val('');
     i++;
 }
-// function query_response(query) {
-//     console.log(query);
-//     $.ajax({
-//         url: url + query,
-//         type: "GET",
-//         dataType: "json",
-//         contentType: "application/json; charset=utf-8",
-//         crossDomain: true,
-//         headers: {'Access-Control-Allow-Origin': '*'},
-//         success: function (data, textStatus, jqXHR) {
-//             $ans_html = '<div class="scroll answer">' +
-//                             '<img src= '+BASE_URL+'"/static/images/chat/answ.png" alt="image">' +
-//                             '<div class="anscontent" id="ans_'+clid+'">' +
-//                                 data.chatData +
-//                             '</div>' +
-//                         '</div>';
-//             var clid = (i++);
-//             $ques_html = '<div class="quest">' +
-//                             '<div class="quescontent">' +
-//                                 '<p class="p_' + clid + '">' +query  + '</p>' +
-//                             '</div>' +
-//                             '<img src="'+BASE_URL+'static/images/chat/ques.png" alt="image">' +
-//                         '</div>';
-//             $('#result').append($ques_html);
-//             $('#result').append($ans_html);
-//             var x = $('#ans_'+clid).height();
-//             var xy= 6;
-//             var finalX = x - xy +"px";
-//             $('#ans_'+clid).css('max-height',finalX);
-//             $('#ans_'+clid).css('overflow','hidden');
-//             $('body').on('click', '.scroll', function() {
-//                 $('.chatbox-content').animate({scrollTop: "+="+x});
-//             });
-//             $('#query').val('');
-//         },
-//         error: function (jqXHR, exception) {
-//             if (jqXHR.status === 0) {
-//                 alert('Not connect.\n Verify Network.');
-//             } else if (jqXHR.status == 404) {
-//                 alert('Requested page not found. [404]');
-//             } else if (jqXHR.status == 500) {
-//                 alert('Internal Server Error [500].');
-//             } else if (exception === 'parsererror') {
-//                 alert('Requested JSON parse failed.');
-//             } else if (exception === 'timeout') {
-//                 alert('Time out error.');
-//             } else if (exception === 'abort') {
-//                 alert('Ajax request aborted.');
-//             } else {
-//                 alert('Uncaught Error.\n' + jqXHR.responseText);
-//             }
-//         }
-//     });
-// }
-// function response_generate(data,k,query){
-//     console.log(k);
-//     if(k==2) {
-//         query_response(welcome_msg[k]);
-//     }
-//     var clid = k;
-//     if(query!='') {
-//        $ques_html = '<div class="quest">' +
-//                         '<div class="quescontent">' +
-//                             '<p class="p_' + clid + '">' +query  + '</p>' +
-//                         '</div>' +
-//                         '<img src="'+BASE_URL+'/static/images/chat/ques.png" alt="image">' +
-//                     '</div>';
-//         $('#result').append($ques_html);
-//     }
-//     $ans_html = '<div class="scroll answer">' +
-//                     '<img src="'+BASE_URL+'/static/images/chat/answ.png" alt="image">' +
-//                     '<div class="anscontent"  id="ans_'+clid+'">' +
-//                         data +
-//                     '</div>' +
-//                 '</div>';
-//     $('#result').append($ans_html);
-//     var x = $('#ans_'+clid).height();
-//     var xy= 6;
-//     var finalX = x - xy +"px";
-//     $('#ans_'+clid).css('max-height',finalX);
-//     $('#ans_'+clid).css('overflow','hidden');
-//     $('body').on('click', '.scroll', function() {
-//         $('.chatbox-content').animate({scrollTop: "+="+x});
-//     });
-//     $('#query').val('');
-//     i++;
-// }
-//  var b = 2;
-// $('.chat-boximg').click(function(){
-//     $(".chatbot-holder").toggle();
-//     console.log('sadasd');
-//     if(b%2==0) {
-//         $('.chatbox-content').animate({scrollTop: ($('.chatbox-content')[0].scrollHeight)+30});
-//         var query= decodeURIComponent(location.pathname);
-//
-//         b++;
-//     } else { b++; }
-// });
-//  $("#button").click(function(){
-//  	if($('#query').val()){
-//  	    var query=$('#query').val();
-//  	    query_response(query);
-//      }else{
-//          alert('please enter a query');
-//          $('#query').focus();
-//          return false;
-//      }
-//  });
