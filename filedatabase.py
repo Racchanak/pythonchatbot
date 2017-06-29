@@ -104,7 +104,6 @@ def wowtest():
                 template.text = '<![CDATA[<p></p>'+main_menu
                 jobresults = job_result(str(result_row[0]))
                 if len(jobresults) > 0:
-                    i_val = 0
                     category = lxml.etree.SubElement(topic, 'category')
                     pattern = lxml.etree.SubElement(category, 'pattern')
                     pattern.text = '_ OPENINGS'
@@ -135,7 +134,6 @@ def wowtest():
                     template = lxml.etree.SubElement(category, 'template')
                     srai = lxml.etree.SubElement(template,'srai')
                     srai.text = 'OPENINGS'
-                    print len(jobresults)
                     for job_row in jobresults:
                         job_text = '<![CDATA[<p></p><div class="jobList"><ul class="owl-carousel owl-theme repli">'
                         for jobs_li in job_row:
@@ -146,19 +144,13 @@ def wowtest():
                             job_text += '<li class="item"><h5>' + jobs_li[1] + '</h5> <h5>' + jobs_li[8] + '</h5> \
                                 <h5>' + job_experience + '</h5> <div class="blockDis"> \
                                 <a class="anchor-block" target="_blank" href="' + job_link + '">Apply</a>  </div></li>'
-                        if i_val == 0:
-                            pattern_text = 'OPENINGS'
-                        else:
-                            pattern_text = 'MORE JOBS'+str(i_val)
-                        if (i_val)<(len(jobresults)-1):
-                            job_text += '<li class="job-more"><a class="anchor-block" onclick="cjoption\
-                            (\'More jobs'+str(i_val+1)+'\',this)" >View more</a></li>'
+                        job_text += '<li class="job-more"><a class="anchor-block" target="_blank" \
+                            href="https://www.wow.jobs/' + wow_handler + '" >View more</a></li>'
                         category = lxml.etree.SubElement(topic, 'category')
                         pattern = lxml.etree.SubElement(category, 'pattern')
-                        pattern.text = pattern_text
+                        pattern.text = 'OPENINGS'
                         template = lxml.etree.SubElement(category, 'template')
                         template.text = job_text + '</ul></div><div class="submenu">'+main_menu+'</div>'+str(result_row[0])
-                        i_val = i_val+1
                 job_patterns = job_pattern(str(result_row[0]))
                 if len(job_patterns) > 0:
                     for job_row in job_patterns:
@@ -354,7 +346,7 @@ def wowtest():
                 template = lxml.etree.SubElement(category, 'template')
                 template.text = '<![CDATA[<p></p><div class="aboutCompany"><p></p> \
                     <p class="text-left"><span class="headIn">About company</span>'+result_row[8]+'<span class="blockDis">\
-                    <a href="https://www.wow.jobs/' + wow_handler+'" class="anchor-block">Read more</a></span></p> \
+                    <a target="_blank" href="https://www.wow.jobs/' + wow_handler+'" class="anchor-block">Read more</a></span></p> \
                     </div><p>Do you want to know more about us?</p>'+about_text + '</ul>' + str(result_row[0])
                 category = lxml.etree.SubElement(topic, 'category')
                 pattern = lxml.etree.SubElement(category, 'pattern')
@@ -444,6 +436,8 @@ def wowtest():
                                 <a href="https://www.wow.jobs/' + wow_handler + '/posts/'+wow_culture_name+'/'+ str(wow_culture_row[1]) +'" \
                                 target="_blank" class ="anchor-block">View story</a> \
                                 </div></li>'
+                culture_text += '<li class="cul-more"><a class="anchor-block" target="_blank" \
+                    href="https://www.wow.jobs/' + wow_handler + '" >View more</a></li>'
                 template.text = culture_text+'</ul></div>'+about_subtext+str(result_row[0])
                 f.write(tostring(aiml, pretty_print=True,xml_declaration=True  , encoding='UTF-8'))
     return 'Successfully Created!!!!'
@@ -453,7 +447,7 @@ def employer_details():
           employer_mobile_number,employer_yr_founded,employer_strength,employer_logo,replace(replace(replace(replace(replace(replace(\
           replace(replace(employer_desc, char(149), ''),char(147), ''), char(148), ''), char(153), ''), char(150),''), char(146), ''),\
           char(145), ''), char(39), '') AS employer_desc,employer_address,job_count,replace(employer_location,char(150), '') AS \
-          employer_location,replace(employer_branches, char(150), '') AS employer_branches,employer_experts FROM employer_details LIMIT 0, 10")
+          employer_location,replace(employer_branches, char(150), '') AS employer_branches,employer_experts FROM employer_details")
     return cursor.fetchall()
 
 def wow_handlers(employer_id):
@@ -493,13 +487,8 @@ def job_counts(employer_id):
 
 def job_results(employer_id,start):
     cursor.execute("SELECT * FROM job_details WHERE job_hr_id ='" +employer_id+ "' AND job_delete ='NO' AND \
-            job_publish ='PLA' ORDER BY job_mod_date DESC LIMIT " +start+ " , 5")
+            job_publish ='PLA' ORDER BY job_mod_date DESC LIMIT "+start+" , 5")
     return cursor.fetchall()
-
-# def job_result(employer_id):
-#     cursor.execute("SELECT * FROM job_details WHERE job_hr_id ='" +employer_id+ "' AND job_delete ='NO' AND \
-#             job_publish ='PLA' ORDER BY job_mod_date  DESC LIMIT 0 , 5")
-#     return cursor.fetchall()
 
 def wow_story(story_id):
     cursor.execute("SELECT * FROM wow_post_story WHERE storypostId='" +story_id+ "' AND storyDelete='NO' AND storyCover='YES'")

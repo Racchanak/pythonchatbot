@@ -7,12 +7,15 @@ const BASE_URL = 'http://chatbot.wow.jobs';
 var url = BASE_URL + "/bot/";
 var query = $.cookie("c_wow_name");
 query = query.replace(/[^a-zA-Z0-9 ]/g, '');
-var welcome_msg = ['<p>Hello, how are you?</p>', query.toLowerCase()]
+var started = query.toLowerCase();
+var welcome_msg = ['Started', started];
 var i = 0;
 var a = [];
+$('.custom-input').hide();
 if (i == 0) { botfir_sec(welcome_msg[i], i, ''); }
 
 function cjoption(option, this_id='') {
+    $('.getstrt').remove();
     $(this_id).addClass('active');
     $(this_id).parent(".owl-item").addClass('show');
     $(this_id).parents(".main-menu").addClass('userselected');
@@ -43,6 +46,7 @@ function handle(e) {
 }
 var xy = 17;
 function ajax_response(query, second_value,input='') {
+    $('.custom-input').show();
     $ans_html = $ques_html = '';
     $.ajax({
         url: url + query,
@@ -69,9 +73,7 @@ function ajax_response(query, second_value,input='') {
             minutes = minutes < 10 ? '0' + minutes : minutes;
             var strTime = hours + ':' + minutes + ' ' + ampm;
             if (i == 1) {
-                $ques_html = '<div class="answers">' +
-                    '<p></p><p class="' + second_value + '">' + input + '</p>' +
-                    '</div><div class="replies"><div><p></p><p>Welcome to the World of ' + query + '</p>'+
+                $ques_html = '<div class="replies"><div><p></p><p>Welcome to the World of ' + query + '</p>'+
                     '<p>What are you looking for, today?</p></div>';
                 $('#result').append($ques_html);
             } else {
@@ -158,10 +160,11 @@ function botfir_sec(data, k, query) {
         $('#result').append($quest_html);
     }
     if (k == 0) {
+        console.log(started);
         $ans_html = '<div class="text-center"><img src="' + BASE_URL + '/static/images/chat/woweee.png" alt="image"></div>' +
             '<div class="first-response"><h3>Hello, I\'m Wowee</h3>' +
-            '<h4>I\'m AI based assistant for you</h4></div>' +
-            '<div class="replies"><div id="ans_' + clid + '"><p></p>' +data +'</div></div>';
+            '<h4>I\'m AI based assistant for you</h4>'+
+            '<a class="getstrt" onclick="cjoption(\''+started+'\')">Get Started</a></div>';
     } else {
         $ans_html = '<div class="replies"><div id="ans_' + clid + '">' +data +'</div></div>';
     }

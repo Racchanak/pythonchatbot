@@ -16,7 +16,7 @@
 <body>
     <div class="bootstrap-hold">
         <div class="bot-holder">
-            <div class="headIng"> Hi from Wowee<span class="minmizeIt">-</span></div>
+            <div class="headIng" > Hi from Wowee</div>
             <div class="bot-content" id="result">
             </div>
             <div class="custom-input">
@@ -24,7 +24,11 @@
                 <button id='button' class="scroll"><img src="http://chatbot.wow.jobs/static/images/chat/save.png" alt="image"></button>
             </div>
         </div>
+        <div class="chatimage">
+                <span class="minmizeIt"><img  src="http://chatbot.wow.jobs/static/images/chat/chat-bubble.png" alt=""></span>
+        </div>
     </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAFVHZ3Ocumy7N6ToR-zHlY47rrdweqvug&sensor=false"></script>
     <script src="http://chatbot.wow.jobs/static/js/jquery_cookie.js"></script>
@@ -33,8 +37,7 @@
 </body>
 <script>
     $('.minmizeIt').click(function() {
-        $('.bot-content').toggle();
-        $('.custom-input').toggle();
+        $('.bot-holder').toggle();
     });
 </script>
 
