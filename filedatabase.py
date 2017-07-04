@@ -589,6 +589,6 @@ application.config.update(
 )
 
 if __name__ == '__main__':
-#     application.run(host='0.0.0.0',port='80')
+    # application.run(host='0.0.0.0',port='80')
     context = ('/home/srinathp_appiness/cert/wow.jobs.chained.crt', '/home/srinathp_appiness/chatbot.wow.jobs.key')
     application.run(host='0.0.0.0',port='443', debug = False/True, ssl_context=context)

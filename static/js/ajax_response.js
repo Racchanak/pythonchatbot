@@ -85,13 +85,14 @@ function ajax_response(query, second_value,input='') {
             }
             $ans_html += '<div class="replies"><div id="ans_' + i + '">' +data.chatData +'</div></div>';
             $('#result').append($ans_html);
-            $('.bot-content .owl-carousel').owlCarousel({
+            var owl_carousel = {
                 nav: true,
                 autoWidth: true,
                 items: 2,
                 margin: 10,
                 navText: ["<img src='" + BASE_URL + "/static/images/chat/arrow-left.png'>", "<img src='" + BASE_URL + "/static/images/chat/arrow-right.png'>"]
-            });
+            };
+            $('.bot-content .owl-carousel').owlCarousel(owl_carousel).trigger('add.owl.carousel',[jQuery($ans_html)]).trigger('refresh.owl.carousel');
             setTimeout(function() {
                 $(".msgLoad").remove();
                 if (query == 'Location') {
