@@ -7,9 +7,6 @@ import lxml
 from lxml import etree
 from lxml.etree import *
 from OpenSSL import SSL
-#context = SSL.Context(SSL.SSLv23_METHOD)
-#context.use_privatekey_file('/home/srinathp_appiness/cert/*.wow.jobs.key')
-#context.use_certificate_file('/home/srinathp_appiness/cert/wow.jobs.chained.crt')
 import re, os, sys
 sys.setrecursionlimit(10000)
 
