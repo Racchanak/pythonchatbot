@@ -1,7 +1,7 @@
 /**
  * Created by RacchanaK on 22/5/17.
  */
-const BASE_URL = 'http://chatbot.wow.jobs';
+const BASE_URL = 'https://chatbot.wow.jobs';
 // const BASE_URL = 'http://chatbot.wow.jobs.dev';
 
 var url = BASE_URL + "/bot/";
@@ -160,10 +160,9 @@ function botfir_sec(data, k, query) {
         $('#result').append($quest_html);
     }
     if (k == 0) {
-        console.log(started);
         $ans_html = '<div class="text-center"><img src="' + BASE_URL + '/static/images/chat/woweee.png" alt="image"></div>' +
-            '<div class="first-response"><h3>Hello, I\'m Wowee</h3>' +
-            '<h4>I\'m AI based assistant for you</h4>'+
+            '<div class="first-response"><h3>Hi, I am Wowee.</h3>' +
+            '<h4>I am here to help you.</h4>'+
             '<a class="getstrt" onclick="cjoption(\''+started+'\')">Get Started</a></div>';
     } else {
         $ans_html = '<div class="replies"><div id="ans_' + clid + '">' +data +'</div></div>';

@@ -6,6 +6,10 @@ from flask_cors import CORS
 import lxml
 from lxml import etree
 from lxml.etree import *
+from OpenSSL import SSL
+#context = SSL.Context(SSL.SSLv23_METHOD)
+#context.use_privatekey_file('/home/srinathp_appiness/cert/*.wow.jobs.key')
+#context.use_certificate_file('/home/srinathp_appiness/cert/wow.jobs.chained.crt')
 import re, os, sys
 sys.setrecursionlimit(10000)
 
@@ -504,11 +508,6 @@ def job_results(employer_id,start):
             job_publish ='PLA' ORDER BY job_mod_date DESC LIMIT " +start+ " , 5")
     return cursor.fetchall()
 
-# def job_result(employer_id):
-#     cursor.execute("SELECT * FROM job_details WHERE job_hr_id ='" +employer_id+ "' AND job_delete ='NO' AND \
-#             job_publish ='PLA' ORDER BY job_mod_date  DESC LIMIT 0 , 5")
-#     return cursor.fetchall()
-
 def wow_story(story_id):
     cursor.execute("SELECT * FROM wow_post_story WHERE storypostId='" +story_id+ "' AND storyDelete='NO' AND storyCover='YES'")
     return cursor.fetchall()
@@ -593,4 +592,6 @@ application.config.update(
 )
 
 if __name__ == '__main__':
-    application.run(host='0.0.0.0',port='80')
+#     application.run(host='0.0.0.0',port='80')
+    context = ('/home/srinathp_appiness/cert/wow.jobs.chained.crt', '/home/srinathp_appiness/chatbot.wow.jobs.key')
+    application.run(host='0.0.0.0',port='443', debug = False/True, ssl_context=context)
