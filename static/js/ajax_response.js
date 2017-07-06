@@ -102,7 +102,6 @@ function ajax_response(query, second_value,input='') {
             for(var j=0;j<owl_theme.length;j++) {
                 var owl_id = "owl_" + owlid;
                 owl_theme[j].setAttribute("id", owl_id);
-                console.log(owl_id);
                 $('#' + owl_id).owlCarousel(owl_carousel1);
                 owlid++;
             }

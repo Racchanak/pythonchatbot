@@ -93,7 +93,7 @@ def wowtest():
                 set = lxml.etree.SubElement(template,'set')
                 set.set('name','topic')
                 set.text = str(result_row[0])
-                template.text = '<![CDATA[<p></p><p>May I help you with following?</p><div class="submenu">'+main_menu+'</div>'
+                template.text = '<![CDATA[<p></p><p>May I help you with following?</p>'+main_menu
                 category = lxml.etree.SubElement(topic, 'category')
                 pattern = lxml.etree.SubElement(category, 'pattern')
                 pattern.text = 'MAIN MENU'
@@ -101,7 +101,7 @@ def wowtest():
                 set = lxml.etree.SubElement(template,'set')
                 set.set('name','topic')
                 set.text = str(result_row[0])
-                template.text = '<![CDATA[<p></p><div class="submenu">'+main_menu+'</div>'
+                template.text = '<![CDATA[<p></p>'+main_menu
                 jobresults = job_result(str(result_row[0]))
                 if len(jobresults) > 0:
                     i_val = 0
