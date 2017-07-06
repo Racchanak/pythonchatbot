@@ -5,11 +5,9 @@
     <meta name="theme-color" content="#0086bf" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <title>Chatbot</title>
-    <!-- <link rel="stylesheet" href="http://chatbot.wow.jobs.dev/static/owl/dist/assets/owl.carousel.css"> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.theme.default.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css">
-    <!-- <link rel="stylesheet" href="http://chatbot.wow.jobs.dev/static/owl/dist/assets/owl.theme.default.min.css"> -->
     <link rel="stylesheet" href="https://chatbot.wow.jobs/static/css/style.css">
+    <link href="https://chatbot.wow.jobs/static/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link href="https://chatbot.wow.jobs/static/owl-carousel/owl.theme.css" rel="stylesheet">
     <!-- Latest compiled and minified JavaScript -->
 </head>
 
@@ -32,7 +30,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAFVHZ3Ocumy7N6ToR-zHlY47rrdweqvug&sensor=false"></script>
     <script src="https://chatbot.wow.jobs/static/js/jquery_cookie.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js"></script>
+    <script src="https://chatbot.wow.jobs/static/owl-carousel/owl.carousel.min.js"></script>
     <script src="https://chatbot.wow.jobs/static/js/ajax_response.js"></script>
 </body>
 <script>
@@ -54,7 +52,7 @@
     document.cookie = "c_wow_name=" + company_name + '; expires=1609415999; path=/';
     $.ajax({
         type: 'GET',
-        url: 'http://chatbot.wow.jobs',
+        url: 'https://chatbot.wow.jobs',
         async: false,
         success: function(response) {
             $(document).find('#chat-widget').html(response);

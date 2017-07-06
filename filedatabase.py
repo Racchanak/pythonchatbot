@@ -73,8 +73,8 @@ def wowtest():
                 wow_handler_id = wowhandler[1]
                 main_menu = '<ul class="owl-carousel owl-theme repli main-menu">' \
                             '<li class="item scroll" onclick="cjoption(\'Current Openings\',this)">Current opening</li>'\
-                            '<li class="item" onclick="cjoption(\'About Company\',this)">About us</li>' \
-                            '<li class="item" onclick="cjoption(\'Speak to HR\',this)">Speak to HR</li></ul>'
+                            '<li class="item scroll" onclick="cjoption(\'About Company\',this)">About us</li>'\
+                            '<li class="item scroll" onclick="cjoption(\'Speak to HR\',this)">Speak to HR</li></ul>'
                 aiml = lxml.etree.Element('aiml')
                 category = lxml.etree.SubElement(aiml, 'category')
                 pattern = lxml.etree.SubElement(category, 'pattern')
@@ -93,7 +93,7 @@ def wowtest():
                 set = lxml.etree.SubElement(template,'set')
                 set.set('name','topic')
                 set.text = str(result_row[0])
-                template.text = '<![CDATA[<p></p><p>May I help you with following?</p>'+main_menu
+                template.text = '<![CDATA[<p></p><p>May I help you with following?</p><div class="submenu">'+main_menu+'</div>'
                 category = lxml.etree.SubElement(topic, 'category')
                 pattern = lxml.etree.SubElement(category, 'pattern')
                 pattern.text = 'MAIN MENU'
@@ -101,7 +101,7 @@ def wowtest():
                 set = lxml.etree.SubElement(template,'set')
                 set.set('name','topic')
                 set.text = str(result_row[0])
-                template.text = '<![CDATA[<p></p>'+main_menu
+                template.text = '<![CDATA[<p></p><div class="submenu">'+main_menu+'</div>'
                 jobresults = job_result(str(result_row[0]))
                 if len(jobresults) > 0:
                     i_val = 0
@@ -136,34 +136,33 @@ def wowtest():
                     srai = lxml.etree.SubElement(template,'srai')
                     srai.text = 'OPENINGS'
                     for job_row in jobresults:
-                        job_text = '<![CDATA[<p></p><div class="jobList"><ul class="owl-carousel owl-theme repli">'
+                        job_text = '<![CDATA[<p></p><div class="jobList"><ul class="owl-carousel owl-theme repli job-list">'
                         for jobs_li in job_row:
                             job_name = ((jobs_li[1]).strip()).replace(' ', '-')
                             job_location = ((jobs_li[8]).strip()).replace(' ', '-')
                             job_experience = 'Exp: ' + str(jobs_li[10]) + '-' + str(jobs_li[11])
                             job_link = 'https://www.wow.jobs/' + wow_handler + '/' + job_name + '-jobs-' + job_location + '/' + str(jobs_li[0])
                             job_text += '<li class="item"><h5>' + jobs_li[1] + '</h5> <h5>' + jobs_li[8] + '</h5> \
-                                <h5>' + job_experience + '</h5> <div class="blockDis"> \
-                                <a class="anchor-block" target="_blank" href="' + job_link + '">Apply</a>  </div></li>'
+                                        <h5>' + job_experience + '</h5> <div class="blockDis"> \
+                                        <a class="anchor-block" target="_blank" href="' + job_link + '">Apply</a>  </div></li>'
                         if i_val == 0:
                             pattern_text = 'OPENINGS'
                         else:
                             pattern_text = 'MORE JOBS' + str(i_val)
                         if (i_val) < (len(jobresults) - 1):
-                            job_text += '<li class="job-more"><a class="anchor-block" target="_blank" \
+                            job_text += '<li class="item"><a class="anchor-block job-more" target="_blank" \
                             href="https://www.wow.jobs/' + wow_handler + '" >View more</a></li>'
                         category = lxml.etree.SubElement(topic, 'category')
                         pattern = lxml.etree.SubElement(category, 'pattern')
                         pattern.text = pattern_text
                         template = lxml.etree.SubElement(category, 'template')
-                        template.text = job_text + '</ul></div><div class="submenu">' + main_menu + '</div>' + str(
-                            result_row[0])
+                        template.text = job_text + '</ul></div><div class="submenu">' + main_menu + '</div>' + str(result_row[0])
                         i_val = i_val + 1
                 job_patterns = job_pattern(str(result_row[0]))
                 if len(job_patterns) > 0:
                     for job_row in job_patterns:
                         if len(job_row[1]) > 1:
-                            job_text = '<![CDATA[<p></p><div class="jobList"><ul class="owl-carousel owl-theme repli">'
+                            job_text = '<![CDATA[<p></p><div class="jobList"><ul class="owl-carousel owl-theme repli main-menu">'
                             for job_details in job_row[1]:
                                 job_name = ((job_details[1]).strip()).replace(' ', '-')
                                 job_location = ((job_details[2]).strip()).replace(' ', '-')
@@ -171,7 +170,7 @@ def wowtest():
                                 job_link = 'https://www.wow.jobs/' + wow_handler + '/' + job_name + '-jobs-' + job_location + '/' + str(job_details[0])
                                 job_text += '<li class="item"><h5>' + job_details[1] + '</h5> <h5>' + job_details[2] + '</h5> \
                                             <h5>' + job_experience + '</h5> <div class="blockDis"> \
-                                            <a class="anchor-block" target="_blank" href="' + job_link + '">Apply</a>  </div></li>'
+                                            <a class="anchor-block" target="_blank" href="' + job_link + '">Apply</a></div></li>'
                                 job_li = '<div class="benefitsHold"> <h4 class="headIn">' + job_details[1] + '</h4> \
                                      <h5 class="blackColorText">' + job_details[2] + '</h5> <h5 class="blackColorText">' + job_experience + '</h5>'
                                 if len(job_details[5]) > 0:
@@ -179,8 +178,7 @@ def wowtest():
                                     for jobskills in job_details[5]:
                                         job_li += '<li>' + jobskills[0] + ' -' + jobskills[1] + '</li>'
                                     job_li += '</ul><div class="blockDis">\
-                                    <a class="anchor-block" target="_blank" href="' + job_link + '">Apply</a></div>\
-                                    </div>'
+                                    <a class="anchor-block" target="_blank" href="' + job_link + '">Apply</a></div></div>'
                                 job_li += '<div class="submenu">' + main_menu + '</div>'
                                 category = lxml.etree.SubElement(topic, 'category')
                                 pattern = lxml.etree.SubElement(category, 'pattern')

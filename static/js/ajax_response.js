@@ -10,6 +10,7 @@ query = query.replace(/[^a-zA-Z0-9 ]/g, '');
 var started = query.toLowerCase();
 var welcome_msg = ['Started', started];
 var i = 0;
+var owlid = 0;
 var a = [];
 $('.custom-input').hide();
 if (i == 0) { botfir_sec(welcome_msg[i], i, ''); }
@@ -18,6 +19,7 @@ function cjoption(option, this_id='') {
     $('.getstrt').remove();
     $(this_id).addClass('active');
     $(this_id).parent(".owl-item").addClass('show');
+    $(this_id).parents(".owl-wrapper").css('width','auto');
     $(this_id).parents(".main-menu").addClass('userselected');
     ajax_response(option,'');
 }
@@ -48,6 +50,11 @@ var xy = 17;
 function ajax_response(query, second_value,input='') {
     $('.custom-input').show();
     $ans_html = $ques_html = '';
+    var $loader = '<div class="msgLoad">' +
+        '<span></span>' +
+        '<span></span>' +
+        '<span></span>' +
+        '</div>';
     $.ajax({
         url: url + query,
         type: "GET",
@@ -56,14 +63,10 @@ function ajax_response(query, second_value,input='') {
         crossDomain: true,
         headers: { 'Access-Control-Allow-Origin': '*' },
         beforeSend: function() {
-            $loader = '<div class="msgLoad">' +
-                '<span></span>' +
-                '<span></span>' +
-                '<span></span>' +
-                '</div>';
             $('#result').append($loader);
         },
         success: function(data, textStatus, jqXHR) {
+            $('#result').append($loader);
             var date = new Date();
             var hours = date.getHours();
             var minutes = date.getMinutes();
@@ -84,15 +87,24 @@ function ajax_response(query, second_value,input='') {
                 $('#result').append($ques_html);
             }
             $ans_html += '<div class="replies"><div id="ans_' + i + '">' +data.chatData +'</div></div>';
-            $('#result').append($ans_html);
-            var owl_carousel = {
-                nav: true,
-                autoWidth: true,
-                items: 2,
-                margin: 10,
-                navText: ["<img src='" + BASE_URL + "/static/images/chat/arrow-left.png'>", "<img src='" + BASE_URL + "/static/images/chat/arrow-right.png'>"]
+            var owl_carousel1 = {
+              items : 2, //10 items above 1000px browser width
+              itemsDesktop : [1000,2], //5 items between 1000px and 901px
+              itemsDesktopSmall : [900,3], // betweem 900px and 601px
+              itemsTablet: [600,2], //2 items between 600 and 0
+              itemsMobile : false, // itemsMobile disabled - inherit from itemsTablet option
+              navigation: true,
+              navigationText: ["<img src='" + BASE_URL + "/static/images/chat/arrow-left.png'>", "<img src='" + BASE_URL + "/static/images/chat/arrow-right.png'>"]
             };
-            $('.bot-content .owl-carousel').owlCarousel(owl_carousel).trigger('add.owl.carousel',[jQuery($ans_html)]).trigger('refresh.owl.carousel');
+            $('#result').append($ans_html);
+            var owl_theme = $("#ans_" + i).find('.owl-theme');
+            for(var j=0;j<owl_theme.length;j++) {
+                var owl_id = "owl_" + owlid;
+                owl_theme[j].setAttribute("id", owl_id);
+                console.log(owl_id);
+                $('#' + owl_id).owlCarousel(owl_carousel1);
+                owlid++;
+            }
             setTimeout(function() {
                 $(".msgLoad").remove();
                 if (query == 'Location') {

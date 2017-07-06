@@ -8321,7 +8321,7 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     list-style: none !important;
     font-size: 13px !important;
     color: #000 !important;
-    padding: 12px 15px !important;
+    padding: 12px 10px !important;
     border-radius: 3px !important;
     line-height: 12px !important;
 }
@@ -8510,26 +8510,26 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     outline: none !important;
 }
 
-.bootstrap-hold .bot-holder .owl-dots {
+.bootstrap-hold .bot-holder .owl-pagination {
     display: none !important;
 }
 
-.bootstrap-hold .bot-holder .owl-theme .owl-nav div {
+.bootstrap-hold .bot-holder .owl-theme .owl-buttons div {
     background: none !important;
 }
 
-.bootstrap-hold .bot-holder .owl-carousel .owl-nav {
+.bootstrap-hold .bot-holder .owl-carousel .owl-buttons {
     margin: 0 !important;
 }
 
 @media screen and (max-width: 767px) {
-    .bootstrap-hold .bot-holder .owl-carousel .owl-nav {
+    .bootstrap-hold .bot-holder .owl-carousel .owl-buttons {
         display: none;
     }
 }
 
-.bootstrap-hold .bot-holder .owl-carousel .owl-nav .owl-prev,
-.bootstrap-hold .bot-holder .owl-carousel .owl-nav .owl-next {
+.bootstrap-hold .bot-holder .owl-carousel .owl-buttons .owl-prev,
+.bootstrap-hold .bot-holder .owl-carousel .owl-buttons .owl-next {
     margin: 0 !important;
     width: 40px !important;
     position: absolute !important;
@@ -8538,33 +8538,33 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     background-repeat: repeat-y !important;
 }
 
-.bootstrap-hold .bot-holder .owl-carousel .owl-nav .owl-prev img,
-.bootstrap-hold .bot-holder .owl-carousel .owl-nav .owl-next img {
+.bootstrap-hold .bot-holder .owl-carousel .owl-buttons .owl-prev img,
+.bootstrap-hold .bot-holder .owl-carousel .owl-buttons .owl-next img {
     position: absolute !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
 }
 
-.bootstrap-hold .bot-holder .owl-carousel .owl-nav .owl-prev.disabled,
-.bootstrap-hold .bot-holder .owl-carousel .owl-nav .owl-next.disabled {
+.bootstrap-hold .bot-holder .owl-carousel .owl-buttons .owl-prev.disabled,
+.bootstrap-hold .bot-holder .owl-carousel .owl-buttons .owl-next.disabled {
     display: none !important;
 }
 
-.bootstrap-hold .bot-holder .owl-carousel .owl-nav .owl-prev {
+.bootstrap-hold .bot-holder .owl-carousel .owl-buttons .owl-prev {
     left: 0 !important;
     background-image: url("https://chatbot.wow.jobs/static/images/chat/bg-gradient-left.png") !important;
 }
 
-.bootstrap-hold .bot-holder .owl-carousel .owl-nav .owl-prev img {
+.bootstrap-hold .bot-holder .owl-carousel .owl-buttons .owl-prev img {
     left: 2px !important;
 }
 
-.bootstrap-hold .bot-holder .owl-carousel .owl-nav .owl-next {
+.bootstrap-hold .bot-holder .owl-carousel .owl-buttons .owl-next {
     right: 0 !important;
     background-image: url("https://chatbot.wow.jobs/static/images/chat/bg-gradient.png") !important;
 }
 
-.bootstrap-hold .bot-holder .owl-carousel .owl-nav .owl-next img {
+.bootstrap-hold .bot-holder .owl-carousel .owl-buttons .owl-next img {
     right: 2px !important;
 }
 
@@ -8773,7 +8773,7 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     transform: none !important;
 }
 
-.bootstrap-hold .bot-holder .bot-content .userselected .owl-nav {
+.bootstrap-hold .bot-holder .bot-content .userselected .owl-buttons {
     display: none !important;
 }
 .bootstrap-hold .bot-holder p {
@@ -8832,3 +8832,33 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     height: 200px;
     width: 100px;
 }
+
+.bootstrap-hold .bot-holder .owl-item {
+    text-align: center !important;
+    width: auto !important;
+    margin: 0 5px;
+}
+/*#main-menu .item {*/
+    /*background: #5bc3d9;*/
+    /*padding: 9px 4px;*/
+    /*margin: 2px 3px;*/
+    /*color: #FFF;*/
+    /*-webkit-border-radius: 3px;*/
+    /*-moz-border-radius: 3px;*/
+    /*border-radius: 8px;*/
+    /*text-align: center;*/
+/*}*/
+/*#main-menu .owl-item, #jobList .owl-item{*/
+    /*width: auto !important;*/
+/*}*/
+/*.customNavigation{*/
+  /*text-align: center;*/
+/*}*/
+/*.customNavigation a{*/
+  /*-webkit-user-select: none;*/
+  /*-khtml-user-select: none;*/
+  /*-moz-user-select: none;*/
+  /*-ms-user-select: none;*/
+  /*user-select: none;*/
+  /*-webkit-tap-highlight-color: rgba(0, 0, 0, 0);*/
+/*}*/
