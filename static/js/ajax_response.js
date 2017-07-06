@@ -20,6 +20,7 @@ function cjoption(option, this_id='') {
     $(this_id).addClass('active');
     $(this_id).parent(".owl-item").addClass('show');
     $(this_id).parents(".owl-wrapper").css('width','auto');
+    $(this_id).parents(".owl-wrapper").css('transform','none');
     $(this_id).parents(".main-menu").addClass('userselected');
     ajax_response(option,'');
 }

@@ -8375,6 +8375,10 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     text-align: left !important;
 }
 
+.bootstrap-hold .bot-holder .bot-content .jobList .item{
+    text-align: left !important;
+}
+
 .bootstrap-hold .bot-holder .bot-content .jobList h5 {
     font-size: 14px !important;
     color: #7c8285 !important;
@@ -8838,6 +8842,7 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     width: auto !important;
     margin: 0 5px;
 }
+
 /*#main-menu .item {*/
     /*background: #5bc3d9;*/
     /*padding: 9px 4px;*/
