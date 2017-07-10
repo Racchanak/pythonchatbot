@@ -1418,7 +1418,7 @@
 .bootstrap-hold a:hover,
 .bootstrap-hold a:focus {
     color: #23527c;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .bootstrap-hold a:focus {
@@ -8840,30 +8840,9 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
 .bootstrap-hold .bot-holder .owl-item {
     text-align: center !important;
     width: auto !important;
-    margin: 0 5px;
+    margin: 0 5px !important;
 }
 
-/*#main-menu .item {*/
-    /*background: #5bc3d9;*/
-    /*padding: 9px 4px;*/
-    /*margin: 2px 3px;*/
-    /*color: #FFF;*/
-    /*-webkit-border-radius: 3px;*/
-    /*-moz-border-radius: 3px;*/
-    /*border-radius: 8px;*/
-    /*text-align: center;*/
-/*}*/
-/*#main-menu .owl-item, #jobList .owl-item{*/
-    /*width: auto !important;*/
-/*}*/
-/*.customNavigation{*/
-  /*text-align: center;*/
-/*}*/
-/*.customNavigation a{*/
-  /*-webkit-user-select: none;*/
-  /*-khtml-user-select: none;*/
-  /*-moz-user-select: none;*/
-  /*-ms-user-select: none;*/
-  /*user-select: none;*/
-  /*-webkit-tap-highlight-color: rgba(0, 0, 0, 0);*/
-/*}*/
+.bootstrap-hold .bot-holder owl-buttons {
+    display: block !important;
+}
