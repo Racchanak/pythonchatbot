@@ -8843,6 +8843,6 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     margin: 0 5px !important;
 }
 
-.bootstrap-hold .bot-holder owl-buttons {
+.bootstrap-hold .bot-holder .owl-buttons {
     display: block !important;
 }
