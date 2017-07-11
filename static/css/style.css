@@ -8384,6 +8384,10 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     color: #7c8285 !important;
     margin: 5px 0 0 !important;
     font-weight: 400 !important;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 97%;
 }
 
 .bootstrap-hold .bot-holder .bot-content .jobList h5:first-child {

@@ -355,6 +355,7 @@ def wowtest():
                     <p class="text-left"><span class="headIn">About company</span>'+result_row[8]+'<span class="blockDis">\
                     <a target="_blank" href="https://www.wow.jobs/' + wow_handler+'" class="anchor-block">Read more</a></span></p> \
                     </div><p>Do you want to know more about us?</p>'+about_text + '</ul>' + str(result_row[0])
+                wow_tip = wow_tips(str(result_row[0]))
                 category = lxml.etree.SubElement(topic, 'category')
                 pattern = lxml.etree.SubElement(category, 'pattern')
                 pattern.text = '_ HR DETAILS'
@@ -390,10 +391,68 @@ def wowtest():
                 pattern.text = 'HR CONTACT'
                 template = lxml.etree.SubElement(category, 'template')
                 hr_menu = '<ul class="owl-carousel owl-theme repli main-menu">' \
-                            '<li class="item " onclick="cjoption(\'Hr Email\',this)">Email HR</li>' \
-                            '<li class="item" onclick="cjoption(\'Interview Tips\',this)">Interview Tips</li>'\
-                            '<li class="item" onclick="cjoption(\'Main Menu\',this)">Main Menu</li></ul>'
+                            '<li class="item " onclick="cjoption(\'Hr Email\',this)">Email HR</li>'
+                if len(wow_tip) > 0:
+                    hr_menu += '<li class="item" onclick="cjoption(\'Interview Tips\',this)">Interview Tips</li>'
+                hr_menu += '<li class="item" onclick="cjoption(\'Main Menu\',this)">Main Menu</li></ul>'
                 template.text = '<![CDATA[<p></p>'+hr_menu+str(result_row[0])
+                tips_menu = '<![CDATA[<p></p><div class="email"><p></p><p>Email Id: '+result_row[3]+'</p></div> \
+                            <div class="submenu"><ul class="owl-carousel owl-theme repli main-menu">'
+                if len(wow_tip) > 0:
+                    tips_menu += '<li class="item" onclick="cjoption(\'Interview Tips\',this)">Interview Tips</li>'
+                    tips_text = '<![CDATA[<p></p><div class="tips"><p></p>'
+                    for tips in wow_tip:
+                        tips_text += '<p>' + tips[0] + '</p>'
+                    category = lxml.etree.SubElement(topic, 'category')
+                    pattern = lxml.etree.SubElement(category, 'pattern')
+                    pattern.text = '_ INTERVIEW TIPS'
+                    template = lxml.etree.SubElement(category, 'template')
+                    srai = lxml.etree.SubElement(template, 'srai')
+                    srai.text = 'INTERVIEW TIPS'
+                    category = lxml.etree.SubElement(topic, 'category')
+                    pattern = lxml.etree.SubElement(category, 'pattern')
+                    pattern.text = '# INTERVIEW TIPS'
+                    template = lxml.etree.SubElement(category, 'template')
+                    srai = lxml.etree.SubElement(template, 'srai')
+                    srai.text = 'INTERVIEW TIPS'
+                    category = lxml.etree.SubElement(topic, 'category')
+                    pattern = lxml.etree.SubElement(category, 'pattern')
+                    pattern.text = 'INTERVIEW TIPS #'
+                    template = lxml.etree.SubElement(category, 'template')
+                    srai = lxml.etree.SubElement(template, 'srai')
+                    srai.text = 'INTERVIEW TIPS'
+                    category = lxml.etree.SubElement(topic, 'category')
+                    pattern = lxml.etree.SubElement(category, 'pattern')
+                    pattern.text = 'INTERVIEW TIPS _'
+                    template = lxml.etree.SubElement(category, 'template')
+                    srai = lxml.etree.SubElement(template, 'srai')
+                    srai.text = 'INTERVIEW TIPS'
+                    category = lxml.etree.SubElement(topic, 'category')
+                    pattern = lxml.etree.SubElement(category, 'pattern')
+                    pattern.text = 'INTERVIEW TIPS _'
+                    template = lxml.etree.SubElement(category, 'template')
+                    srai = lxml.etree.SubElement(template, 'srai')
+                    srai.text = 'INTERVIEW TIPS'
+                    category = lxml.etree.SubElement(topic, 'category')
+                    pattern = lxml.etree.SubElement(category, 'pattern')
+                    pattern.text = '_ INTERVIEW TIPS'
+                    template = lxml.etree.SubElement(category, 'template')
+                    srai = lxml.etree.SubElement(template, 'srai')
+                    srai.text = 'INTERVIEW TIPS'
+                    category = lxml.etree.SubElement(topic, 'category')
+                    pattern = lxml.etree.SubElement(category, 'pattern')
+                    pattern.text = '# INTERVIEW TIPS'
+                    template = lxml.etree.SubElement(category, 'template')
+                    srai = lxml.etree.SubElement(template, 'srai')
+                    srai.text = 'INTERVIEW TIPS'
+                    category = lxml.etree.SubElement(topic, 'category')
+                    pattern = lxml.etree.SubElement(category, 'pattern')
+                    pattern.text = 'INTERVIEW TIPS'
+                    template = lxml.etree.SubElement(category, 'template')
+                    template.text = tips_text + '</div><div class="submenu">\
+                                <ul class="owl-carousel owl-theme repli main-menu"> \
+                                <li class="item" onclick="cjoption(\'Hr Email\',this)">Email HR</li>\
+                                <li class="item" onclick="cjoption(\'Main Menu\',this)">Main Menu</li></ul></div>' +str(result_row[0])
                 category = lxml.etree.SubElement(topic, 'category')
                 pattern = lxml.etree.SubElement(category, 'pattern')
                 pattern.text = '_ HR EMAIL'
@@ -440,60 +499,8 @@ def wowtest():
                 pattern = lxml.etree.SubElement(category, 'pattern')
                 pattern.text = 'HR EMAIL'
                 template = lxml.etree.SubElement(category, 'template')
-                template.text = '<![CDATA[<p></p><div class="email"><p></p><p>Email Id: '+result_row[3]+'</p></div> \
-                            <div class="submenu"><ul class="owl-carousel owl-theme repli main-menu">' \
-                            '<li class="item" onclick="cjoption(\'Interview Tips\',this)">Interview Tips</li>'\
-                            '<li class="item" onclick="cjoption(\'Main Menu\',this)">Main Menu</li></ul></div>'+str(result_row[0])
-                category = lxml.etree.SubElement(topic, 'category')
-                pattern = lxml.etree.SubElement(category, 'pattern')
-                pattern.text = '_ INTERVIEW TIPS'
-                template = lxml.etree.SubElement(category, 'template')
-                srai = lxml.etree.SubElement(template, 'srai')
-                srai.text = 'INTERVIEW TIPS'
-                category = lxml.etree.SubElement(topic, 'category')
-                pattern = lxml.etree.SubElement(category, 'pattern')
-                pattern.text = '# INTERVIEW TIPS'
-                template = lxml.etree.SubElement(category, 'template')
-                srai = lxml.etree.SubElement(template, 'srai')
-                srai.text = 'INTERVIEW TIPS'
-                category = lxml.etree.SubElement(topic, 'category')
-                pattern = lxml.etree.SubElement(category, 'pattern')
-                pattern.text = 'INTERVIEW TIPS #'
-                template = lxml.etree.SubElement(category, 'template')
-                srai = lxml.etree.SubElement(template, 'srai')
-                srai.text = 'INTERVIEW TIPS'
-                category = lxml.etree.SubElement(topic, 'category')
-                pattern = lxml.etree.SubElement(category, 'pattern')
-                pattern.text = 'INTERVIEW TIPS _'
-                template = lxml.etree.SubElement(category, 'template')
-                srai = lxml.etree.SubElement(template, 'srai')
-                srai.text = 'INTERVIEW TIPS'
-                category = lxml.etree.SubElement(topic, 'category')
-                pattern = lxml.etree.SubElement(category, 'pattern')
-                pattern.text = 'INTERVIEW TIPS _'
-                template = lxml.etree.SubElement(category, 'template')
-                srai = lxml.etree.SubElement(template, 'srai')
-                srai.text = 'INTERVIEW TIPS'
-                category = lxml.etree.SubElement(topic, 'category')
-                pattern = lxml.etree.SubElement(category, 'pattern')
-                pattern.text = '_ INTERVIEW TIPS'
-                template = lxml.etree.SubElement(category, 'template')
-                srai = lxml.etree.SubElement(template, 'srai')
-                srai.text = 'INTERVIEW TIPS'
-                category = lxml.etree.SubElement(topic, 'category')
-                pattern = lxml.etree.SubElement(category, 'pattern')
-                pattern.text = '# INTERVIEW TIPS'
-                template = lxml.etree.SubElement(category, 'template')
-                srai = lxml.etree.SubElement(template, 'srai')
-                srai.text = 'INTERVIEW TIPS'
-                category = lxml.etree.SubElement(topic, 'category')
-                pattern = lxml.etree.SubElement(category, 'pattern')
-                pattern.text = 'INTERVIEW TIPS'
-                template = lxml.etree.SubElement(category, 'template')
-                template.text = '<![CDATA[<p></p><div class="tips"><p></p><p>' + result_row[8] + '</p></div> \
-                            <div class="submenu"><ul class="owl-carousel owl-theme repli main-menu">' \
-                            '<li class="item" onclick="cjoption(\'Hr Email\',this)">Email HR</li>'\
-                            '<li class="item" onclick="cjoption(\'Main Menu\',this)">Main Menu</li></ul></div>' + str(result_row[0])
+                template.text = tips_menu+'<li class="item" onclick="cjoption(\'Main Menu\',this)">\
+                                Main Menu</li></ul></div>'+str(result_row[0])
                 category = lxml.etree.SubElement(topic, 'category')
                 pattern = lxml.etree.SubElement(category, 'pattern')
                 pattern.text = '_ EXPERTISE'
@@ -677,6 +684,13 @@ def job_skill(job_id):
 def wow_culture(employer_id):
     cursor.execute("SELECT * FROM wow_culture_post WHERE postHide = 'N' AND postType = 'STRY' AND postDelete = 'NO' \
       AND posthrId='" +employer_id+ "' ORDER BY postcrtDate DESC LIMIT 0,5")
+    return cursor.fetchall()
+
+def wow_tips(employer_id):
+    cursor.execute("SELECT replace(replace(replace(replace(replace(replace(replace(replace(replace(note_desc,char(176),'')\
+       ,char(149), ''),char(147), ''), char(148), ''),char(153), ''), char(150),''), char(146), ''),\
+       char(145), ''),char(39), '') AS note_desc FROM employer_notes WHERE \
+       employer_id = '" +employer_id+ "' AND note_delete = 'N' ORDER BY note_crtdt DESC")
     return cursor.fetchall()
 
 @application.route('/js/<path:path>')
