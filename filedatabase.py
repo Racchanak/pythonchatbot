@@ -371,7 +371,7 @@ def wowtest():
                         template.text = '<![CDATA[<p></p> \
                                 <div class="hidden"><span class="lat">' + str(location[7]) + '</span> \
                                 <span class="long">' + str(location[8]) + '</span><span class="name">' + location[2] + '</span></div> \
-                                <div id="map_div_' + str(result_row[0]) + '" class="map_disp"></div> \
+                                <div class="map_disp"></div> \
                                 <p class="mapPt"><a target="_blank" href="https://www.google.co.in/maps/place/' + re.sub('[ ]', '+', location[2]) + '/@' + str(location[7]) + ',' + str(location[8]) + '"> \
                                 Get Direction</a></p>' + about_subtext + str(result_row[0])
                 if len(founder_results) > 0:

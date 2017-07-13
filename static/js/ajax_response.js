@@ -118,9 +118,10 @@ function ajax_call(query, second_value,input='') {
                     owlid++;
                 }
                 if (query == 'Location') {
+                    var map_id = $('.mapdisp_'+i)[0].id;
                     $("#ans_" + i).find(".map_disp").addClass('mapdisp_'+i);
-                    var map_id = "map_div_39561_" + i;
-                    $(".mapdisp_"+i).setAttribute("id", map_id);
+                    var mapid = map_id + i;
+                    $(".mapdisp_"+i).setAttribute("id", mapid);
                 }
                 setTimeout(function() {
                     $(".msgLoad").remove();
