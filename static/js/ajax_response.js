@@ -117,6 +117,9 @@ function ajax_call(query, second_value,input='') {
                     $('#' + owl_id).owlCarousel(owl_carousel1);
                     owlid++;
                 }
+                if (query == 'Location') {
+                    $("#ans_" + i).find(".map_disp").addClass('mapdisp_'+i);
+                }
                 setTimeout(function() {
                     $(".msgLoad").remove();
                     if (query == 'Location') {
@@ -124,7 +127,7 @@ function ajax_call(query, second_value,input='') {
                         var ln = Number($('.long').text());
                         var labels = $('.name').text();
                         var labelIndex = 0;
-                        var map_id = $('.map_disp')[0].id;
+                        var map_id = $('.mapdisp_'+i)[0].id;
                         function initialize() {
                             var myLatLng = { lat: l, lng: ln };
                             var map = new google.maps.Map(document.getElementById(map_id), {
