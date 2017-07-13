@@ -65,11 +65,9 @@ function ajax_response(query, second_value,input='') {
             $(".msgLoad").remove();
             ajax_call(query, second_value,input='');
         },1000);
-        console.log(i);
     } else {
         $('#result').append($loader);
         ajax_call(query, second_value,input='');
-        console.log(i);
     }
 }
 
@@ -91,9 +89,8 @@ function ajax_call(query, second_value,input='') {
                 hours = hours ? hours : 12; // the hour '0' should be '12'
                 minutes = minutes < 10 ? '0' + minutes : minutes;
                 var strTime = hours + ':' + minutes + ' ' + ampm;
-        console.log(i);
                 if (i == 1) {
-                    $ques_html = '<div class="replies"><div><p></p><p>What are you looking for, today?</p></div>';
+                    $ques_html = '<div class="replies"><div><p></p><p>What are you looking for today?</p></div>';
                     $('#result').append($ques_html);
                 } else {
                     if (second_value != '') {
