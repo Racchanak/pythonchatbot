@@ -763,7 +763,7 @@ def job_benefit(employer_id):
                     ["bft_accomdtn", "Accomodation"], ["bft_creche", "Creche"],
                     ["bft_kid_fdly", "Kid Friendly"], ["bft_pet_fdly", "Pet Friendly"],
                     ["bft_parkg_fcty", "Parking Facility"], ["bft_onsite_opty", "Onsite Opportunity"],
-                    ["bft_paid_hldy", "Paid Holidays"], ["bft_tution_rmbs", "Tution Fee Reimbursment"],
+                    ["bft_paid_hldy", "Paid Holidays"], ["bft_tution_rmbs", "Tuition Fee Reimbursment"],
                     ["bft_401k", "401K"], ["bft_hide", "N"]]
     cursor.execute("SELECT bft_insurance,bft_flexible_hours,bft_5days_week,bft_wmnf_atmp,bft_wmnf_locn, \
             bft_cafeteria,bft_game_zone,bft_matpat_leav,bft_cab_srvc,bft_free_food,bft_dress_code, \
