@@ -81,6 +81,10 @@ function ajax_call(query, second_value,input='') {
             crossDomain: true,
             headers: { 'Access-Control-Allow-Origin': '*' },
             success: function(data, textStatus, jqXHR) {
+                if (query == 'Location' || (query.indexOf('Where') == -1) || query == 'location' ||
+                (query.indexOf('where') == -1) || (query.indexOf('Office') == -1) || (query.indexOf('office') == -1)) {
+                    query = 'MapView';
+                }
                 var date = new Date();
                 var hours = date.getHours();
                 var minutes = date.getMinutes();
@@ -117,14 +121,14 @@ function ajax_call(query, second_value,input='') {
                     $('#' + owl_id).owlCarousel(owl_carousel1);
                     owlid++;
                 }
-                if (query == 'Location') {
+                if (query == 'MapView') {
                     $("#ans_" + i).find(".map_disp").addClass('mapdisp_'+i);
                     var mapid = 'map_disp_' + i;
                     $(".mapdisp_"+i)[0].setAttribute("id", mapid);
                 }
                 setTimeout(function() {
                     $(".msgLoad").remove();
-                    if (query == 'Location') {
+                    if (query == 'MapView') {
                         var previow_map = $(".map_disp").html();
                         var l = Number($('.lat').text());
                         var ln = Number($('.long').text());
