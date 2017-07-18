@@ -164,6 +164,7 @@ def wowtest():
                         if (i_val) < (len(jobresults) - 1):
                             job_text += '<li class="item"><a class="anchor-block job-more" target="_blank" \
                             href="https://www.wow.jobs/' + wow_handler + '" >View more</a></li>'
+                            job_text += '<li class="item" style="opacity:0;"></li><li class="item" style="opacity:0;"></li>'
                         category = lxml.etree.SubElement(topic, 'category')
                         pattern = lxml.etree.SubElement(category, 'pattern')
                         pattern.text = pattern_text
@@ -220,6 +221,7 @@ def wowtest():
                             pattern = lxml.etree.SubElement(category, 'pattern')
                             pattern.text = job_row[0][0].upper()
                             template = lxml.etree.SubElement(category, 'template')
+                            job_text += '<li class="item" style="opacity:0;"></li><li class="item" style="opacity:0;"></li>'
                             template.text = job_text + '</ul></div><div class="submenu">' + main_menu + '</div>' + str(result_row[0])
                         else:
                             for job_details in job_row[1]:
@@ -390,6 +392,7 @@ def wowtest():
                     founder_text = '<![CDATA[<p></p><div class="wow-cult"><ul class="owl-carousel owl-theme repli">'
                     for founder_row in founder_results:
                         founder_text += '<li class="item"><div class="overflow-max-168"><img src="https://employer.wow.jobs/' + founder_row[3] + '"/></div><h5>'+founder_row[0]+'</h5><h5>' + founder_row[1] + '</h5></li>'
+                    founder_text += '<li class="item" style="opacity:0;"></li><li class="item" style="opacity:0;"></li>'
                     category = lxml.etree.SubElement(topic, 'category')
                     pattern = lxml.etree.SubElement(category, 'pattern')
                     pattern.text = '# FOUNDER'
@@ -684,6 +687,7 @@ def wowtest():
                                 </div></li>'
                 culture_text += '<li class="cul-more"><a class="anchor-block" target="_blank" \
                     href="https://www.wow.jobs/' + wow_handler + '" >View more</a></li>'
+                culture_text += '<li class="item" style="opacity:0;"></li><li class="item" style="opacity:0;"></li>'
                 template.text = culture_text+'</ul></div>'+about_subtext+str(result_row[0])
                 f.write(tostring(aiml, pretty_print=True,xml_declaration=True  , encoding='UTF-8'))
     return 'Successfully Created!!!!'

@@ -72,11 +72,12 @@ function ajax_response(query, second_value,input='') {
 }
 
 function ajax_call(query, second_value,input='') {
-    if (query == 'Location' || (query.indexOf('Where') == -1) || query == 'location' ||
-    (query.indexOf('where') == -1) || (query.indexOf('Office') == -1) || (query.indexOf('office') == -1)) {
+    $ans_html = $ques_html = '';
+    console.log((query.indexOf('Office')));
+    if ((query.indexOf('Where') >= 1) || query == 'location' || (query.indexOf('where') >= 1) ||
+        (query.indexOf('Office') >= 1) || (query.indexOf('office') >= 1) || query == 'Location') {
         query = 'Location';
     }
-    $ans_html = $ques_html = '';
     $.ajax({
             url: url + query,
             type: "GET",
