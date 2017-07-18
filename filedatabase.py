@@ -164,7 +164,9 @@ def wowtest():
                         if (i_val) < (len(jobresults) - 1):
                             job_text += '<li class="item"><a class="anchor-block job-more" target="_blank" \
                             href="https://www.wow.jobs/' + wow_handler + '" >View more</a></li>'
-                            job_text += '<li class="item" style="opacity:0;"></li><li class="item" style="opacity:0;"></li>'
+                            job_text += '<li class="item" style="opacity:0;"></li>\
+                                <li class="item" style="opacity:0;"></li>\
+                                <li class="item" style="opacity:0;"></li>'
                         category = lxml.etree.SubElement(topic, 'category')
                         pattern = lxml.etree.SubElement(category, 'pattern')
                         pattern.text = pattern_text
@@ -221,7 +223,9 @@ def wowtest():
                             pattern = lxml.etree.SubElement(category, 'pattern')
                             pattern.text = job_row[0][0].upper()
                             template = lxml.etree.SubElement(category, 'template')
-                            job_text += '<li class="item" style="opacity:0;"></li><li class="item" style="opacity:0;"></li>'
+                            job_text += '<li class="item" style="opacity:0;"></li>\
+                                        <li class="item" style="opacity:0;"></li>\
+                                        <li class="item" style="opacity:0;"></li>'
                             template.text = job_text + '</ul></div><div class="submenu">' + main_menu + '</div>' + str(result_row[0])
                         else:
                             for job_details in job_row[1]:
@@ -270,6 +274,24 @@ def wowtest():
                 category = lxml.etree.SubElement(topic, 'category')
                 pattern = lxml.etree.SubElement(category, 'pattern')
                 pattern.text = 'ABOUT COMPANY'
+                template = lxml.etree.SubElement(category, 'template')
+                srai = lxml.etree.SubElement(template,'srai')
+                srai.text = 'COMPANY'
+                category = lxml.etree.SubElement(topic, 'category')
+                pattern = lxml.etree.SubElement(category, 'pattern')
+                pattern.text = 'CO FOUNDER'
+                template = lxml.etree.SubElement(category, 'template')
+                srai = lxml.etree.SubElement(template,'srai')
+                srai.text = 'COMPANY'
+                category = lxml.etree.SubElement(topic, 'category')
+                pattern = lxml.etree.SubElement(category, 'pattern')
+                pattern.text = 'DIRECTOR'
+                template = lxml.etree.SubElement(category, 'template')
+                srai = lxml.etree.SubElement(template,'srai')
+                srai.text = 'COMPANY'
+                category = lxml.etree.SubElement(topic, 'category')
+                pattern = lxml.etree.SubElement(category, 'pattern')
+                pattern.text = 'MARKETING'
                 template = lxml.etree.SubElement(category, 'template')
                 srai = lxml.etree.SubElement(template,'srai')
                 srai.text = 'COMPANY'
@@ -687,7 +709,9 @@ def wowtest():
                                 </div></li>'
                 culture_text += '<li class="cul-more"><a class="anchor-block" target="_blank" \
                     href="https://www.wow.jobs/' + wow_handler + '" >View more</a></li>'
-                culture_text += '<li class="item" style="opacity:0;"></li><li class="item" style="opacity:0;"></li>'
+                culture_text += '<li class="item" style="opacity:0;"></li>\
+                                <li class="item" style="opacity:0;"></li>\
+                                <li class="item" style="opacity:0;"></li>'
                 template.text = culture_text+'</ul></div>'+about_subtext+str(result_row[0])
                 f.write(tostring(aiml, pretty_print=True,xml_declaration=True  , encoding='UTF-8'))
     return 'Successfully Created!!!!'
