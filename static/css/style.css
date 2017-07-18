@@ -8543,7 +8543,7 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
 .bootstrap-hold .bot-holder .owl-carousel .owl-buttons .owl-prev,
 .bootstrap-hold .bot-holder .owl-carousel .owl-buttons .owl-next {
     margin: 0 !important;
-    width: 40px !important;
+    width: 20px !important;
     position: absolute !important;
     top: 0 !important;
     bottom: 0 !important;
@@ -8853,6 +8853,12 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
 
 .bootstrap-hold .bot-holder .owl-buttons {
     display: block !important;
+}
+
+.bootstrap-hold .owl-theme .owl-controls .owl-buttons div {
+    border-radius: 0 !important;
+    opacity: 1 !important;
+    padding:0 !important;
 }
 
 @media screen and (max-width: 767px) {

@@ -165,7 +165,6 @@ def wowtest():
                             job_text += '<li class="item"><a class="anchor-block job-more" target="_blank" \
                             href="https://www.wow.jobs/' + wow_handler + '" >View more</a></li>'
                             job_text += '<li class="item" style="opacity:0;"></li>\
-                                <li class="item" style="opacity:0;"></li>\
                                 <li class="item" style="opacity:0;"></li>'
                         category = lxml.etree.SubElement(topic, 'category')
                         pattern = lxml.etree.SubElement(category, 'pattern')
@@ -224,7 +223,6 @@ def wowtest():
                             pattern.text = job_row[0][0].upper()
                             template = lxml.etree.SubElement(category, 'template')
                             job_text += '<li class="item" style="opacity:0;"></li>\
-                                        <li class="item" style="opacity:0;"></li>\
                                         <li class="item" style="opacity:0;"></li>'
                             template.text = job_text + '</ul></div><div class="submenu">' + main_menu + '</div>' + str(result_row[0])
                         else:
@@ -722,7 +720,7 @@ def employer_details():
       (replace(replace(replace(replace(replace(replace(employer_desc,char(149), ''),char(147), ''), char(148), ''),\
        char(153), ''), char(150),''), char(146), ''),char(145), ''),char(39), '') AS employer_desc,employer_address,\
        job_count,replace(employer_location,char(150), '') AS employer_location,replace(employer_branches, char(150), '')\
-      AS employer_branches,employer_experts FROM employer_details")
+      AS employer_branches,employer_experts FROM employer_details LIMIT 0,5")
     return cursor.fetchall()
 
 def wow_handlers(employer_id):
