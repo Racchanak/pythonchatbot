@@ -8574,6 +8574,7 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
 .bootstrap-hold .bot-holder .owl-carousel .owl-buttons .owl-next {
     right: 0 !important;
     background-image: url("https://chatbot.wow.jobs/static/images/chat/bg-gradient.png") !important;
+    background-position: -20px 0 !important;
 }
 
 .bootstrap-hold .bot-holder .owl-carousel .owl-buttons .owl-next img {
