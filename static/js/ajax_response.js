@@ -64,7 +64,6 @@ function ajax_response(query, second_value,input='') {
         $('#result').append($ques_html);
         $('#result').append($loader);
         setTimeout(function () {
-            $(".msgLoad").remove();
             ajax_call(query, second_value,input='');
         },1000);
     } else {
