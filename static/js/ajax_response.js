@@ -21,8 +21,10 @@ function cjoption(option, this_id='') {
     $(this_id).parent(".owl-item").addClass('show');
     $(this_id).parents(".owl-carousel").css('pointer-events','none');
     $(this_id).parents(".owl-wrapper").css('width','auto');
-    $(this_id).css('margin-left', '0');
-    $(this_id).css('margin-right', '0');
+    if(option!='Interview Tips' || option!='Hr Email') {
+        $(this_id).css('margin-left', '0');
+        $(this_id).css('margin-right', '0');
+    }
     $(this_id).parents(".owl-wrapper").css('transform','none');
     $(this_id).parents(".main-menu").addClass('userselected');
     ajax_response(option,'');
@@ -50,7 +52,7 @@ function handle(e) {
         $("#button").trigger('click');
     }
 }
-var xy = 17;
+var xy = 29;
 var $loader = '<div class="msgLoad">' +
     '<span></span>' +
     '<span></span>' +
@@ -157,6 +159,9 @@ function ajax_call(query, second_value,input='') {
                         }
                     }
                     var x = $('#ans_' + i).height();
+                    if(query=='Interview Tips' || query=='Hr Email'){
+                        xy = 24;
+                    }
                     var finalX = x - xy + "px";
                     $('#ans_' + i).css('max-height', finalX);
                     $('#ans_' + i).css('overflow', 'hidden');

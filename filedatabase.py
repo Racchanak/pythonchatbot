@@ -521,11 +521,11 @@ def wowtest():
                     hr_menu += '<li class="item" onclick="cjoption(\'Interview Tips\',this)">Interview Tips</li>'
                 hr_menu += '<li class="item" onclick="cjoption(\'Main Menu\',this)">Main Menu</li></ul>'
                 template.text = '<![CDATA[<p></p>'+hr_menu+str(result_row[0])
-                tips_menu = '<![CDATA[<p></p><div class="email"><p></p><p>Email Id: '+result_row[3]+'</p></div> \
-                            <div class="submenu"><ul class="owl-carousel owl-theme repli main-menu">'
+                tips_menu = '<![CDATA[<p></p><p>Email Id: '+result_row[3]+'</p> \
+                            <ul class="owl-carousel owl-theme repli main-menu">'
                 if len(wow_tip) > 0:
                     tips_menu += '<li class="item" onclick="cjoption(\'Interview Tips\',this)">Interview Tips</li>'
-                    tips_text = '<![CDATA[<p></p><div class="tips"><p></p>'
+                    tips_text = '<![CDATA[<p></p>'
                     for tips in wow_tip:
                         tips_text += '<p>' + tips[0] + '</p>'
                     category = lxml.etree.SubElement(topic, 'category')
@@ -574,10 +574,9 @@ def wowtest():
                     pattern = lxml.etree.SubElement(category, 'pattern')
                     pattern.text = 'INTERVIEW TIPS'
                     template = lxml.etree.SubElement(category, 'template')
-                    template.text = tips_text + '</div><div class="submenu">\
-                                <ul class="owl-carousel owl-theme repli main-menu"> \
+                    template.text = tips_text + '<ul class="owl-carousel owl-theme repli main-menu"> \
                                 <li class="item" onclick="cjoption(\'Hr Email\',this)">Email HR</li>\
-                                <li class="item" onclick="cjoption(\'Main Menu\',this)">Main Menu</li></ul></div>' +str(result_row[0])
+                                <li class="item" onclick="cjoption(\'Main Menu\',this)">Main Menu</li></ul>' +str(result_row[0])
                 category = lxml.etree.SubElement(topic, 'category')
                 pattern = lxml.etree.SubElement(category, 'pattern')
                 pattern.text = '_ HR EMAIL'
@@ -625,7 +624,7 @@ def wowtest():
                 pattern.text = 'HR EMAIL'
                 template = lxml.etree.SubElement(category, 'template')
                 template.text = tips_menu+'<li class="item" onclick="cjoption(\'Main Menu\',this)">\
-                                Main Menu</li></ul></div>'+str(result_row[0])
+                                Main Menu</li></ul>'+str(result_row[0])
                 category = lxml.etree.SubElement(topic, 'category')
                 pattern = lxml.etree.SubElement(category, 'pattern')
                 pattern.text = '_ EXPERTISE'
@@ -705,8 +704,10 @@ def wowtest():
                                 <a href="https://www.wow.jobs/' + wow_handler + '/posts/'+wow_culture_name+'/'+ str(wow_culture_row[1]) +'" \
                                 target="_blank" class ="anchor-block">View story</a> \
                                 </div></li>'
-                culture_text += '<li class="cul-more"><a class="anchor-block" target="_blank" \
-                    href="https://www.wow.jobs/' + wow_handler + '" >View more</a></li>'
+                culture_text += '<li class="item"><a class="anchor-block job-more" style="height: 200px;padding-top: 90px;" target="_blank" \
+                            href="https://www.wow.jobs/' + wow_handler + '" >View more</a></li>'
+                # culture_text += '<li class="item"><div class="cul-more"><a class="anchor-block" target="_blank" \
+                #     href="https://www.wow.jobs/' + wow_handler + '" >View more</a></div></li>'
                 culture_text += '<li class="item" style="opacity:0;"></li>\
                                 <li class="item" style="opacity:0;"></li>\
                                 <li class="item" style="opacity:0;"></li>'
@@ -720,7 +721,7 @@ def employer_details():
       (replace(replace(replace(replace(replace(replace(employer_desc,char(149), ''),char(147), ''), char(148), ''),\
        char(153), ''), char(150),''), char(146), ''),char(145), ''),char(39), '') AS employer_desc,employer_address,\
        job_count,replace(employer_location,char(150), '') AS employer_location,replace(employer_branches, char(150), '')\
-      AS employer_branches,employer_experts FROM employer_details")
+      AS employer_branches,employer_experts FROM employer_details LIMIT 0,5")
     return cursor.fetchall()
 
 def wow_handlers(employer_id):

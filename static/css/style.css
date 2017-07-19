@@ -8130,6 +8130,7 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     right: 62px !important;
     overflow-y: auto!important;
     font-weight: 400 !important;
+    box-shadow: 5px 5px 40px rgba(0,0,0,0.2) !important;
 }
 
 .bootstrap-hold .bot-holder h1,
@@ -8181,7 +8182,7 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
 
 .bootstrap-hold .bot-holder .bot-content {
     border: 1px solid #d7d5d5 !important;
-    padding: 20px 20px !important;
+    padding: 10px !important;
     height: 310px !important;
     overflow-y: auto !important;
     /* Track */
@@ -8391,7 +8392,9 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    width: 97%;
+    width: 100%;
+    min-width: 100px;
+    max-width: 130px;
 }
 
 .bootstrap-hold .bot-holder .bot-content .jobList h5:first-child {
@@ -8769,6 +8772,7 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
 .bootstrap-hold .bot-holder .bot-content .userselected .owl-item.show .item,
 .bootstrap-hold .bot-holder .bot-content .userselected .owl-item.show .item:hover{
     color: #fff !important;
+        padding: 8px 17px !important;
 }
 
 .bootstrap-hold .bot-holder .bot-content .userselected .owl-item .item.active{
@@ -8804,12 +8808,20 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
 }
 
 .bootstrap-hold .bot-holder .bot-content .job-more {
-    height: 104px;
-    width: 100px;
+    width: 90px;
+    height: 76px;
+    display: block;
+    text-align: center;
+    padding-top: 33px;
 }
 
 .bootstrap-hold .bot-holder .bot-content .cul-more a {
     padding-left: 18px;
+}
+
+
+.bootstrap-hold .bot-holder .bot-content .cul-more  {
+    position: relative;
 }
 
 .bootstrap-hold .bot-holder .bot-content .job-more a,
@@ -8820,6 +8832,10 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     -webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
     -o-transform: translateY(-50%);
+        left: 0;
+    right: 0;
+    margin: 0 auto;
+        padding-left: 0;
 }
 .bootstrap-hold .bot-holder .bot-content .getstrt{
     font-size: 13px !important;
@@ -8830,6 +8846,9 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     color: #fff !important;
     border-radius: 4px !important;
     cursor: pointer;
+}
+.bootstrap-hold .bot-holder .bot-content .replies ul.repli li.cul-more {
+    margin-right: 10px !important;
 }
 .bootstrap-hold .chatimage{
     z-index: 10000;
@@ -8869,6 +8888,10 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
 
 .bootstrap-hold .bot-holder .bot-content .replies ul.owl-carousel {
    padding-left:10px !important;
+}
+
+.bootstrap-hold .bot-holder .email,.tips {
+    margin-bottom: -11px;
 }
 
 @media screen and (max-width: 767px) {
