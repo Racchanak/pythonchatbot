@@ -21,6 +21,8 @@ function cjoption(option, this_id='') {
     $(this_id).parent(".owl-item").addClass('show');
     $(this_id).parents(".owl-carousel").css('pointer-events','none');
     $(this_id).parents(".owl-wrapper").css('width','auto');
+    $(this_id).css('margin-left', '0');
+    $(this_id).css('margin-right', '0');
     $(this_id).parents(".owl-wrapper").css('transform','none');
     $(this_id).parents(".main-menu").addClass('userselected');
     ajax_response(option,'');
@@ -73,7 +75,6 @@ function ajax_response(query, second_value,input='') {
 
 function ajax_call(query, second_value,input='') {
     $ans_html = $ques_html = '';
-    console.log((query.indexOf('Office')));
     if ((query.indexOf('Where') >= 1) || query == 'location' || (query.indexOf('where') >= 1) ||
         (query.indexOf('Office') >= 1) || (query.indexOf('office') >= 1) || query == 'Location') {
         query = 'Location';
@@ -160,6 +161,9 @@ function ajax_call(query, second_value,input='') {
                     var finalX = x - xy + "px";
                     $('#ans_' + i).css('max-height', finalX);
                     $('#ans_' + i).css('overflow', 'hidden');
+                    $('#ans_' + i).css('margin-left', '-10px');
+                    $('#ans_' + i).css('margin-right', '-10px');
+                    $('#ans_' + i).css('padding', '0 10px');
                     $('.bot-content').animate({ scrollTop: ($('.bot-content')[0].scrollHeight) + x });
                     $('#query').val('');
                     i++;

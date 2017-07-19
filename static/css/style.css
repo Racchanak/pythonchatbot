@@ -8563,7 +8563,7 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
 }
 
 .bootstrap-hold .bot-holder .owl-carousel .owl-buttons .owl-prev {
-    left: 0 !important;
+    left: -5px !important;
     background-image: url("https://chatbot.wow.jobs/static/images/chat/bg-gradient-left.png") !important;
 }
 
@@ -8572,7 +8572,7 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
 }
 
 .bootstrap-hold .bot-holder .owl-carousel .owl-buttons .owl-next {
-    right: 0 !important;
+    right: -5px !important;
     background-image: url("https://chatbot.wow.jobs/static/images/chat/bg-gradient.png") !important;
     background-position: -20px 0 !important;
 }
@@ -8860,6 +8860,15 @@ fieldset[disabled] .bootstrap-hold .navbar-inverse .btn-link:focus {
     border-radius: 0 !important;
     opacity: 1 !important;
     padding:0 !important;
+}
+
+.bootstrap-hold .owl-carousel
+{
+    padding: 0 10px !important;
+}
+
+.bootstrap-hold .bot-holder .bot-content .replies ul.owl-carousel {
+   padding-left:10px !important;
 }
 
 @media screen and (max-width: 767px) {
