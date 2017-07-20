@@ -62,7 +62,7 @@ function ajax_response(query, second_value,input='') {
     $ans_html = $ques_html = '';
     $('.custom-input').show();
     if (i == 1) {
-        $ques_html = '<div class="replies"><div><p></p><p>Welcome to the World of ' + query + '</p></div>';
+        $ques_html = '<div class="replies"><div><p></p><p>Welcome to the World of ' + toCamelCase(query) + '</p></div>';
         $('#result').append($ques_html);
         $('#result').append($loader);
         setTimeout(function () {
@@ -72,6 +72,15 @@ function ajax_response(query, second_value,input='') {
         $('#result').append($loader);
         ajax_call(query, second_value,input='');
     }
+}
+
+function toCamelCase(word) {
+    var out = "";
+    word.split(" ").forEach(function (el, idx) {
+        var add = el.toLowerCase();
+        out += add[0].toUpperCase() + add.slice(1) + ' ';
+    });
+    return out;
 }
 
 function ajax_call(query, second_value,input='') {
